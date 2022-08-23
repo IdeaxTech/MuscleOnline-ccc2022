@@ -6,12 +6,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConnectSQL : MonoBehaviour
+public class DatabaseOperation : MonoBehaviour
 {
     
     string input;
     string id = "qvMC-hRHlKz1]<Fz";
-    public async void GetData()
+    public static async void GetData()
     {
         
         var snapshot2 = await FirebaseFirestore.DefaultInstance.Collection("users").GetSnapshotAsync();
@@ -31,23 +31,16 @@ public class ConnectSQL : MonoBehaviour
         }
     }
 
-    public async void AddData()
+    public static async void AddData(string Collection, string id, object AddData)
     {
         var db = FirebaseFirestore.DefaultInstance;
-        input = GameObject.FindWithTag("InputName").GetComponent<TMP_InputField>().text;
-        Dictionary<string, object> data = new Dictionary<string, object>()
-        {
-            {"username", input},
-            {"initial_username", input},
-            {"password", RandomPassword.Generate(16)},
-            {"create_at", Timestamp.GetCurrentTimestamp()},
-            {"update_at", Timestamp.GetCurrentTimestamp()}
-        };
 
         // documentのなかを含めることでidを指定することが可能
-        await db.Collection("users").Document(RandomPassword.Generate(16)).SetAsync(data);
+        await db.Collection(Collection).Document(id).SetAsync(AddData);
         Debug.Log("Add Data");
     }
+
+
 
     public async void UpdateData()
     {
