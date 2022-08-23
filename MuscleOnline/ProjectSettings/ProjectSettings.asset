@@ -154,6 +154,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.MuscleOnline
+    Standalone: com.DefaultCompany.MuscleOnline
     iPhone: com.DefaultCompany.MuscleOnline
   buildNumber:
     Standalone: 0

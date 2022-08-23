@@ -4,31 +4,32 @@ using System.Threading.Tasks;
 using Firebase.Firestore;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DatabaseOperation : MonoBehaviour
 {
     
-    string input;
-    string id = "qvMC-hRHlKz1]<Fz";
-    public static async void GetData()
+    public static async Task<List<Dictionary<string, object>>> GetData(string Collection, string id = "NoId")
     {
-        
-        var snapshot2 = await FirebaseFirestore.DefaultInstance.Collection("users").GetSnapshotAsync();
-        
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot Data = await db.Collection(Collection).GetSnapshotAsync();
+        List<Dictionary<string, object>> ReturnData = new List<Dictionary<string, object>>();
 
-        foreach (var document in snapshot2.Documents)
+        foreach (var document in Data.Documents)
         {
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
             //条件指定
-            string id = "0";
-            if (document.Id.Equals(id))
+            id = "0";
+            if (!id.Equals("NoId"))
             {
-
+                if (document.Id.Equals(id))
+                    ReturnData.Add(DictionaryData);
+            } else
+            {
+                ReturnData.Add(DictionaryData);
             }
 
-            Dictionary<string, object> data = document.ToDictionary();
-            Debug.Log(data["username"]);
         }
+        return ReturnData;
     }
 
     public static async void AddData(string Collection, string id, object AddData)
@@ -42,30 +43,22 @@ public class DatabaseOperation : MonoBehaviour
 
 
 
-    public async void UpdateData()
+    public async void UpdateData(string Collection, string id, object UpdateData)
     {
         var db = FirebaseFirestore.DefaultInstance;
-        input = GameObject.FindWithTag("InputName").GetComponent<TMP_InputField>().text;
-        DocumentReference OriginData = db.Collection("users").Document(id);
-
-        Dictionary<string, object> UpdateData = new Dictionary<string, object>()
-        {
-            {"username", input},
-            {"update_at", Timestamp.GetCurrentTimestamp()}
-        };
+        DocumentReference OriginData = db.Collection(Collection).Document(id);
 
         //データを更新できる以下の文で
         //await washingtonRef.UpdateAsync("Regions", FieldValue.Increment(50));
 
-        await OriginData.UpdateAsync(UpdateData);
+        await OriginData.UpdateAsync((IDictionary<string, object>)UpdateData);
         Debug.Log("Update Data");
     }
 
-    public async void DeleteData()
+    public async void DeleteData(string Collection, string id)
     {
         var db = FirebaseFirestore.DefaultInstance;
-
-        DocumentReference DeleteData = db.Collection("users").Document(id);
+        DocumentReference DeleteData = db.Collection(Collection).Document(id);
         await DeleteData.DeleteAsync();
 
         Debug.Log("Delete Data");
