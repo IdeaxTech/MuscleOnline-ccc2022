@@ -33,7 +33,6 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
     //OKボタンを押したらユーザーカスタムプロパティを変更
     public void isBossBattleReady()
     {
-        //Debug.Log((bool)OperateCostomProperty.GetUserCustomProperty("isBossBattleReady"));
         if ((bool)OperateCostomProperty.GetUserCustomProperty("isBossBattleReady") == false)
         {
             OperateCostomProperty.SetUserCustomProperty("isBossBattleReady", true);
@@ -101,7 +100,6 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
         }
 
         //何番目に入ったユーザか
-        //OperateCostomProperty.SetUserCustomProperty("PlayerNo", PhotonNetwork.CurrentRoom.PlayerCount);
         PlayerNo.SetPlayerNo();
 
         PlayerNo.SetDisplayPlayerNo();

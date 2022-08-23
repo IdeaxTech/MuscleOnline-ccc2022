@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Story/QuestWait.unity
     guid: a0ba9ca57262d42b6ae906a3943299ee
+  - enabled: 0
+    path: Assets/Scenes/SQLTest.unity
+    guid: 457a112642b2b497694f8075a69bdb6b
   m_configObjects: {}
