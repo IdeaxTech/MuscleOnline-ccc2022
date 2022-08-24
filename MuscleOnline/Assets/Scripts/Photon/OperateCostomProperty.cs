@@ -10,16 +10,18 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
 
     public static void SetRoomCustomProperty<Generic>(string key, Generic value)
     {
-        Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
+        Hashtable RoomHash = PhotonNetwork.CurrentRoom.CustomProperties;
         string true_key = (string)(object)key;
 
-        if (roomhash.TryGetValue(true_key, out temp))
+        if (RoomHash.TryGetValue(true_key, out temp))
         {
             propsToSet[true_key] = value;
+            
         }
         else
         {
-            roomhash.Add(true_key, value);
+            propsToSet.Add(true_key, value);
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(RoomHash);
         }
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
@@ -50,12 +52,15 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
         if (UserHash.TryGetValue(key, out temp))
         {
             propsToSet[key] = value;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
         } else
         {
-            propsToSet.Add(key, value);
+            //propsToSet.Add(key, value);
+            UserHash.Add(key, value);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(UserHash);
         }
             
-        PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
+        
         propsToSet.Clear();
     }
 

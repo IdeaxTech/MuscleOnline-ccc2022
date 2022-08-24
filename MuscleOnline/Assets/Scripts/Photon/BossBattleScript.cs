@@ -10,7 +10,6 @@ using System;
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
     public static int damage;
-    public static GameObject ReadyBtn;
 
     static string BossName;
     static int BossHP;
@@ -26,8 +25,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
-
-        //ReadyBtn = GameObject.FindWithTag("ReadyBtn");
     }
 
     public static async void CreateDelay(int delay)
@@ -47,17 +44,19 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         // クエスト情報、ボス情報、筋トレ時間、休憩時間を設定
         SetQuestInfo();
 
+        //TODOデバッグ用
+        UserInfo.UserHP = 100;
+        UserInfo.UserAttack = 10;
+
         // 味方HPを合算
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
 
         // ボス登場アニメーション
         StartAnimation();
 
-        
-
         // バトルの開始
-        //if (PhotonNetwork.IsMasterClient)
-        //    OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+        if (PhotonNetwork.IsMasterClient)
+            OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
     }
 
     public static async void SetQuestInfo()
@@ -65,7 +64,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         //　ボスのid
         string id = "FlfuY9qPnDJFZzN3tBDU";
 
-        // TODO:データベースからクエスト情報を取得
+        // データベースからクエスト情報を取得
         var db = FirebaseFirestore.DefaultInstance;
         QuerySnapshot BossData = await db.Collection("bosses").GetSnapshotAsync();
         foreach (var document in BossData.Documents)
@@ -80,9 +79,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             }
 
         }
-        Debug.Log("BossName" + BossName);
-        Debug.Log("BossHP" + BossHP);
-
 
         QuerySnapshot QuestData = await db.Collection("quests").GetSnapshotAsync();
         foreach (var document in QuestData.Documents)
@@ -95,13 +91,12 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             }
         }
 
+        //ボスへのダメージを計算
         damage = UserInfo.UserAttack - BossDefence;
 
         // カスタムプロパティに代入
         if (PhotonNetwork.IsMasterClient)
         {
-            //攻撃力とボスの防御力によって与えるダメージを計算
-            damage = UserInfo.UserAttack - BossDefence;
 
             OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
             OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
@@ -127,7 +122,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
     }
     
-    public static void SetTrainingOption()
+    public async static void SetTrainingOption()
     {
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("TrainingType", UnityEngine.Random.Range(0, 5));
@@ -140,14 +135,17 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         // TODO:データベースからトレーニング情報を取得
         string id = "rIFhBoYhBpRX74L9othN";
-        List<Dictionary<string, object>> training_data = DatabaseOperation.GetData("trainings", id).Result;
-        foreach (var data in training_data)
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot TrainingData = await db.Collection("trainings").GetSnapshotAsync();
+        foreach (var document in TrainingData.Documents)
         {
-            TrainingName = data["training_name"].ToString();
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
+            if (document.Id.Equals(id))
+            {
+                TrainingName = DictionaryData["training_name"].ToString();
+            }
         }
 
-
-        // TODO:ラベルにトレーニング情報を記載
         Debug.Log("Finish SetTrainingOption");
     }
 
@@ -160,21 +158,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         // TODO:ラベルを変更
         Debug.Log("Finish SetStartTime");
-    }
-
-    public static void DisplayTrainingInfo()
-    {
-        // トレーニング情報をカスタムプロパティから取得
-        // ラベルにその情報を表示
-        ReadyBtn.SetActive(true);
-
-        Debug.Log("Finish DisplayTrainingInfo");
-    }
-
-    // トレーニング前のボタンが押された時
-    public void ReadyTraining()
-    {
-        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", true);
     }
 
     public static void StartTraining()
@@ -190,6 +173,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
     public static void AllyAttack()
     {
+        Debug.Log("与えるダメージは" + OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage").ToString());
         if (PhotonNetwork.IsMasterClient)
         {
             OperateCostomProperty.SetRoomCustomProperty("BossHP", (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage"));                
@@ -207,7 +191,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         //カスタムプロパティを変更
         if (PhotonNetwork.IsMasterClient)
         {
-            OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") - 20);
+            OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") - BossOffence);
         }
 
             Debug.Log("Finish BossAttack");

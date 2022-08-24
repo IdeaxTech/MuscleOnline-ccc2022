@@ -11,11 +11,12 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     object value = null;
 
     public static double StartTime;
-    [SerializeField] GameObject countdown;
     [SerializeField] GameObject ReadyBtn;
     [SerializeField] GameObject BossBattleReadyBtn1;
     [SerializeField] GameObject BossBattleReadyBtn2;
     [SerializeField] GameObject BossBattleReadyBtn3;
+    [SerializeField] GameObject TimerObject;
+    [SerializeField] GameObject CountDownObject;
     GameObject tmpobject;
 
 
@@ -76,13 +77,16 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["isTrainingReady"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
+
                 ReadyBtn.SetActive(false);
                 // タイマーの設定
-                BossBattleScript.SetStartTime();
+                //BossBattleScript.SetStartTime();
 
-                BossBattleScript.StartTraining();
-                countdown.SetActive(true);
+                //トレーニング前カウントダウン
+                TrainingCountDown.timeLimit = 9;
+                CountDownObject.SetActive(true);
 
+                OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
                 OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
             }
         }
@@ -96,10 +100,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 BossBattleScript.SetTrainingOption();
 
                 // 筋トレ内容を表示させ、準備をする
-                BossBattleScript.DisplayTrainingInfo();
+                ReadyBtn.SetActive(true);
 
-                //TODO一時的
-                //BossBattleScript.StartTraining();
             }
             else
             {
@@ -111,9 +113,13 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("isTraining", out value))
         {
+            
             if ((bool)propertiesThatChanged["isTraining"])
             {
-
+                Debug.Log("トレーニング開始！");
+                // TODOクエストに合わせたトレーニング時間に変更
+                TrainingTimer.timeLimit = 30;
+                TimerObject.SetActive(true);
             }
             else
             {
@@ -131,10 +137,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //BossBattleScript.SetStartTime();
 
                 // 筋トレ内容を表示させ、準備をする
-                BossBattleScript.DisplayTrainingInfo();
-
-                //TODO一時的
-                //BossBattleScript.StartTraining();
+                ReadyBtn.SetActive(true);
             }
         }
 
@@ -213,7 +216,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
             if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
             {
-
+                Debug.Log("トレーニング変更情報を受け取りました");
                 if ((bool)propertiesThatChanged["isTrainingReady"])
                     OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
                 else
