@@ -67,9 +67,7 @@ public class RoomOperation : MonoBehaviour
 
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(UserHash);
-
-        // TODO 実際の名前に変更
-        PhotonNetwork.NickName = "guest" + UnityEngine.Random.Range(1000, 9999).ToString();
+        PhotonNetwork.NickName = UserInfo.UserName;
 
         OperateCostomProperty.SetUserCustomProperty("isBossBattleReady", false);
     }

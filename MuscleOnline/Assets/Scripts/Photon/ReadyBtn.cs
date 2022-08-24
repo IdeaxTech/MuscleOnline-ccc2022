@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class ReadyBtn : MonoBehaviour
 {
-    [SerializeField] GameObject ReadyBtnComponent;
-    void Start()
+    // トレーニング前のボタンが押された時
+    public void ReadyTraining()
     {
-        ReadyBtnComponent.SetActive(false);
+        Debug.Log("Readyボタンが押されました");
+        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", true);
     }
 
 }

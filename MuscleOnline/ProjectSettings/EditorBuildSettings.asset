@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Home.unity
-    guid: 3ec00d41bd38242998f04c31dfde46d8
-  - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: f6c9194fbc64f4357a4625f121fb0ba6
+  - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: 3ec00d41bd38242998f04c31dfde46d8
   - enabled: 1
     path: Assets/Scenes/Battle/Battleplay.unity
     guid: 169fdb98c0ac44f28b87074d5a589dac
@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Story/QuestWait.unity
     guid: a0ba9ca57262d42b6ae906a3943299ee
+  - enabled: 0
+    path: Assets/Scenes/SQLTest.unity
+    guid: 457a112642b2b497694f8075a69bdb6b
   m_configObjects: {}

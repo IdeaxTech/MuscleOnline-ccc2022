@@ -2,21 +2,34 @@ using Photon.Pun;
 using UnityEngine;
 using System.Threading.Tasks;
 using TMPro;
+using Firebase.Firestore;
+using System.Collections.Generic;
+using System.Collections;
+using System;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
-    [SerializeField] static int damage;
-    public static GameObject ReadyBtn;
+    public static int damage;
+
+    static string BossName;
+    static int BossHP;
+    static int BossOffence;
+    static int BossDefence;
+
+    static int QuestDiff;
+    static object QuestReward;
+
+    static string TrainingName;
 
     void Start()
     {
-        ReadyBtn = GameObject.FindWithTag("ReadyBtn");
+        PlayerNo.SetDisplayPlayerNo();
+        GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
     }
 
     public static async void CreateDelay(int delay)
     {
         await Task.Delay(delay);
-        //Thread.Sleep(1000);
     }
 
     public static void BossBattle()
@@ -24,37 +37,72 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
 
+        //カウントを初期化
+        OperateCostomProperty.SetUserCustomProperty("Count", 0);
+        OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
+
         // クエスト情報、ボス情報、筋トレ時間、休憩時間を設定
         SetQuestInfo();
 
+        //TODOデバッグ用
+        UserInfo.UserHP = 100;
+        UserInfo.UserAttack = 10;
+
         // 味方HPを合算
-        OperateCostomProperty.SetUserCustomProperty("MyHP", 100);
+        OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
 
         // ボス登場アニメーション
         StartAnimation();
-
-        OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
 
         // バトルの開始
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
     }
 
-    public static void SetQuestInfo()
+    public static async void SetQuestInfo()
     {
-        // TODO:データベースからクエスト情報を取得
+        //　ボスのid
+        string id = "FlfuY9qPnDJFZzN3tBDU";
 
-        damage = 10;
+        // データベースからクエスト情報を取得
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot BossData = await db.Collection("bosses").GetSnapshotAsync();
+        foreach (var document in BossData.Documents)
+        {
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
+            if (document.Id.Equals(id))
+            {
+                BossName = DictionaryData["boss_name"].ToString();
+                BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
+                BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
+                BossDefence = (int)Convert.ChangeType(DictionaryData["boss_defence"], typeof(int));
+            }
+
+        }
+
+        QuerySnapshot QuestData = await db.Collection("quests").GetSnapshotAsync();
+        foreach (var document in QuestData.Documents)
+        {
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
+            if (DictionaryData["boss_id"].ToString() == id)
+            {
+                QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+            }
+        }
+
+        //ボスへのダメージを計算
+        damage = UserInfo.UserAttack - BossDefence;
 
         // カスタムプロパティに代入
         if (PhotonNetwork.IsMasterClient)
         {
-            //攻撃力とボスの防御力によって与えるダメージを計算
 
-            OperateCostomProperty.SetRoomCustomProperty("BossHP", 100);
-            OperateCostomProperty.SetRoomCustomProperty("BossAttack", 10);
-            OperateCostomProperty.SetRoomCustomProperty("QuestDiff", 5);
-            OperateCostomProperty.SetRoomCustomProperty("QuestReward", 5);
+            OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
+            OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
+            OperateCostomProperty.SetRoomCustomProperty("BossAttack", BossOffence);
+            OperateCostomProperty.SetRoomCustomProperty("QuestDiff", QuestDiff);
+            OperateCostomProperty.SetRoomCustomProperty("QuestReward", QuestReward);
 
             int difficulity = (int)OperateCostomProperty.GetRoomCustomProperty("QuestDiff");
             OperateCostomProperty.SetRoomCustomProperty("TrainingTime", 5);
@@ -62,28 +110,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         }
         Debug.Log("Finish SetQuestInfo");
     }
-
-
-    public static void SetTotalHP()
-    {
-        
-        // 合算HPをカスタムプロパティに保存
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    int TotalHP = 0;
-        //    foreach (var player in PhotonNetwork.PlayerList)
-        //    {
-        //        TotalHP += (int)PhotonNetwork.LocalPlayer.CustomProperties["MyHP"];
-               
-        //    }
-
-        //    OperateCostomProperty.SetRoomCustomProperty("TotalHP", 100);
-        //    GameObject.FindWithTag("TotalHP").GetComponent<TMP_Text>().text = TotalHP.ToString();
-        //}
-        
-        Debug.Log("Finish SetTotalHP");
-    }
-
 
     // TODO アニメーションの制御 => 江崎くんへ
     public static void StartAnimation()
@@ -96,7 +122,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
     }
     
-    public static void SetTrainingOption()
+    public async static void SetTrainingOption()
     {
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("TrainingType", UnityEngine.Random.Range(0, 5));
@@ -108,8 +134,18 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", 0);
 
         // TODO:データベースからトレーニング情報を取得
+        string id = "rIFhBoYhBpRX74L9othN";
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot TrainingData = await db.Collection("trainings").GetSnapshotAsync();
+        foreach (var document in TrainingData.Documents)
+        {
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
+            if (document.Id.Equals(id))
+            {
+                TrainingName = DictionaryData["training_name"].ToString();
+            }
+        }
 
-        // TODO:ラベルにトレーニング情報を記載
         Debug.Log("Finish SetTrainingOption");
     }
 
@@ -124,21 +160,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         Debug.Log("Finish SetStartTime");
     }
 
-    public static void DisplayTrainingInfo()
-    {
-        // トレーニング情報をカスタムプロパティから取得
-        // ラベルにその情報を表示
-        ReadyBtn.SetActive(true);
-
-        Debug.Log("Finish DisplayTrainingInfo");
-    }
-
-    // トレーニング前のボタンが押された時
-    public void ReadyTraining()
-    {
-        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", true);
-    }
-
     public static void StartTraining()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -148,19 +169,11 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     }
 
     //4. パーティーの場合別のユーザーのカウントを受け取り、受け取ったら筋トレしてるアニメーションを動かす
-    public void AddCount()
-    {
-        OperateCostomProperty.SetUserCustomProperty("Count", (int)OperateCostomProperty.GetUserCustomProperty("Count") + 1);
-        OperateCostomProperty.SetUserCustomProperty("TotalCount", (int)OperateCostomProperty.GetUserCustomProperty("TotalCount") + 1);
 
-        OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage") + damage);
-
-        // TODOアニメーションを流す
-
-    }
 
     public static void AllyAttack()
     {
+        Debug.Log("与えるダメージは" + OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage").ToString());
         if (PhotonNetwork.IsMasterClient)
         {
             OperateCostomProperty.SetRoomCustomProperty("BossHP", (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage"));                
@@ -178,7 +191,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         //カスタムプロパティを変更
         if (PhotonNetwork.IsMasterClient)
         {
-            OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") - 20);
+            OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") - BossOffence);
         }
 
             Debug.Log("Finish BossAttack");
