@@ -25,6 +25,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
+        Debug.Log("BossBattleScriptが呼ばれました");
     }
 
     public static async void CreateDelay(int delay)
@@ -195,13 +196,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         }
 
             Debug.Log("Finish BossAttack");
-    }
-
-    //休憩時間
-    public static void RestTime()
-    {
-        SetStartTime();
-
     }
 
     //6. ボスのhpが0になれば戦闘終了、経験値、ドロップ品を獲得

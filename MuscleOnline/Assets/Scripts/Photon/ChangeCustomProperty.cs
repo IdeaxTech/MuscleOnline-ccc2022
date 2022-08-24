@@ -17,6 +17,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     [SerializeField] GameObject BossBattleReadyBtn3;
     [SerializeField] GameObject TimerObject;
     [SerializeField] GameObject CountDownObject;
+    [SerializeField] GameObject RestTimeObject;
     GameObject tmpobject;
 
 
@@ -118,7 +119,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             {
                 Debug.Log("トレーニング開始！");
                 // TODOクエストに合わせたトレーニング時間に変更
-                TrainingTimer.timeLimit = 30;
+                TrainingTimer.timeLimit = 10;
                 TimerObject.SetActive(true);
             }
             else
@@ -129,15 +130,9 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ボスのターン
                 BossBattleScript.BossAttack();
 
-                //ユーザーのターン
-                //筋トレの種類を設定
-                BossBattleScript.SetTrainingOption();
+                RestTimeObject.SetActive(true);
 
-                // タイマーの設定
-                //BossBattleScript.SetStartTime();
 
-                // 筋トレ内容を表示させ、準備をする
-                ReadyBtn.SetActive(true);
             }
         }
 
