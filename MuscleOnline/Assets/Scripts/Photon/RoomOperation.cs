@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -9,9 +7,6 @@ using UnityEngine.SceneManagement;
 public class RoomOperation : MonoBehaviour
 {
     byte MaxPlayerPerRoom = 4;
-    int InitialCount = 0;
-    ExitGames.Client.Photon.Hashtable RoomHash;
-    ExitGames.Client.Photon.Hashtable UserHash;
 
     //- 部屋の作成ボタンを押したらボス戦協力待機画面(部屋作成)に遷移
     public void CreateBossBattleRoom()
@@ -50,25 +45,14 @@ public class RoomOperation : MonoBehaviour
 
     void InitialSetting()
     {
-        UserHash = new ExitGames.Client.Photon.Hashtable();
-        UserHash.Add("count", InitialCount);
 
         //２画面でアクセスしていて、その両方で実行してしまっている。　→　masterだけ呼び出すように変更
         if (PhotonNetwork.IsMasterClient)
         {
-            RoomHash = new ExitGames.Client.Photon.Hashtable();
-
-            RoomHash.Add("NumOfPlayer", PhotonNetwork.CurrentRoom.PlayerCount);
-            RoomHash.Add("isTraining", false);
-
-
-            PhotonNetwork.CurrentRoom.SetCustomProperties(RoomHash);
+            OperateCostomProperty.SetRoomCustomProperty("NumOfPlayer", PhotonNetwork.CurrentRoom.PlayerCount);
         }
 
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(UserHash);
         PhotonNetwork.NickName = UserInfo.UserName;
-
         OperateCostomProperty.SetUserCustomProperty("isBossBattleReady", false);
     }
 

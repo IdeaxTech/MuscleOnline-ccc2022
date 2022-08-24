@@ -25,17 +25,17 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
-    }
-
-    public static async void CreateDelay(int delay)
-    {
-        await Task.Delay(delay);
+        Debug.Log("BossBattleScriptが呼ばれました");
     }
 
     public static void BossBattle()
     {
         if (PhotonNetwork.IsMasterClient)
-            OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
+        {
+            //OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
+            OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
+        }
+
 
         //カウントを初期化
         OperateCostomProperty.SetUserCustomProperty("Count", 0);
@@ -133,7 +133,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", 0);
 
-        // TODO:データベースからトレーニング情報を取得
+        // データベースからトレーニング情報を取得
         string id = "rIFhBoYhBpRX74L9othN";
         var db = FirebaseFirestore.DefaultInstance;
         QuerySnapshot TrainingData = await db.Collection("trainings").GetSnapshotAsync();
@@ -149,17 +149,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         Debug.Log("Finish SetTrainingOption");
     }
 
-    public static void SetStartTime()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            OperateCostomProperty.SetRoomCustomProperty("StartTime", PhotonNetwork.Time);
-        }
-
-        // TODO:ラベルを変更
-        Debug.Log("Finish SetStartTime");
-    }
-
     public static void StartTraining()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -167,9 +156,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         Debug.Log("Finish StartTraining");
     }
-
-    //4. パーティーの場合別のユーザーのカウントを受け取り、受け取ったら筋トレしてるアニメーションを動かす
-
 
     public static void AllyAttack()
     {
@@ -180,13 +166,13 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         }
         Debug.Log("Finish AllyAttack");
 
-        //アニメーションを流す
+        // TODOアニメーションを流す
     }
 
     // ボスの攻撃、味方のHPを減らす
     public static void BossAttack()
     {
-        //アニメーションを流す
+        // TODOアニメーションを流す
 
         //カスタムプロパティを変更
         if (PhotonNetwork.IsMasterClient)
@@ -197,36 +183,24 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             Debug.Log("Finish BossAttack");
     }
 
-    //休憩時間
-    public static void RestTime()
-    {
-        SetStartTime();
-
-    }
-
-    //6. ボスのhpが0になれば戦闘終了、経験値、ドロップ品を獲得
+    // TODO6. ボスのhpが0になれば戦闘終了、経験値、ドロップ品を獲得
     public static void DefeatBoss()
     {
-        //ボスが倒れたアニメーション
+        // ボスが倒れたアニメーション
 
         //報酬の受け渡し
         //データベースの更新
         Debug.Log("Finish DefeatBoss");
     }
 
-
-    // ループ
-
     //7. ボス戦の終了
     public static void FinishBossBattle()
     {
-        //元の画面に遷移
-
 
         //ルームから離脱
         PhotonNetwork.Disconnect();
         Debug.Log("Finish FinishBossBattle");
-        PhotonNetwork.LoadLevel("four");
+        PhotonNetwork.LoadLevel("QuestResult");
     }
 
 

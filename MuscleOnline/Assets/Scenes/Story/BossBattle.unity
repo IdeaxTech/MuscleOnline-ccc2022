@@ -2477,6 +2477,7 @@ MonoBehaviour:
   BossBattleReadyBtn3: {fileID: 0}
   TimerObject: {fileID: 528734186}
   CountDownObject: {fileID: 1333297927}
+  RestTimeObject: {fileID: 2128350889}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,8 +3138,57 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8039976687152412557, guid: 2ada13b47c5424666ac5b9634cea71d6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2ada13b47c5424666ac5b9634cea71d6, type: 3}
+--- !u!1 &2128350889 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8039976688484181339, guid: 2ada13b47c5424666ac5b9634cea71d6, type: 3}
+  m_PrefabInstance: {fileID: 2128350888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2128350890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8039976687152412558, guid: 2ada13b47c5424666ac5b9634cea71d6, type: 3}
+  m_PrefabInstance: {fileID: 2128350888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2128350891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8039976687802661426, guid: 2ada13b47c5424666ac5b9634cea71d6, type: 3}
+  m_PrefabInstance: {fileID: 2128350888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2128350892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8039976687595200342, guid: 2ada13b47c5424666ac5b9634cea71d6, type: 3}
+  m_PrefabInstance: {fileID: 2128350888}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498d5405416734272992bbfc0799a42b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2128350893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128350890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e772cbeda70a64d3bb2b31d0b58389e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReadyBtn: {fileID: 191437121}
+  RestTimeObject: {fileID: 2128350889}
+  clock: {fileID: 2128350892}
+  timerText: {fileID: 2128350891}
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0

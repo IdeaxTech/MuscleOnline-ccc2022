@@ -9,6 +9,7 @@ using UnityEngine;
 public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 {
     object value = null;
+    private static readonly Hashtable propsToSet = new Hashtable();
 
     public static double StartTime;
     [SerializeField] GameObject ReadyBtn;
@@ -17,16 +18,18 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     [SerializeField] GameObject BossBattleReadyBtn3;
     [SerializeField] GameObject TimerObject;
     [SerializeField] GameObject CountDownObject;
+    [SerializeField] GameObject RestTimeObject;
     GameObject tmpobject;
 
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        //Debug.Log(propertiesThatChanged);
+        Debug.Log(propertiesThatChanged);
 
         if (propertiesThatChanged.TryGetValue("BossHP", out value))
         {
             GameObject.FindWithTag("BossHP").GetComponent<TMP_Text>().text = propertiesThatChanged["BossHP"].ToString();
+            Debug.Log("BossHP: " + propertiesThatChanged["BossHP"]);
 
             //ボスが倒れたらゲームを終了
             if (PhotonNetwork.IsMasterClient)
@@ -43,6 +46,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("TotalHP", out value))
         {
             GameObject.FindWithTag("TotalHP").GetComponent<TMP_Text>().text = propertiesThatChanged["TotalHP"].ToString();
+            Debug.Log("TotalHP: " + propertiesThatChanged["TotalHP"]);
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -83,6 +87,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //BossBattleScript.SetStartTime();
 
                 //トレーニング前カウントダウン
+                TrainingCountDown.time = 0f;
                 TrainingCountDown.timeLimit = 9;
                 CountDownObject.SetActive(true);
 
@@ -98,7 +103,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ユーザーのターン
                 //筋トレの種類を設定
                 BossBattleScript.SetTrainingOption();
-
+                Debug.Log("isBattleがtrueになりました");
                 // 筋トレ内容を表示させ、準備をする
                 ReadyBtn.SetActive(true);
 
@@ -118,7 +123,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             {
                 Debug.Log("トレーニング開始！");
                 // TODOクエストに合わせたトレーニング時間に変更
-                TrainingTimer.timeLimit = 30;
+                TrainingTimer.time = 0f;
+                TrainingTimer.timeLimit = 10;
                 TimerObject.SetActive(true);
             }
             else
@@ -129,15 +135,12 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ボスのターン
                 BossBattleScript.BossAttack();
 
-                //ユーザーのターン
-                //筋トレの種類を設定
-                BossBattleScript.SetTrainingOption();
+                //TODOデバッグ用
+                RestTimeTimer.time = 0f;
+                RestTimeTimer.timeLimit = 10;
+                RestTimeObject.SetActive(true);
 
-                // タイマーの設定
-                //BossBattleScript.SetStartTime();
 
-                // 筋トレ内容を表示させ、準備をする
-                ReadyBtn.SetActive(true);
             }
         }
 
@@ -151,6 +154,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
+        Debug.Log(propertiesThatChanged);
         if (propertiesThatChanged.TryGetValue("Count", out value))
         {
             Debug.Log($"{targetPlayer.NickName}のカウントが{propertiesThatChanged["count"]}になりました。");
@@ -213,29 +217,34 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 }
 
             }
+        }
 
-            if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
-            {
-                Debug.Log("トレーニング変更情報を受け取りました");
-                if ((bool)propertiesThatChanged["isTrainingReady"])
-                    OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
-                else
-                    OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
-            }
+        if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
+        {
+            Debug.Log("トレーニング変更情報を受け取りました");
+            if ((bool)propertiesThatChanged["isTrainingReady"])
+                OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
+            else
+                OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
+        }
 
-            if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
-            {
-                if (!targetPlayer.IsLocal)
-                    PlayerNo.SetDisplayPlayerNo();
-            }
+        if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
+        {
+            if (!targetPlayer.IsLocal)
+                PlayerNo.SetDisplayPlayerNo();
+        }
 
-            if (propertiesThatChanged.TryGetValue("MyHP", out value))
+        if (propertiesThatChanged.TryGetValue("MyHP", out value))
+        {
+            if (PhotonNetwork.IsMasterClient)
             {
                 Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
                 if (!roomhash.TryGetValue("TotalHP", out value))
                 {
-                    roomhash.Add("TotalHP", propertiesThatChanged["MyHP"]);
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+
+                    roomhash.Add("TotalHP", (int)propertiesThatChanged["MyHP"]);
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
+                    propsToSet.Clear();
                 }
                 else
                 {
@@ -243,6 +252,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
                 }
             }
+
         }
     }
 }
