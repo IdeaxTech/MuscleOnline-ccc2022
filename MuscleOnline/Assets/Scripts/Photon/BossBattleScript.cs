@@ -62,41 +62,42 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     public static async void SetQuestInfo()
     {
         //　ボスのid
-        string id = "FlfuY9qPnDJFZzN3tBDU";
-
-        // データベースからクエスト情報を取得
-        var db = FirebaseFirestore.DefaultInstance;
-        QuerySnapshot BossData = await db.Collection("bosses").GetSnapshotAsync();
-        foreach (var document in BossData.Documents)
-        {
-            Dictionary<string, object> DictionaryData = document.ToDictionary();
-            if (document.Id.Equals(id))
-            {
-                BossName = DictionaryData["boss_name"].ToString();
-                BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
-                BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
-                BossDefence = (int)Convert.ChangeType(DictionaryData["boss_defence"], typeof(int));
-            }
-
-        }
-
-        QuerySnapshot QuestData = await db.Collection("quests").GetSnapshotAsync();
-        foreach (var document in QuestData.Documents)
-        {
-            Dictionary<string, object> DictionaryData = document.ToDictionary();
-            if (DictionaryData["boss_id"].ToString() == id)
-            {
-                QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
-                QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
-            }
-        }
-
-        //ボスへのダメージを計算
-        damage = UserInfo.UserAttack - BossDefence;
-
         // カスタムプロパティに代入
         if (PhotonNetwork.IsMasterClient)
         {
+            string id = "FlfuY9qPnDJFZzN3tBDU";
+
+            // データベースからクエスト情報を取得
+            var db = FirebaseFirestore.DefaultInstance;
+            QuerySnapshot BossData = await db.Collection("bosses").GetSnapshotAsync();
+            foreach (var document in BossData.Documents)
+            {
+                Dictionary<string, object> DictionaryData = document.ToDictionary();
+                if (document.Id.Equals(id))
+                {
+                    BossName = DictionaryData["boss_name"].ToString();
+                    BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
+                    BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
+                    BossDefence = (int)Convert.ChangeType(DictionaryData["boss_defence"], typeof(int));
+                }
+
+            }
+
+            QuerySnapshot QuestData = await db.Collection("quests").GetSnapshotAsync();
+            foreach (var document in QuestData.Documents)
+            {
+                Dictionary<string, object> DictionaryData = document.ToDictionary();
+                if (DictionaryData["boss_id"].ToString() == id)
+                {
+                    QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                    QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                }
+            }
+
+            //ボスへのダメージを計算
+            damage = UserInfo.UserAttack - BossDefence;
+
+
 
             OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
             OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
@@ -104,7 +105,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             OperateCostomProperty.SetRoomCustomProperty("QuestDiff", QuestDiff);
             OperateCostomProperty.SetRoomCustomProperty("QuestReward", QuestReward);
 
-            int difficulity = (int)OperateCostomProperty.GetRoomCustomProperty("QuestDiff");
+            //int difficulity = (int)OperateCostomProperty.GetRoomCustomProperty("QuestDiff");
             OperateCostomProperty.SetRoomCustomProperty("TrainingTime", 5);
             OperateCostomProperty.SetRoomCustomProperty("RestTime", 0);
         }
@@ -131,20 +132,23 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         //与えるダメージをリセット
         if (PhotonNetwork.IsMasterClient)
+        {
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", 0);
 
-        // データベースからトレーニング情報を取得
-        string id = "rIFhBoYhBpRX74L9othN";
-        var db = FirebaseFirestore.DefaultInstance;
-        QuerySnapshot TrainingData = await db.Collection("trainings").GetSnapshotAsync();
-        foreach (var document in TrainingData.Documents)
-        {
-            Dictionary<string, object> DictionaryData = document.ToDictionary();
-            if (document.Id.Equals(id))
+            // データベースからトレーニング情報を取得
+            string id = "rIFhBoYhBpRX74L9othN";
+            var db = FirebaseFirestore.DefaultInstance;
+            QuerySnapshot TrainingData = await db.Collection("trainings").GetSnapshotAsync();
+            foreach (var document in TrainingData.Documents)
             {
-                TrainingName = DictionaryData["training_name"].ToString();
+                Dictionary<string, object> DictionaryData = document.ToDictionary();
+                if (document.Id.Equals(id))
+                {
+                    TrainingName = DictionaryData["training_name"].ToString();
+                }
             }
         }
+
 
         Debug.Log("Finish SetTrainingOption");
     }

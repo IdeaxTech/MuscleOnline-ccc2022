@@ -83,8 +83,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             {
 
                 ReadyBtn.SetActive(false);
-                // タイマーの設定
-                //BossBattleScript.SetStartTime();
 
                 //トレーニング前カウントダウン
                 TrainingCountDown.time = 0f;
