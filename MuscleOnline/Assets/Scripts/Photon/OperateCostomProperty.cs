@@ -16,15 +16,18 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
         if (RoomHash.TryGetValue(true_key, out temp))
         {
             propsToSet[true_key] = value;
-            
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
+
         }
         else
         {
             propsToSet.Add(true_key, value);
             //PhotonNetwork.CurrentRoom.SetCustomProperties(RoomHash);
         }
-
+        //propsToSet[true_key] = value;
         PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
+
+
         propsToSet.Clear();
     }
 
@@ -32,6 +35,7 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
     {
         Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
         string true_key = (string)(object)key;
+        return PhotonNetwork.CurrentRoom.CustomProperties[true_key];
 
         //ルームにキーがあるか
         if (roomhash.TryGetValue(true_key, out temp))
@@ -40,7 +44,8 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
         }
         else
         {
-            roomhash.Add(true_key, 0);
+            propsToSet.Add(true_key, 0);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
             GetRoomCustomProperty(true_key);
             return (object)0;
         }
@@ -52,15 +57,14 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
         if (UserHash.TryGetValue(key, out temp))
         {
             propsToSet[key] = value;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
         } else
         {
-            //propsToSet.Add(key, value);
-            UserHash.Add(key, value);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(UserHash);
+            propsToSet.Add(key, value);
+            //PhotonNetwork.LocalPlayer.SetCustomProperties(UserHash);
         }
-            
-        
+        PhotonNetwork.LocalPlayer.SetCustomProperties(propsToSet);
+
+
         propsToSet.Clear();
     }
 

@@ -8,7 +8,7 @@ public class RestTimeTimer : MonoBehaviour
     [SerializeField] GameObject ReadyBtn;
     [SerializeField] GameObject RestTimeObject;
     public static float timeLimit;
-    float time = 0f;
+    public static float time;
 
     [SerializeField] Clock clock;
     public Text timerText;
@@ -18,8 +18,8 @@ public class RestTimeTimer : MonoBehaviour
     {
         time += Time.deltaTime;
         float timer = time / timeLimit;
-
         totaltime = (int)timeLimit - (int)time;
+
         if (totaltime > 0)
         {
             timerText.text = totaltime.ToString();

@@ -1,17 +1,12 @@
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
 {
 
     byte MaxPlayerPerRoom = 4;
-    int InitialCount = 0;
-    ExitGames.Client.Photon.Hashtable RoomHash;
-    ExitGames.Client.Photon.Hashtable UserHash;
     [SerializeField] GameObject BossBattleReadyBtn0;
 
     private void Awake()
@@ -43,13 +38,6 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
             int NumOfReadyPlayers = (int)OperateCostomProperty.GetRoomCustomProperty("NumOfReadyPlayers") + 1;
             OperateCostomProperty.SetRoomCustomProperty("NumOfReadyPlayers", NumOfReadyPlayers);
 
-            if (NumOfReadyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                if (PhotonNetwork.IsMasterClient)
-                    // シーン遷移
-                    PhotonNetwork.LoadLevel("BossBattle");
-            }
-
         }
         else
         {
@@ -68,23 +56,17 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("BattleScene");
+            PhotonNetwork.LoadLevel("BossBattle");
         }
     }
 
-    //- ルーム参加者のユーザ名とキャラクターを取得して表示
-    //- OKボタンを押したらルーム共通変数を変更
-    //- ルーム参加者全員がOKになったらボス戦画面に遷移
-    //- ルームオーナーがOKボタンを2回押したらボス戦画面に遷移
-
-
-     //1が成功したら呼ばれる
+     // Photonサーバーへの接続が成功したら呼ばれる
     public override void OnConnectedToMaster()
     {
         Debug.Log("接続に成功しました。");
     }
 
-    // 1が失敗したら呼ばれる
+    // Photonサーバーへの接続が失敗したら呼ばれる
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log($"{cause}の理由で繋げませんでした。");
@@ -101,9 +83,7 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
 
         //何番目に入ったユーザか
         PlayerNo.SetPlayerNo();
-
         PlayerNo.SetDisplayPlayerNo();
-
     }
 
     //他のプレイヤーがルームに入ったときに呼ばれる　自身が入ったときには呼ばれない

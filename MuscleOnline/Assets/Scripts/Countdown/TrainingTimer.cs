@@ -7,19 +7,18 @@ public class TrainingTimer : MonoBehaviour
 {
     [SerializeField] GameObject TimerObject;
     public static float timeLimit;
-    float time = 0f;
+    public static float time;
 
     [SerializeField] Clock clock;
     public Text timerText;
     float totaltime;
 
-    // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
         float timer = time / timeLimit;
-
         totaltime = (int)timeLimit - (int)time;
+
         if (totaltime > 0)
         {
             timerText.text = totaltime.ToString();
