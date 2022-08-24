@@ -32,7 +32,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            //OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
+            OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
         }
 
