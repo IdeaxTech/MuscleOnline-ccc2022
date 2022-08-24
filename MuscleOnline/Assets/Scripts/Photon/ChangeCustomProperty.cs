@@ -67,7 +67,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                     // シーン遷移
-                    PhotonNetwork.LoadLevel("third");
+                    PhotonNetwork.LoadLevel("BossBattle");
             }
         }
 

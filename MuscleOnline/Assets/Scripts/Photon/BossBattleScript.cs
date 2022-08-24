@@ -5,10 +5,11 @@ using TMPro;
 using Firebase.Firestore;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
-    [SerializeField] static int damage;
+    public static int damage;
     public static GameObject ReadyBtn;
 
     static string BossName;
@@ -23,6 +24,9 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        PlayerNo.SetDisplayPlayerNo();
+        GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
+
         //ReadyBtn = GameObject.FindWithTag("ReadyBtn");
     }
 
@@ -36,76 +40,80 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
 
+        //カウントを初期化
+        OperateCostomProperty.SetUserCustomProperty("Count", 0);
+        OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
+
         // クエスト情報、ボス情報、筋トレ時間、休憩時間を設定
         SetQuestInfo();
 
         // 味方HPを合算
-        //OperateCostomProperty.SetUserCustomProperty("MyHP", 100);
+        OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
 
-        //// ボス登場アニメーション
-        //StartAnimation();
+        // ボス登場アニメーション
+        StartAnimation();
 
-        //OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
+        
 
-        //// バトルの開始
+        // バトルの開始
         //if (PhotonNetwork.IsMasterClient)
         //    OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
     }
 
-    public static void SetQuestInfo()
+    public static async void SetQuestInfo()
     {
         //　ボスのid
         string id = "FlfuY9qPnDJFZzN3tBDU";
 
         // TODO:データベースからクエスト情報を取得
-        //IEnumerable loadingData()
-        //{
-        //    Task<List<Dictionary<string, object>>> BossDataTask = firebaseController.DatabaseOperation.GetData("bosses", id);
-        //    while (!BossDataTask.IsCompleted)
-        //        yield return null;
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot BossData = await db.Collection("bosses").GetSnapshotAsync();
+        foreach (var document in BossData.Documents)
+        {
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
+            if (document.Id.Equals(id))
+            {
+                BossName = DictionaryData["boss_name"].ToString();
+                BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
+                BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
+                BossDefence = (int)Convert.ChangeType(DictionaryData["boss_defence"], typeof(int));
+            }
 
-        //    BossData = BossDataTask.Result;
-        //    foreach (var data in BossData)
-        //    {
-        //        BossName = data["boss_name"].ToString();
-        //        BossHP = (int)data["boss_hp"];
-        //        BossOffence = (int)data["boss_attack"];
-        //        BossDefence = (int)data["boss_defence"];
-        //    }
-        //}
-
-        //StartCoroutine(loadingData());
+        }
+        Debug.Log("BossName" + BossName);
+        Debug.Log("BossHP" + BossHP);
 
 
-        //List<Dictionary<string, object>> quest_data = DatabaseOperation.GetData("quests").Result;
-        //foreach (var data in quest_data)
-        //{
-        //    if (data["boss_id"].ToString() == id)
-        //    {
-        //        QuestDiff = (int)data["quest_difficult"];
-        //        QuestReward = (Dictionary<string, object>)data["quest_reward"];
-        //    }
-        //}
+        QuerySnapshot QuestData = await db.Collection("quests").GetSnapshotAsync();
+        foreach (var document in QuestData.Documents)
+        {
+            Dictionary<string, object> DictionaryData = document.ToDictionary();
+            if (DictionaryData["boss_id"].ToString() == id)
+            {
+                QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+            }
+        }
 
-        //damage = 10;
+        damage = UserInfo.UserAttack - BossDefence;
 
-        //// カスタムプロパティに代入
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    //攻撃力とボスの防御力によって与えるダメージを計算
-        //    damage = UserInfo.UserAttack - BossDefence;
+        // カスタムプロパティに代入
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //攻撃力とボスの防御力によって与えるダメージを計算
+            damage = UserInfo.UserAttack - BossDefence;
 
-        //    OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
-        //    OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
-        //    OperateCostomProperty.SetRoomCustomProperty("BossAttack", BossOffence);
-        //    OperateCostomProperty.SetRoomCustomProperty("QuestDiff", QuestDiff);
-        //    OperateCostomProperty.SetRoomCustomProperty("QuestReward", QuestReward);
+            OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
+            OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
+            OperateCostomProperty.SetRoomCustomProperty("BossAttack", BossOffence);
+            OperateCostomProperty.SetRoomCustomProperty("QuestDiff", QuestDiff);
+            OperateCostomProperty.SetRoomCustomProperty("QuestReward", QuestReward);
 
-        //    int difficulity = (int)OperateCostomProperty.GetRoomCustomProperty("QuestDiff");
-        //    OperateCostomProperty.SetRoomCustomProperty("TrainingTime", 5);
-        //    OperateCostomProperty.SetRoomCustomProperty("RestTime", 0);
-        //}
-        //Debug.Log("Finish SetQuestInfo");
+            int difficulity = (int)OperateCostomProperty.GetRoomCustomProperty("QuestDiff");
+            OperateCostomProperty.SetRoomCustomProperty("TrainingTime", 5);
+            OperateCostomProperty.SetRoomCustomProperty("RestTime", 0);
+        }
+        Debug.Log("Finish SetQuestInfo");
     }
 
     // TODO アニメーションの制御 => 江崎くんへ
@@ -178,16 +186,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     }
 
     //4. パーティーの場合別のユーザーのカウントを受け取り、受け取ったら筋トレしてるアニメーションを動かす
-    public void AddCount()
-    {
-        OperateCostomProperty.SetUserCustomProperty("Count", (int)OperateCostomProperty.GetUserCustomProperty("Count") + 1);
-        OperateCostomProperty.SetUserCustomProperty("TotalCount", (int)OperateCostomProperty.GetUserCustomProperty("TotalCount") + 1);
 
-        OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage") + damage);
-
-        // TODOアニメーションを流す
-
-    }
 
     public static void AllyAttack()
     {

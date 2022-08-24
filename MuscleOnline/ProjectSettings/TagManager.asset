@@ -17,6 +17,12 @@ TagManager:
   - InputName
   - Name
   - Level
+  - MyCount
+  - UserCount1
+  - UserCount2
+  - UserCount3
+  - TotalHP
+  - BossHP
   layers:
   - Default
   - TransparentFX
