@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3baec3d2b33440208fedb62b3437ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 10
   clock: {fileID: 8039976687595200342}
   timerText: {fileID: 8039976687802661426}
 --- !u!1 &8039976687595200338
@@ -316,7 +315,7 @@ RectTransform:
   m_GameObject: {fileID: 8039976688484181339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4.1757975, y: 4.1757975, z: 4.1757975}
   m_Children:
   - {fileID: 8039976687738134359}
   - {fileID: 8039976687802661424}
@@ -373,7 +372,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8039976688484181337
 MonoBehaviour:
   m_ObjectHideFlags: 0
