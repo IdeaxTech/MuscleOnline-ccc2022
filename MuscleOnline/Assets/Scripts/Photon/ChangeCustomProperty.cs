@@ -106,7 +106,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ユーザーのターン
                 //筋トレの種類を設定
                 BossBattleScript.SetTrainingOption();
-                Debug.Log("isBattleがtrueになりました");
                 // 筋トレ内容を表示させ、準備をする
                 ReadyBtn.SetActive(true);
 
@@ -124,7 +123,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             
             if ((bool)propertiesThatChanged["isTraining"])
             {
-                Debug.Log("トレーニング開始！");
                 // TODOクエストに合わせたトレーニング時間に変更
                 TrainingTimer.time = 0f;
                 TrainingTimer.timeLimit = 10;
@@ -225,10 +223,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
         {
             Debug.Log("トレーニング変更情報を受け取りました");
-            //if ((bool)propertiesThatChanged["isTrainingReady"])
-            //    OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
-            //else
-            //    OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
         }
 
         if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
@@ -239,6 +233,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("MyHP", out value))
         {
+            Debug.Log("SetHP");
             Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
             if (!roomhash.TryGetValue("TotalHP", out value))
             {

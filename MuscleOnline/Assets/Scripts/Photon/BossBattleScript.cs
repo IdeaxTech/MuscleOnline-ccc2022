@@ -32,7 +32,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
+            //OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
         }
 
@@ -97,13 +97,13 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             }
 
             //ボスへのダメージを計算
-            damage = UserInfo.UserAttack - BossDefence;
 
 
 
             OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
             OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
             OperateCostomProperty.SetRoomCustomProperty("BossAttack", BossOffence);
+            OperateCostomProperty.SetRoomCustomProperty("BossDefence", BossDefence);
             OperateCostomProperty.SetRoomCustomProperty("QuestDiff", QuestDiff);
             OperateCostomProperty.SetRoomCustomProperty("QuestReward", QuestReward);
 
