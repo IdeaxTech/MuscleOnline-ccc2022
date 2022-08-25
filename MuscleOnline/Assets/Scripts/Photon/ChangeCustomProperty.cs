@@ -64,6 +64,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         }
 
+        if (propertiesThatChanged.TryGetValue("BossDefence", out value))
+        {
+            BossBattleScript.damage = UserInfo.UserAttack - (int)propertiesThatChanged["BossDefence"];
+        }
+
 
         //全員クエストの準備完了したら
         if (propertiesThatChanged.TryGetValue("NumOfReadyPlayers", out value))
@@ -81,10 +86,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["isTrainingReady"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-
+                GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<TMP_Text>().text = "Ready";
                 ReadyBtn.SetActive(false);
-                // タイマーの設定
-                //BossBattleScript.SetStartTime();
 
                 //トレーニング前カウントダウン
                 TrainingCountDown.time = 0f;
@@ -103,7 +106,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ユーザーのターン
                 //筋トレの種類を設定
                 BossBattleScript.SetTrainingOption();
-                Debug.Log("isBattleがtrueになりました");
                 // 筋トレ内容を表示させ、準備をする
                 ReadyBtn.SetActive(true);
 
@@ -121,7 +123,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             
             if ((bool)propertiesThatChanged["isTraining"])
             {
-                Debug.Log("トレーニング開始！");
                 // TODOクエストに合わせたトレーニング時間に変更
                 TrainingTimer.time = 0f;
                 TrainingTimer.timeLimit = 10;
@@ -222,10 +223,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
         {
             Debug.Log("トレーニング変更情報を受け取りました");
-            if ((bool)propertiesThatChanged["isTrainingReady"])
-                OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
-            else
-                OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
         }
 
         if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
@@ -236,23 +233,20 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("MyHP", out value))
         {
-            if (PhotonNetwork.IsMasterClient)
+            Debug.Log("SetHP");
+            Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
+            if (!roomhash.TryGetValue("TotalHP", out value))
             {
-                Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
-                if (!roomhash.TryGetValue("TotalHP", out value))
-                {
 
-                    roomhash.Add("TotalHP", (int)propertiesThatChanged["MyHP"]);
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
-                    propsToSet.Clear();
-                }
-                else
-                {
-                    OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") + (int)propertiesThatChanged["MyHP"]);
-
-                }
+                propsToSet.Add("TotalHP", (int)propertiesThatChanged["MyHP"]);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
+                propsToSet.Clear();
             }
+            else
+            {
+                OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") + (int)propertiesThatChanged["MyHP"]);
 
+            }
         }
     }
 }
