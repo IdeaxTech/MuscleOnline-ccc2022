@@ -6,6 +6,7 @@ using Firebase.Firestore;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
@@ -204,9 +205,11 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
 
         //ルームから離脱
+        //PhotonNetwork.LoadLevel("QuestResult");
         PhotonNetwork.Disconnect();
         Debug.Log("Finish FinishBossBattle");
-        PhotonNetwork.LoadLevel("QuestResult");
+        SceneManager.LoadScene("QuestResult");
+
     }
 
 
