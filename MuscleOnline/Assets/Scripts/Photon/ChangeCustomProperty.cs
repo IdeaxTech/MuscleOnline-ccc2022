@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 {
@@ -86,7 +87,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["isTrainingReady"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<TMP_Text>().text = "Ready";
+                GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<Text>().text = "Ready";
                 ReadyBtn.SetActive(false);
 
                 //トレーニング前カウントダウン

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReadyBtn : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class ReadyBtn : MonoBehaviour
         {
             OperateCostomProperty.SetUserCustomProperty("isTrainingReady", true);
             //そのユーザーのボタンのテキストを変更する
-            GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<TMP_Text>().text = "Cancel";
+            GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<Text>().text = "Cancel";
 
             int NumOfReadyPlayers = (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1;
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", NumOfReadyPlayers);
@@ -26,7 +27,7 @@ public class ReadyBtn : MonoBehaviour
         {
             OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
             //そのユーザーのボタンのテキストを変更する
-            GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<TMP_Text>().text = "Ready";
+            GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<Text>().text = "Ready";
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)(object)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
         }
     }
