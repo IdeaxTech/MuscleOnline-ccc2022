@@ -64,6 +64,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         }
 
+        if (propertiesThatChanged.TryGetValue("BossDefence", out value))
+        {
+            BossBattleScript.damage = UserInfo.UserAttack - (int)propertiesThatChanged["BossDefence"];
+        }
+
 
         //全員クエストの準備完了したら
         if (propertiesThatChanged.TryGetValue("NumOfReadyPlayers", out value))
@@ -81,7 +86,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["isTrainingReady"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-
+                GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<TMP_Text>().text = "Ready";
                 ReadyBtn.SetActive(false);
 
                 //トレーニング前カウントダウン
@@ -220,10 +225,10 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
         {
             Debug.Log("トレーニング変更情報を受け取りました");
-            if ((bool)propertiesThatChanged["isTrainingReady"])
-                OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
-            else
-                OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
+            //if ((bool)propertiesThatChanged["isTrainingReady"])
+            //    OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") + 1);
+            //else
+            //    OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
         }
 
         if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
@@ -234,23 +239,19 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("MyHP", out value))
         {
-            if (PhotonNetwork.IsMasterClient)
+            Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
+            if (!roomhash.TryGetValue("TotalHP", out value))
             {
-                Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
-                if (!roomhash.TryGetValue("TotalHP", out value))
-                {
 
-                    roomhash.Add("TotalHP", (int)propertiesThatChanged["MyHP"]);
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
-                    propsToSet.Clear();
-                }
-                else
-                {
-                    OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") + (int)propertiesThatChanged["MyHP"]);
-
-                }
+                propsToSet.Add("TotalHP", (int)propertiesThatChanged["MyHP"]);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
+                propsToSet.Clear();
             }
+            else
+            {
+                OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") + (int)propertiesThatChanged["MyHP"]);
 
+            }
         }
     }
 }

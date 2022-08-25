@@ -41,6 +41,8 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         OperateCostomProperty.SetUserCustomProperty("Count", 0);
         OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
 
+        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
+
         // クエスト情報、ボス情報、筋トレ時間、休憩時間を設定
         SetQuestInfo();
 

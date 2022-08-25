@@ -23,6 +23,7 @@ TagManager:
   - UserCount3
   - TotalHP
   - BossHP
+  - isTrainingReadyBtn
   layers:
   - Default
   - TransparentFX
