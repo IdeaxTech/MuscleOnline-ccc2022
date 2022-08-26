@@ -8,7 +8,7 @@ public class UserInfo : MonoBehaviour
     public static string UserId;
 
     public static int UserLevel;
-    public static int UserHP;
-    public static int UserAttack;
+    public static int UserHP = 100;
+    public static int UserAttack = 10;
     public static int UserDefence;
 }

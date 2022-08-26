@@ -66,6 +66,10 @@ public class UserRegisterScript : MonoBehaviour
         UserInfo.UserName = name;
         UserInfo.UserId = id;
         UserInfo.UserLevel = initialize_level;
+
+        //TODO初期値どうするか？
+        UserInfo.UserHP = 100;
+        UserInfo.UserAttack = 10;
     }
 
     void ToHome()

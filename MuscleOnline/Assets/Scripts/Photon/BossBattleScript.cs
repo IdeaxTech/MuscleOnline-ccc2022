@@ -45,10 +45,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         // クエスト情報、ボス情報、筋トレ時間、休憩時間を設定
         SetQuestInfo();
 
-        //TODOデバッグ用
-        UserInfo.UserHP = 100;
-        UserInfo.UserAttack = 10;
-
         // 味方HPを合算
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
 
