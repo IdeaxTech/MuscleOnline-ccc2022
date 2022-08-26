@@ -68,6 +68,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("BossDefence", out value))
         {
             BossBattleScript.damage = UserInfo.UserAttack - (int)propertiesThatChanged["BossDefence"];
+            OperateCostomProperty.SetUserCustomProperty("AttackDamage", BossBattleScript.damage);
         }
 
 

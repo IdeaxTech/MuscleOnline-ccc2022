@@ -38,17 +38,17 @@ public class OperateCostomProperty : MonoBehaviourPunCallbacks
         return PhotonNetwork.CurrentRoom.CustomProperties[true_key];
 
         //ルームにキーがあるか
-        if (roomhash.TryGetValue(true_key, out temp))
-        {
-            return (object)PhotonNetwork.CurrentRoom.CustomProperties[true_key];
-        }
-        else
-        {
-            propsToSet.Add(true_key, 0);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
-            GetRoomCustomProperty(true_key);
-            return (object)0;
-        }
+        //if (roomhash.TryGetValue(true_key, out temp))
+        //{
+        //    return (object)PhotonNetwork.CurrentRoom.CustomProperties[true_key];
+        //}
+        //else
+        //{
+        //    propsToSet.Add(true_key, 0);
+        //    PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
+        //    GetRoomCustomProperty(true_key);
+        //    return (object)0;
+        //}
     }
 
     public static void SetUserCustomProperty<Generic>(string key, Generic value)
