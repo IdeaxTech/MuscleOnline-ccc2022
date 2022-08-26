@@ -33,14 +33,14 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             Debug.Log("BossHP: " + propertiesThatChanged["BossHP"]);
 
             //ボスが倒れたらゲームを終了
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if ((int)OperateCostomProperty.GetRoomCustomProperty("BossHP") <= 0)
-                {
-                    OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
-                    Debug.Log("勝利しました");
-                }
-            }
+            //if ((int)OperateCostomProperty.GetRoomCustomProperty("BossHP") <= 0)
+            //{
+            //    if (PhotonNetwork.IsMasterClient)
+            //    {
+            //        OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
+            //        Debug.Log("勝利しました");
+            //    }
+            //}
 
         }
 
@@ -113,8 +113,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             }
             else
             {
-                BossBattleScript.DefeatBoss();
-                BossBattleScript.FinishBossBattle();
+
             }
 
         }
@@ -137,12 +136,13 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ボスのターン
                 BossBattleScript.BossAttack();
 
-                //TODOデバッグ用
-                RestTimeTimer.time = 0f;
-                RestTimeTimer.timeLimit = 10;
-                RestTimeObject.SetActive(true);
-
-
+                if ((bool)OperateCostomProperty.GetRoomCustomProperty("isBattle"))
+                {
+                    //TODOデバッグ用
+                    RestTimeTimer.time = 0f;
+                    RestTimeTimer.timeLimit = 10;
+                    RestTimeObject.SetActive(true);
+                }
             }
         }
 
