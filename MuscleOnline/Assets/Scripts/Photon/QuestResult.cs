@@ -4,20 +4,75 @@ using UnityEngine;
 using TMPro;
 using System;
 using Photon.Pun;
+using Firebase.Firestore;
+using System.Threading.Tasks;
 
 public class QuestResult : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
-        //経験値
+
 
         //レベル
+        //Task task = Task.Run(() =>
+        //{
+        //    return LevelOperation();
+        //});
 
+        //Task.WhenAll(task);
+        //LevelOperation();
+        //経験値
+        Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
+        Debug.Log(QuestReward);
+        Debug.Log(QuestReward["exp"]);
+        int RewardExp = (int)Convert.ChangeType(QuestReward["exp"], typeof(int));
+        Debug.Log(RewardExp);
+
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot ExpData = await db.Collection("required_exp").GetSnapshotAsync();
+        //QuerySnapshot ExpData = (QuerySnapshot)Convert.ChangeType(db.Collection("required_exp").GetSnapshotAsync(), typeof(QuerySnapshot));
+
+        while (true)
+        {
+            int tmp = UserInfo.UserMaxExp - (RewardExp + UserInfo.UserExp);
+            if (tmp < 1)
+            {
+                UserInfo.UserLevel++;
+
+                // TODOどのくらい上げるか
+                UserInfo.UserAttack += 5;
+                UserInfo.UserHP += 10;
+                UserInfo.UserDefence += 3;
+
+                RewardExp = (RewardExp + UserInfo.UserExp) - UserInfo.UserMaxExp;
+                UserInfo.UserExp = 0;
+
+                foreach (var document in ExpData.Documents)
+                {
+                    Dictionary<string, object> DictionaryData = document.ToDictionary();
+                    if (document.Id.Equals("level"))
+                    {
+                        UserInfo.UserMaxExp = (int)Convert.ChangeType(DictionaryData[UserInfo.UserLevel.ToString()], typeof(int));
+                    }
+                }
+            }
+            else
+            {
+                UserInfo.UserExp = RewardExp;
+                break;
+            }
+
+
+        }
+        Debug.Log("Level :" + UserInfo.UserLevel);
+        Debug.Log("Exp :" + UserInfo.UserExp);
+        Debug.Log("MaxExp :" + UserInfo.UserMaxExp); 
 
         GameObject.Find("UserLevel").GetComponent<TMP_Text>().text = UserInfo.UserLevel.ToString();
-        GameObject.Find("MaxExp").GetComponent<TMP_Text>().text = UserInfo.UserLevel.ToString();
-        GameObject.Find("NowExp").GetComponent<TMP_Text>().text = UserInfo.UserLevel.ToString();
+
+        GameObject.Find("MaxExp").GetComponent<TMP_Text>().text = UserInfo.UserMaxExp.ToString();
+        GameObject.Find("NowExp").GetComponent<TMP_Text>().text = UserInfo.UserExp.ToString();
 
         GameObject.Find("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
 
@@ -66,6 +121,49 @@ public class QuestResult : MonoBehaviour
         }
 
 
+    }
+
+    async Task<int> LevelOperation()
+    {
+        //経験値
+        Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
+        int RewardExp = (int)QuestReward["exp"];
+        Debug.Log(RewardExp);
+
+        var db = FirebaseFirestore.DefaultInstance;
+        QuerySnapshot ExpData = await db.Collection("required_exp").GetSnapshotAsync();
+        while (true)
+        {
+            int tmp = UserInfo.UserMaxExp - (RewardExp + UserInfo.UserExp);
+            if (tmp < 1)
+            {
+                UserInfo.UserLevel++;
+
+                // TODOどのくらい上げるか
+                UserInfo.UserAttack += 5;
+                UserInfo.UserHP += 10;
+                UserInfo.UserDefence += 3;
+
+                RewardExp = (RewardExp + UserInfo.UserExp) - UserInfo.UserMaxExp;
+                UserInfo.UserExp = 0;
+
+                foreach (var document in ExpData.Documents)
+                {
+                    Dictionary<string, object> DictionaryData = document.ToDictionary();
+                    if (document.Id.Equals("level"))
+                    {
+                        UserInfo.UserMaxExp = (int)Convert.ChangeType(DictionaryData[UserInfo.UserLevel.ToString()], typeof(int));
+                    }
+                }
+            }
+            else
+            {
+                break;
+            }
+
+
+        }
+        return 1;
     }
 
 }
