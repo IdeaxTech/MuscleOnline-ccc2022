@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -21,6 +22,20 @@ public class RoomOperation : MonoBehaviour
 
         InitialSetting();
         PhotonNetwork.JoinOrCreateRoom(RoomName, new RoomOptions { MaxPlayers = MaxPlayerPerRoom }, TypedLobby.Default);
+
+        string RoomId = RandomPassword.Generate(16);
+        OperateCostomProperty.SetRoomCustomProperty("RoomId", RoomId);
+
+        //データベースへの追加
+        Dictionary<string, object> RoomData = new Dictionary<string, object>
+        {
+            { "room_name", RoomName },
+            { "max_player", 4 },
+            { "now_player", 1 },
+            { "quest_id", "1rrPh4Kl8N0U3FYEcPKv"},
+            { "is_open", true }
+        };
+        DatabaseOperation.AddData("rooms", RoomId, RoomData);
 
         // シーン遷移
         Invoke("ToGameScene", 1.5f);

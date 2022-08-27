@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -80,6 +81,19 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
             OperateCostomProperty.SetRoomCustomProperty("NumOfReadyPlayers", 0);
             // 強制開始ボタンを表示
         }
+
+        Dictionary<string, object> RoomData = new Dictionary<string, object>
+            {
+                { "now_player", PhotonNetwork.CurrentRoom.PlayerCount },
+                { "quest_id", "1rrPh4Kl8N0U3FYEcPKv"}
+            };
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            RoomData.Add("is_open", false);
+        }
+
+        DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
 
         //何番目に入ったユーザか
         PlayerNo.SetPlayerNo();

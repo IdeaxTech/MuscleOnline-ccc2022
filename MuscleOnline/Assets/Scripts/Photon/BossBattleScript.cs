@@ -5,6 +5,7 @@ using Firebase.Firestore;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using Photon.Realtime;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
@@ -214,6 +215,5 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         //SceneManager.LoadScene("QuestResult");
 
     }
-
 
 }
