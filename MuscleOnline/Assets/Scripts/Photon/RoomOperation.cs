@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class RoomOperation : MonoBehaviour
@@ -21,9 +22,10 @@ public class RoomOperation : MonoBehaviour
         }
 
         InitialSetting();
-        PhotonNetwork.JoinOrCreateRoom(RoomName, new RoomOptions { MaxPlayers = MaxPlayerPerRoom }, TypedLobby.Default);
-
         string RoomId = RandomPassword.Generate(16);
+        PhotonNetwork.JoinOrCreateRoom(RoomId, new RoomOptions { MaxPlayers = MaxPlayerPerRoom }, TypedLobby.Default);
+
+        
         OperateCostomProperty.SetRoomCustomProperty("RoomId", RoomId);
 
         //データベースへの追加
@@ -45,17 +47,17 @@ public class RoomOperation : MonoBehaviour
     //- 部屋情報を取得し、リストとして表示
     //- いずれかの部屋をクリックしたらキャラを表示する待機画面へ遷移
     //- 部屋へ参加ボタンを押したら、ボス戦協力待機画面(部屋選択)に遷移
-    public void JoinBossBattleRoom()
+    public void JoinBossBattleRoom(BaseEventData data)
     {
-        //クエストルーム情報をデータベースから取得
+        GameObject PointerObject = (data as PointerEventData).pointerClick;
 
-        //モーダルを表示
-
+        GameObject RoomId =  PointerObject.transform.Find("RoomId").gameObject;
         //モーダル内の要素をクリックしたら次の画面に遷移
         //ルームに入る
         InitialSetting();
-        string RoomName = "aaa";
-        PhotonNetwork.JoinRoom(RoomName);
+
+        //string RoomName = "aaa";
+        PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
     }
 
     void InitialSetting()

@@ -32,9 +32,11 @@ public class GetRoom : MonoBehaviour
 
                     GameObject RoomName = RoomObject.transform.Find("RoomName").gameObject;
                     GameObject RoomPlayers = RoomObject.transform.Find("RoomPlayers").gameObject;
+                    GameObject RoomId = RoomObject.transform.Find("RoomId").gameObject;
 
                     RoomName.GetComponent<TMP_Text>().text = DictionaryData["room_name"].ToString();
                     RoomPlayers.GetComponent<TMP_Text>().text = DictionaryData["now_player"].ToString() + " / " + DictionaryData["max_player"].ToString();
+                    RoomId.GetComponent<TMP_Text>().text = document.Id.ToString();
 
                     Debug.Log((int)Convert.ChangeType(DictionaryData["now_player"], typeof(int)));
                     Debug.Log((int)Convert.ChangeType(DictionaryData["max_player"], typeof(int)));
