@@ -15,13 +15,6 @@ public class QuestResult : MonoBehaviour
 
 
         //レベル
-        //Task task = Task.Run(() =>
-        //{
-        //    return LevelOperation();
-        //});
-
-        //Task.WhenAll(task);
-        //LevelOperation();
         //経験値
         Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
         Debug.Log(QuestReward);
@@ -31,7 +24,6 @@ public class QuestResult : MonoBehaviour
 
         var db = FirebaseFirestore.DefaultInstance;
         QuerySnapshot ExpData = await db.Collection("required_exp").GetSnapshotAsync();
-        //QuerySnapshot ExpData = (QuerySnapshot)Convert.ChangeType(db.Collection("required_exp").GetSnapshotAsync(), typeof(QuerySnapshot));
 
         while (true)
         {
