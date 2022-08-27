@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -889,7 +889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &246876437
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1100,11 +1100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f461c2b2e261e4597b20d0f1361996ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: {fileID: 0}
   ReadyBtn: {fileID: 0}
   BossBattleReadyBtn1: {fileID: 1349016436}
   BossBattleReadyBtn2: {fileID: 796168480}
   BossBattleReadyBtn3: {fileID: 224163986}
+  TimerObject: {fileID: 0}
+  CountDownObject: {fileID: 0}
+  RestTimeObject: {fileID: 0}
 --- !u!114 &534569056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1227,11 +1229,11 @@ GameObject:
   - component: {fileID: 651755571}
   m_Layer: 5
   m_Name: UserAvatar-4
-  m_TagString: Untagged
+  m_TagString: UserAvatar_3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &651755570
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1302,11 +1304,11 @@ GameObject:
   - component: {fileID: 663049200}
   m_Layer: 5
   m_Name: UserAvatar-3
-  m_TagString: Untagged
+  m_TagString: UserAvatar_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &663049199
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1376,7 +1378,7 @@ GameObject:
   - component: {fileID: 770965260}
   - component: {fileID: 770965259}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: OtherPlayerName-1
   m_TagString: OtherPlayerName1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1585,7 +1587,7 @@ GameObject:
   - component: {fileID: 1168648966}
   - component: {fileID: 1168648965}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: OtherPlayerName-2
   m_TagString: OtherPlayerName2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1719,7 +1721,7 @@ GameObject:
   - component: {fileID: 1221328002}
   - component: {fileID: 1221328001}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: OtherPlayerName-3
   m_TagString: OtherPlayerName3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2151,11 +2153,11 @@ GameObject:
   - component: {fileID: 1528103211}
   m_Layer: 5
   m_Name: UserAvatar-2
-  m_TagString: Untagged
+  m_TagString: UserAvatar_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1528103210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2372,7 +2374,7 @@ GameObject:
   - component: {fileID: 1674849936}
   - component: {fileID: 1674849935}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MyName
   m_TagString: MyName
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2661,7 +2663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2013303032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2736,7 +2738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2015187896
 RectTransform:
   m_ObjectHideFlags: 0

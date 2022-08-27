@@ -1,10 +1,8 @@
 using Photon.Pun;
 using UnityEngine;
-using System.Threading.Tasks;
 using TMPro;
 using Firebase.Firestore;
 using System.Collections.Generic;
-using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
 
@@ -169,7 +167,16 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         Debug.Log("与えるダメージは" + OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage").ToString());
         if (PhotonNetwork.IsMasterClient)
         {
-            OperateCostomProperty.SetRoomCustomProperty("BossHP", (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage"));                
+            int BossHP = (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage");
+            OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
+
+            if (BossHP <= 0)
+            {
+                OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
+                Debug.Log("勝利しました");
+                DefeatBoss();
+                FinishBossBattle();
+            }
         }
         Debug.Log("Finish AllyAttack");
 
@@ -205,10 +212,10 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
 
         //ルームから離脱
-        //PhotonNetwork.LoadLevel("QuestResult");
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("QuestResult");
+        //PhotonNetwork.Disconnect();
         Debug.Log("Finish FinishBossBattle");
-        SceneManager.LoadScene("QuestResult");
+        //SceneManager.LoadScene("QuestResult");
 
     }
 
