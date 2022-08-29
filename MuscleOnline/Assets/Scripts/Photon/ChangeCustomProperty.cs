@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using ExitGames.Client.Photon;
+using Firebase.Firestore;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -25,23 +27,12 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        Debug.Log(propertiesThatChanged);
+        //Debug.Log(propertiesThatChanged);
 
         if (propertiesThatChanged.TryGetValue("BossHP", out value))
         {
             GameObject.FindWithTag("BossHP").GetComponent<TMP_Text>().text = propertiesThatChanged["BossHP"].ToString();
             Debug.Log("BossHP: " + propertiesThatChanged["BossHP"]);
-
-            //ボスが倒れたらゲームを終了
-            //if ((int)OperateCostomProperty.GetRoomCustomProperty("BossHP") <= 0)
-            //{
-            //    if (PhotonNetwork.IsMasterClient)
-            //    {
-            //        OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
-            //        Debug.Log("勝利しました");
-            //    }
-            //}
-
         }
 
         if (propertiesThatChanged.TryGetValue("TotalHP", out value))
@@ -68,6 +59,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("BossDefence", out value))
         {
             BossBattleScript.damage = UserInfo.UserAttack - (int)propertiesThatChanged["BossDefence"];
+            OperateCostomProperty.SetUserCustomProperty("AttackDamage", BossBattleScript.damage);
         }
 
 
@@ -77,8 +69,23 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             if ((int)propertiesThatChanged["NumOfReadyPlayers"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 if (PhotonNetwork.IsMasterClient)
+                {
+                    Dictionary<string, object> RoomData = new Dictionary<string, object>
+                    {
+                        { "is_open", false },
+                        { "start_time", Timestamp.GetCurrentTimestamp()}
+                    };
+
+                    if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+                    {
+                        
+                    }
+
+                    DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
                     // シーン遷移
                     PhotonNetwork.LoadLevel("BossBattle");
+                }
+
             }
         }
 
@@ -156,10 +163,9 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        Debug.Log(propertiesThatChanged);
+        //Debug.Log(propertiesThatChanged);
         if (propertiesThatChanged.TryGetValue("Count", out value))
         {
-            Debug.Log($"{targetPlayer.NickName}のカウントが{propertiesThatChanged["count"]}になりました。");
             if (!targetPlayer.IsLocal)
             {
                 int player_num = Convert.ToInt32(targetPlayer.CustomProperties["PlayerNo"]);
@@ -182,8 +188,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             if (!targetPlayer.IsLocal)
             {
                 //そのユーザーのラベルを変更する
-                Debug.Log("TargetPlayer is " + targetPlayer.CustomProperties["PlayerNo"]);
-                Debug.Log("localnumber" + PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"].ToString());
                 int player_num = Convert.ToInt32(targetPlayer.CustomProperties["PlayerNo"]);
                 if (player_num > Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]))
                 {
@@ -207,23 +211,15 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
 
                 if (is_ready)
-                {
-                    //GameObject.FindWithTag("BossBattleReadyBtn" + player_num).GetComponentInChildren<TMP_Text>().text = "Ready";
                     tmpobject.SetActive(true);
 
-                }
                 else
-                {
-                    //GameObject.FindWithTag("BossBattleReadyBtn" + player_num).GetComponentInChildren<TMP_Text>().text = "Preparation";
                     tmpobject.SetActive(false);
-                }
-
             }
         }
 
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
         {
-            Debug.Log("トレーニング変更情報を受け取りました");
         }
 
         if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
@@ -234,7 +230,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("MyHP", out value))
         {
-            Debug.Log("SetHP");
             Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
             if (!roomhash.TryGetValue("TotalHP", out value))
             {

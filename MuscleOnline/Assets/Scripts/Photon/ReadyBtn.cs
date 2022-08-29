@@ -4,10 +4,6 @@ using UnityEngine.UI;
 
 public class ReadyBtn : MonoBehaviour
 {
-    void Start()
-    {
-        Debug.Log("ReadyBtnがアクティブになりました");   
-    }
     // トレーニング前のボタンが押された時
     public void ReadyTraining()
     {
@@ -31,6 +27,4 @@ public class ReadyBtn : MonoBehaviour
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", (int)(object)OperateCostomProperty.GetRoomCustomProperty("isTrainingReady") - 1);
         }
     }
-
-
 }

@@ -43,7 +43,7 @@ public class DatabaseOperation : MonoBehaviour
 
 
 
-    public async void UpdateData(string Collection, string id, object UpdateData)
+    public static async void UpdateData(string Collection, string id, object UpdateData)
     {
         var db = FirebaseFirestore.DefaultInstance;
         DocumentReference OriginData = db.Collection(Collection).Document(id);
@@ -55,7 +55,7 @@ public class DatabaseOperation : MonoBehaviour
         Debug.Log("Update Data");
     }
 
-    public async void DeleteData(string Collection, string id)
+    public static async void DeleteData(string Collection, string id)
     {
         var db = FirebaseFirestore.DefaultInstance;
         DocumentReference DeleteData = db.Collection(Collection).Document(id);

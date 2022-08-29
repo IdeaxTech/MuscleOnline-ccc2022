@@ -11,8 +11,7 @@ public class StartButtonScript : MonoBehaviour
     void Start()
     {
         //デバッグ用
-        //UserInfo.UserName = "aa";
-        //Source = GetComponent<AudioSource>();
+        UserInfo.UserName = "aa";
     }
 
     public void OnClickStartButton()
