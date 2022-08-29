@@ -79,6 +79,8 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             OperateCostomProperty.SetRoomCustomProperty("NumOfReadyPlayers", 0);
+            Debug.Log(RoomOperation.RoomId);
+            OperateCostomProperty.SetRoomCustomProperty("RoomId", RoomOperation.RoomId);
             // 強制開始ボタンを表示
         }
 
@@ -93,7 +95,8 @@ public class MultiBossWaitRoomScript : MonoBehaviourPunCallbacks
             RoomData.Add("is_open", false);
         }
 
-        DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
+        if (!PhotonNetwork.IsMasterClient)
+            DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
 
         //何番目に入ったユーザか
         PlayerNo.SetPlayerNo();

@@ -26,6 +26,8 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
         Debug.Log("BossBattleScriptが呼ばれました");
+        GameObject TitleBGM = GameObject.Find("TitleBGM").gameObject;
+        Destroy(TitleBGM);
     }
 
     public static void BossBattle()
@@ -85,11 +87,22 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             foreach (var document in QuestData.Documents)
             {
                 Dictionary<string, object> DictionaryData = document.ToDictionary();
-                if (DictionaryData["boss_id"].ToString() == id)
+                foreach (KeyValuePair<string, object> i in DictionaryData)
                 {
-                    QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
-                    QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                    if(i.Key.Equals("boss_id") && i.Value.Equals(id))
+                    {
+                        QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                        QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                        break;
+                    }
+                    Debug.Log("Key is " + i.Key);
+                    Debug.Log(i.Value);
                 }
+                //if (DictionaryData["boss_id"].ToString().Equals(id))
+                //{
+                //    QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                //    QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                //}
             }
 
             //ボスへのダメージを計算
