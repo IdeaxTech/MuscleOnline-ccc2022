@@ -31,7 +31,8 @@ public class RoomOperation : MonoBehaviourPunCallbacks
         }
 
         InitialSetting();
-        RoomId = RandomPassword.Generate(16);
+        //RoomId = RandomPassword.Generate(16);
+        RoomId = RoomName;
         PhotonNetwork.JoinOrCreateRoom(RoomId, new RoomOptions { MaxPlayers = MaxPlayerPerRoom }, TypedLobby.Default);
 
         
@@ -86,11 +87,11 @@ public class RoomOperation : MonoBehaviourPunCallbacks
         //モーダル内の要素をクリックしたら次の画面に遷移
         //ルームに入る
         InitialSetting();
-        Debug.Log("Click!");
+
         string RoomName = "aaa";
         PhotonNetwork.JoinRoom(RoomName);
 
-        //PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
+        // PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
     }
 
     void InitialSetting()
