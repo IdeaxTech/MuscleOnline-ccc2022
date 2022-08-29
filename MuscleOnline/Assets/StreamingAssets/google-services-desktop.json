@@ -7,27 +7,37 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1068346121450:ios:4d8351dcf6632024270b93",
+        "mobilesdk_app_id": "1:1068346121450:android:6da943f1cf601e05270b93",
         "android_client_info": {
           "package_name": "com.DefaultCompany.MuscleOnline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1068346121450-1hr4hsd4adlog30fnnhsaet2mfivtnf4.apps.googleusercontent.com"
+          "client_id": "1068346121450-a97vncnvg6nbl64973iqcs6cd5hq04ci.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAUf_yOJwp3sfmADtvUXYuG9TkZlbdYP30"
+          "current_key": "AIzaSyALYvLEg5nUbDb12ovXfqdYhqh9Rj8sF0Y"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 0
-        },
         "appinvite_service": {
-          "status": 1
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068346121450-a97vncnvg6nbl64973iqcs6cd5hq04ci.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1068346121450-1hr4hsd4adlog30fnnhsaet2mfivtnf4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.DefaultCompany.MuscleOnline"
+              }
+            }
+          ]
         }
       }
     }
