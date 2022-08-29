@@ -15,6 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Battle/Battleplay.unity
     guid: 169fdb98c0ac44f28b87074d5a589dac
   - enabled: 1
+    path: Assets/Scenes/Battle/BattleRoom.unity
+    guid: b3cd48796a2124e3483811b7711ce034
+  - enabled: 1
+    path: Assets/Scenes/Battle/BattleWait.unity
+    guid: fc39f42de2a054d9daec291b9ce59a26
+  - enabled: 1
+    path: Assets/Scenes/UserStates.unity
+    guid: 0d357252ffcd14e2c9aedd2f9fada035
+  - enabled: 1
     path: Assets/Scenes/InputScreen.unity
     guid: 5ffcf14e737114d20a4c118e32e9e23e
   - enabled: 1
