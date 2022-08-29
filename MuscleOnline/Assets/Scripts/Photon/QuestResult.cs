@@ -6,6 +6,7 @@ using System;
 using Photon.Pun;
 using Firebase.Firestore;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 public class QuestResult : MonoBehaviour
 {
@@ -61,23 +62,22 @@ public class QuestResult : MonoBehaviour
         Debug.Log("Exp :" + UserInfo.UserExp);
         Debug.Log("MaxExp :" + UserInfo.UserMaxExp); 
 
-        GameObject.Find("UserLevel").GetComponent<TMP_Text>().text = UserInfo.UserLevel.ToString();
+        GameObject.Find("UserLevel").GetComponent<Text>().text = UserInfo.UserLevel.ToString();
 
-        GameObject.Find("MaxExp").GetComponent<TMP_Text>().text = UserInfo.UserMaxExp.ToString();
-        GameObject.Find("NowExp").GetComponent<TMP_Text>().text = UserInfo.UserExp.ToString();
+        GameObject.Find("Experiencepoint").GetComponent<Text>().text = UserInfo.UserExp.ToString() + "/" + UserInfo.UserMaxExp.ToString();
 
-        GameObject.Find("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
+        GameObject.Find("Player1Name").GetComponent<Text>().text = UserInfo.UserName;
 
         GameObject Canvas = GameObject.Find("Canvas");
 
         //自分のカウント
-        GameObject MyCount = Canvas.transform.Find("MyCount").gameObject;
+        GameObject MyCount = Canvas.transform.Find("Player1Reps").gameObject;
         int TotalCount = Convert.ToInt32(OperateCostomProperty.GetUserCustomProperty("TotalCount"));
-        MyCount.GetComponent<TMP_Text>().text = TotalCount.ToString();
+        MyCount.GetComponent<Text>().text = TotalCount.ToString();
 
         //自分のトータルダメージ
-        GameObject MyTotalDamage = GameObject.Find("MyTotalDamage").gameObject;
-        MyTotalDamage.GetComponent<TMP_Text>().text = (TotalCount * BossBattleScript.damage).ToString();
+        GameObject MyTotalDamage = GameObject.Find("Player1Damage").gameObject;
+        MyTotalDamage.GetComponent<Text>().text = (TotalCount * BossBattleScript.damage).ToString();
 
 
         int LocalUserNo = Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]);
@@ -92,23 +92,24 @@ public class QuestResult : MonoBehaviour
             if (LocalUserNo < PlayerNum && LocalUserNo == 1)
                 PlayerNum--;
 
-            
-            
+
+            GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + PlayerNum + 1.ToString()).gameObject;
+            ResultPlayer.SetActive(true);
 
             //各プレイヤーの名前
-            GameObject OtherPlayerName = Canvas.transform.Find("OtherPlayerName-" + PlayerNum.ToString()).gameObject;
+            GameObject OtherPlayerName = Canvas.transform.Find("Player" + PlayerNum+1.ToString() + "Name").gameObject;
             OtherPlayerName.SetActive(true);
-            OtherPlayerName.GetComponent<TMP_Text>().text = player.NickName;
+            OtherPlayerName.GetComponent<Text>().text = player.NickName;
 
             // 各プレイヤーのカウント
-            GameObject PlayerCount = Canvas.transform.Find("PlayerCount-" + PlayerNum.ToString()).gameObject;
+            GameObject PlayerCount = Canvas.transform.Find("Player" + PlayerNum+1.ToString() + "Reps").gameObject;
             PlayerCount.SetActive(true);
-            PlayerCount.GetComponent<TMP_Text>().text = player.CustomProperties["TotalCount"].ToString();
+            PlayerCount.GetComponent<Text>().text = player.CustomProperties["TotalCount"].ToString();
 
             // 各プレイヤーのトータルダメージ
-            GameObject PlayerTotalDamage = Canvas.transform.Find("PlayerTotalDamage-" + PlayerNum.ToString()).gameObject;
+            GameObject PlayerTotalDamage = Canvas.transform.Find("Player" + PlayerNum+1.ToString() + "Damage").gameObject;
             PlayerTotalDamage.SetActive(true);
-            PlayerTotalDamage.GetComponent<TMP_Text>().text = (Convert.ToInt32(player.CustomProperties["TotalCount"]) * Convert.ToInt32(player.CustomProperties["AttackDamage"])).ToString();
+            PlayerTotalDamage.GetComponent<Text>().text = (Convert.ToInt32(player.CustomProperties["TotalCount"]) * Convert.ToInt32(player.CustomProperties["AttackDamage"])).ToString();
 
         }
 
