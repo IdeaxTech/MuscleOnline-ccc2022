@@ -33,9 +33,13 @@ public class AddCount : MonoBehaviour
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage") + BossBattleScript.damage);
 
             // TODOアニメーションを流す
+<<<<<<< HEAD
             DoAnimation.StartAnimation();
+=======
+            
+>>>>>>> refs/remotes/origin/master
 
-            // TODO音声を流す
+            // 音声を流す
             if (NowCount % 7 == 0)
             {
                 int RandomInt = UnityEngine.Random.Range(1, 2);

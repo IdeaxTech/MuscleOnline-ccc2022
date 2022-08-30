@@ -86,8 +86,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
                     DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
                     // シーン遷移
-                    PhotonNetwork.LoadLevel("AppearanceScene");
-                    //PhotonNetwork.LoadLevel("BossBattle");
+                    //PhotonNetwork.LoadLevel("AppearanceScene");
+                    PhotonNetwork.LoadLevel("BossBattle");
                 }
 
             }

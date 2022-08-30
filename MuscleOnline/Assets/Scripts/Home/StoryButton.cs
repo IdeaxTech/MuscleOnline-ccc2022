@@ -7,6 +7,8 @@ public class StoryButton : MonoBehaviour
 {
     public void OnClickBossButton()
     {
-        SceneManager.LoadScene("Quest");
+        SceneManager.LoadScene("RPGScene");
+        GameObject TitleBGM = GameObject.Find("TitleBGM").gameObject;
+        Destroy(TitleBGM);
     }
 }
