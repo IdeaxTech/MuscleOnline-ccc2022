@@ -7,7 +7,7 @@ using TMPro;
 
 public class GetRoom : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     async void Start()
     {
         string id = "1rrPh4Kl8N0U3FYEcPKv";
@@ -24,13 +24,37 @@ public class GetRoom : MonoBehaviour
                     count++;
                     GameObject CloneObject = (GameObject)Resources.Load("RoomObject");
                     CloneObject.name = "RoomObject-" + count.ToString();
-                    Instantiate(CloneObject, new Vector3(0.0f, (count + 1) * 2.0f, 0.0f), Quaternion.identity);
+                    GameObject CreateObject;
 
-                    GameObject RoomObject = GameObject.Find("RoomObject-" + count.ToString() + "(Clone)");
+                    if (count == 1)
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, 170.0f, 0.0f), Quaternion.identity);
+                    } else if (count == 2)
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(282.0f, 170.0f, 0.0f), Quaternion.identity);
+                    } else if (count == 3)
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(751.0f, 170.0f, 0.0f), Quaternion.identity);
+                    } else if (count == 4)
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, -128.0f, 0.0f), Quaternion.identity);
+                    } else if (count == 5)
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(282.0f, -128.0f, 0.0f), Quaternion.identity);
+                    } else if (count == 6)
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(751.0f, -128.0f, 0.0f), Quaternion.identity);
+                    }
+                    else
+                    {
+                        CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, -128.0f, 0.0f), Quaternion.identity);
+                    }
 
-                    GameObject RoomName = RoomObject.transform.Find("RoomName").gameObject;
-                    GameObject RoomPlayers = RoomObject.transform.Find("RoomPlayers").gameObject;
-                    GameObject RoomId = RoomObject.transform.Find("RoomId").gameObject;
+                    //GameObject RoomObject = GameObject.Find("RoomObject-" + count.ToString() + "(Clone)");
+
+                    GameObject RoomName = CreateObject.transform.Find("RoomName").gameObject;
+                    GameObject RoomPlayers = CreateObject.transform.Find("RoomPlayers").gameObject;
+                    GameObject RoomId = CreateObject.transform.Find("RoomId").gameObject;
 
                     RoomName.GetComponent<TMP_Text>().text = DictionaryData["room_name"].ToString();
                     RoomPlayers.GetComponent<TMP_Text>().text = DictionaryData["now_player"].ToString() + " / " + DictionaryData["max_player"].ToString();
