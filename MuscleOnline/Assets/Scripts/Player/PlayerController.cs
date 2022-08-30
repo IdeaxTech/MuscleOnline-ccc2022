@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "BossEvent")
         {
 
-            Invoke("ChangeScene", .5f);
+            Invoke("ChangeScene", 0.1f);
         }
     }
     void ChangeScene()
