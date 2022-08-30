@@ -45,6 +45,6 @@ EditorBuildSettings:
     path: Assets/Scenes/RPGScene.unity
     guid: 058a1b6b98056eb4bb1ecea66a332441
   - enabled: 1
-    path: Assets/Scenes/AppearanceScene.unity
+    path: Assets/Scenes/CutScene/AppearanceScene.unity
     guid: 3b18a1809e91eda4f86a1113f9606c0c
   m_configObjects: {}
