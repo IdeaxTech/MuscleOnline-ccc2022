@@ -27,8 +27,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
         Debug.Log("BossBattleScriptが呼ばれました");
-        GameObject TitleBGM = GameObject.Find("TitleBGM").gameObject;
-        Destroy(TitleBGM);
 
         
     }
@@ -55,8 +53,8 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
 
         // バトルの開始
-        //if (PhotonNetwork.IsMasterClient)
-        //    OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+        if (PhotonNetwork.IsMasterClient)
+            OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
     }
 
     public static async void SetQuestInfo()
