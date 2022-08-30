@@ -10,14 +10,7 @@ public class CutSceneController : MonoBehaviour
 
     public void On2ndSceneMove()
     {
-        SceneName = "BossBattle";
+        SceneName = "Quest";
         SceneManager.LoadScene(SceneName);
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
-            BossBattleScript.BossBattle();
-        }
-
     }
 }
