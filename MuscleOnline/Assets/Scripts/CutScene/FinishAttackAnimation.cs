@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class FinishAttackAnimation : MonoBehaviour
 {
-    void FinishAttackAnimationToAnotherScene()
+    public void FinishAttackAnimationToAnotherScene()
     {
         SceneManager.LoadScene("BossBattle");
 
