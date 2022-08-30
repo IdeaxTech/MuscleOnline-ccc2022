@@ -86,7 +86,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
                     DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
                     // シーン遷移
-                    PhotonNetwork.LoadLevel("BossBattle");
+                    PhotonNetwork.LoadLevel("AppearanceScene");
+                    //PhotonNetwork.LoadLevel("BossBattle");
                 }
 
             }
@@ -141,7 +142,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             }
             else
             {
-                TapBtn.SetActive(false);   
+                TapBtn.SetActive(false);
+                PhotonNetwork.LoadLevel("BattleCutScene");
                 //5. カウントが0になったらカウント、攻撃力等を用いてダメージ量を計算
                 BossBattleScript.AllyAttack();
 
@@ -150,10 +152,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
                 if ((bool)OperateCostomProperty.GetRoomCustomProperty("isBattle"))
                 {
-                    //TODOデバッグ用
-                    //RestTimeTimer.time = 0f;
-                    //RestTimeTimer.timeLimit = 10;
-                    //RestTimeObject.SetActive(true);
+
+                    BossBattleScript.SetTrainingOption();
                     ReadyBtn.SetActive(true);
                 }
             }

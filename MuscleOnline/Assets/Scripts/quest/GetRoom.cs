@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using Firebase.Firestore;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class GetRoom : MonoBehaviour
+public class GetRoom : MonoBehaviourPunCallbacks
 {
+    void Start()
+    {
+        DisplayRoom();
+    }
 
-    async void Start()
+    public static async void DisplayRoom()
     {
         string id = "1rrPh4Kl8N0U3FYEcPKv";
         var db = FirebaseFirestore.DefaultInstance;
@@ -29,19 +34,24 @@ public class GetRoom : MonoBehaviour
                     if (count == 1)
                     {
                         CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, 170.0f, 0.0f), Quaternion.identity);
-                    } else if (count == 2)
+                    }
+                    else if (count == 2)
                     {
                         CreateObject = Instantiate(CloneObject, new Vector3(282.0f, 170.0f, 0.0f), Quaternion.identity);
-                    } else if (count == 3)
+                    }
+                    else if (count == 3)
                     {
                         CreateObject = Instantiate(CloneObject, new Vector3(751.0f, 170.0f, 0.0f), Quaternion.identity);
-                    } else if (count == 4)
+                    }
+                    else if (count == 4)
                     {
                         CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, -128.0f, 0.0f), Quaternion.identity);
-                    } else if (count == 5)
+                    }
+                    else if (count == 5)
                     {
                         CreateObject = Instantiate(CloneObject, new Vector3(282.0f, -128.0f, 0.0f), Quaternion.identity);
-                    } else if (count == 6)
+                    }
+                    else if (count == 6)
                     {
                         CreateObject = Instantiate(CloneObject, new Vector3(751.0f, -128.0f, 0.0f), Quaternion.identity);
                     }
@@ -60,14 +70,31 @@ public class GetRoom : MonoBehaviour
                     RoomPlayers.GetComponent<TMP_Text>().text = DictionaryData["now_player"].ToString() + " / " + DictionaryData["max_player"].ToString();
                     RoomId.GetComponent<TMP_Text>().text = document.Id.ToString();
 
-                    Debug.Log((int)Convert.ChangeType(DictionaryData["now_player"], typeof(int)));
-                    Debug.Log((int)Convert.ChangeType(DictionaryData["max_player"], typeof(int)));
+                    //Debug.Log((int)Convert.ChangeType(DictionaryData["now_player"], typeof(int)));
+                    //Debug.Log((int)Convert.ChangeType(DictionaryData["max_player"], typeof(int)));
                     //Debug.Log(DictionaryData["room_name"].ToString());
                     //Debug.Log(document.Id);
                 }
 
             }
         }
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        GameObject[] RoomObjects = GameObject.FindGameObjectsWithTag("RoomObject");
+        foreach (GameObject RoomObject in RoomObjects)
+        {
+            Destroy(RoomObject);
+        }
+
+        Dictionary<string, object> UpdateRoomData = new Dictionary<string, object>
+        {
+            { "is_open", false }
+        };
+        DatabaseOperation.UpdateData("rooms", RoomOperation.RoomId, UpdateRoomData);
+        Debug.Log($"ルームへの参加に失敗しました: {message}");
+        DisplayRoom();
     }
 
 }
