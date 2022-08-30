@@ -28,6 +28,7 @@ TagManager:
   - UserAvatar_2
   - UserAvatar_3
   - RoomObject
+  - BossEvent
   layers:
   - Default
   - TransparentFX
