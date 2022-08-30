@@ -70,9 +70,11 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             QuerySnapshot BossData = await db.Collection("bosses").GetSnapshotAsync();
             foreach (var document in BossData.Documents)
             {
+                Debug.Log("ボスデータベースが見つかりあmした");
                 Dictionary<string, object> DictionaryData = document.ToDictionary();
                 if (document.Id.Equals(id))
                 {
+                    Debug.Log("一致するデータが見つかりました");
                     BossName = DictionaryData["boss_name"].ToString();
                     BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
                     BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
