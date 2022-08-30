@@ -91,7 +91,7 @@ public class RoomOperation : MonoBehaviourPunCallbacks
         string RoomName = "aaa";
         PhotonNetwork.JoinRoom(RoomName);
 
-        //PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
+        // PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
     }
 
     void InitialSetting()
