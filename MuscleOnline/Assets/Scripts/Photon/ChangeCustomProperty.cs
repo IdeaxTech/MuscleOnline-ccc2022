@@ -51,6 +51,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                     {
                         OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
                         Debug.Log("敗北しました");
+                        PhotonNetwork.LoadLevel("QuestResultLose");
                     }
                 }
 
@@ -150,9 +151,10 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 if ((bool)OperateCostomProperty.GetRoomCustomProperty("isBattle"))
                 {
                     //TODOデバッグ用
-                    RestTimeTimer.time = 0f;
-                    RestTimeTimer.timeLimit = 10;
-                    RestTimeObject.SetActive(true);
+                    //RestTimeTimer.time = 0f;
+                    //RestTimeTimer.timeLimit = 10;
+                    //RestTimeObject.SetActive(true);
+                    ReadyBtn.SetActive(true);
                 }
             }
         }
