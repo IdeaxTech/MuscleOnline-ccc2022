@@ -33,15 +33,15 @@ public class GetRoom : MonoBehaviourPunCallbacks
 
                     if (count == 1)
                     {
-                        CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, 170.0f, 0.0f), Quaternion.identity);
+                        CreateObject = Instantiate(CloneObject, new Vector3(-190.0f, 70.0f, 0.0f), Quaternion.identity);
                     }
                     else if (count == 2)
                     {
-                        CreateObject = Instantiate(CloneObject, new Vector3(282.0f, 170.0f, 0.0f), Quaternion.identity);
+                        CreateObject = Instantiate(CloneObject, new Vector3(282.0f, 70.0f, 0.0f), Quaternion.identity);
                     }
                     else if (count == 3)
                     {
-                        CreateObject = Instantiate(CloneObject, new Vector3(751.0f, 170.0f, 0.0f), Quaternion.identity);
+                        CreateObject = Instantiate(CloneObject, new Vector3(751.0f, 70.0f, 0.0f), Quaternion.identity);
                     }
                     else if (count == 4)
                     {

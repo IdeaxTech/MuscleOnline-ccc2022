@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
@@ -26,6 +27,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
+        //GameObject.Find("BossName").GetComponent<Text>().text = BossName;
         Debug.Log("BossBattleScriptが呼ばれました");
 
         
@@ -51,6 +53,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         // 味方HPを合算
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
+        OperateCostomProperty.SetRoomCustomProperty("AllyMaxHP", UserInfo.UserHP);
 
         // バトルの開始
         if (PhotonNetwork.IsMasterClient)
@@ -79,7 +82,13 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
                     BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
                     BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
                     BossDefence = (int)Convert.ChangeType(DictionaryData["boss_defence"], typeof(int));
+
+                    //GameObject.Find("BossName").GetComponent<Text>().text = BossName;
                 }
+                //BossName = DictionaryData["boss_name"].ToString();
+                //BossHP = (int)Convert.ChangeType(DictionaryData["boss_hp"], typeof(int));
+                //BossOffence = (int)Convert.ChangeType(DictionaryData["boss_attack"], typeof(int));
+                //BossDefence = (int)Convert.ChangeType(DictionaryData["boss_defence"], typeof(int));
 
             }
 
@@ -111,6 +120,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
             OperateCostomProperty.SetRoomCustomProperty("BossName", BossName);
             OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
+            OperateCostomProperty.SetRoomCustomProperty("BossMaxHP", BossHP);
             OperateCostomProperty.SetRoomCustomProperty("BossAttack", BossOffence);
             OperateCostomProperty.SetRoomCustomProperty("BossDefence", BossDefence);
             OperateCostomProperty.SetRoomCustomProperty("QuestDiff", QuestDiff);
@@ -119,19 +129,9 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             //int difficulity = (int)OperateCostomProperty.GetRoomCustomProperty("QuestDiff");
             OperateCostomProperty.SetRoomCustomProperty("TrainingTime", 5);
             OperateCostomProperty.SetRoomCustomProperty("RestTime", 0);
+
         }
         Debug.Log("Finish SetQuestInfo");
-    }
-
-    // TODO アニメーションの制御 => 江崎くんへ
-    public static void StartAnimation()
-    {
-
-    }
-
-    public static void StopAnimation()
-    {
-
     }
     
     public async static void SetTrainingOption()
