@@ -15,8 +15,9 @@ public class DoAnimation : MonoBehaviour
 
     public static void StartAnimation()
     {
+        Debug.Log("addCount");
         animator.SetTrigger("isActive");
-        animator.ResetTrigger("isActive");
+
     }
 
 }
