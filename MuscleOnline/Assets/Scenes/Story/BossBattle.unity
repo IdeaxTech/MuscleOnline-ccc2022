@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28502658, g: 0.37139314, b: 0.49600917, a: 1}
+  m_IndirectSpecularColor: {r: 0.2850265, g: 0.3713928, b: 0.49600852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &29438500
 RectTransform:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &40779678
 RectTransform:
   m_ObjectHideFlags: 0
@@ -837,7 +837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
       propertyPath: m_Name
-      value: Heine_M (1)
+      value: UserAvatar-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
       propertyPath: m_Controller
@@ -898,7 +902,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
       propertyPath: m_Name
-      value: Heine_M (2)
+      value: UserAvatar-3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
       propertyPath: m_Controller
@@ -923,7 +931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &566464747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1057,7 +1065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &578798443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1227,7 +1235,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
       propertyPath: m_Name
-      value: Heine_M (3)
+      value: UserAvatar-4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
       propertyPath: m_Controller
@@ -1511,7 +1523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &847630041
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1835,7 +1847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1232574767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2354,6 +2366,23 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: bee6168283a8d79448b567130c350341, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
+--- !u!1 &1387545241 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 24c0c8fb1c9a93246bcf1919e766841f, type: 3}
+  m_PrefabInstance: {fileID: 1387545240}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1387545242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387545241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1732ccb156a014b53ac73ff2235d60f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1428036868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,6 +2593,7 @@ MonoBehaviour:
   TimerObject: {fileID: 8039976688224219826}
   CountDownObject: {fileID: 8039976687435114077}
   RestTimeObject: {fileID: 8039976687709547507}
+  TapBtn: {fileID: 847630040}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2874,7 +2904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1932738919
 RectTransform:
   m_ObjectHideFlags: 0

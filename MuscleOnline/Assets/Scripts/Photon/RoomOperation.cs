@@ -31,7 +31,8 @@ public class RoomOperation : MonoBehaviourPunCallbacks
         }
 
         InitialSetting();
-        RoomId = RandomPassword.Generate(16);
+        //RoomId = RandomPassword.Generate(16);
+        RoomId = RoomName;
         PhotonNetwork.JoinOrCreateRoom(RoomId, new RoomOptions { MaxPlayers = MaxPlayerPerRoom }, TypedLobby.Default);
 
         
@@ -80,15 +81,17 @@ public class RoomOperation : MonoBehaviourPunCallbacks
     //- 部屋へ参加ボタンを押したら、ボス戦協力待機画面(部屋選択)に遷移
     public void JoinBossBattleRoom(BaseEventData data)
     {
-        GameObject PointerObject = (data as PointerEventData).pointerClick;
+        //GameObject PointerObject = (data as PointerEventData).pointerClick;
 
-        GameObject RoomId =  PointerObject.transform.Find("RoomId").gameObject;
+        //GameObject RoomId =  PointerObject.transform.Find("RoomId").gameObject;
         //モーダル内の要素をクリックしたら次の画面に遷移
         //ルームに入る
         InitialSetting();
 
-        //string RoomName = "aaa";
-        PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
+        string RoomName = "aaa";
+        PhotonNetwork.JoinRoom(RoomName);
+
+        // PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
     }
 
     void InitialSetting()

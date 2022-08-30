@@ -22,6 +22,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     [SerializeField] GameObject TimerObject;
     [SerializeField] GameObject CountDownObject;
     [SerializeField] GameObject RestTimeObject;
+
+    [SerializeField] GameObject TapBtn;
     GameObject tmpobject;
 
 
@@ -134,9 +136,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 TrainingTimer.time = 0f;
                 TrainingTimer.timeLimit = 10;
                 TimerObject.SetActive(true);
+                TapBtn.SetActive(true);
             }
             else
             {
+                TapBtn.SetActive(false);   
                 //5. カウントが0になったらカウント、攻撃力等を用いてダメージ量を計算
                 BossBattleScript.AllyAttack();
 
@@ -174,11 +178,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                     player_num--;
                 }
 
-                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = targetPlayer.NickName + " : " + propertiesThatChanged["Count"];
+                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
             }
             else
             {
-                GameObject.FindWithTag("MyCount").GetComponent<TMP_Text>().text = "MyCount : " + propertiesThatChanged["Count"];
+                GameObject.FindWithTag("MyCount").GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
             }
 
         }
