@@ -33,11 +33,7 @@ public class AddCount : MonoBehaviour
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage") + BossBattleScript.damage);
 
             // TODOアニメーションを流す
-<<<<<<< HEAD
             DoAnimation.StartAnimation();
-=======
-            
->>>>>>> refs/remotes/origin/master
 
             // 音声を流す
             if (NowCount % 7 == 0)
