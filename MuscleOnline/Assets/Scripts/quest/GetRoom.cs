@@ -13,7 +13,7 @@ public class GetRoom : MonoBehaviourPunCallbacks
         DisplayRoom();
     }
 
-    async void DisplayRoom()
+    public static async void DisplayRoom()
     {
         string id = "1rrPh4Kl8N0U3FYEcPKv";
         var db = FirebaseFirestore.DefaultInstance;
