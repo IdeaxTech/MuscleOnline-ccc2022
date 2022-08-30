@@ -82,8 +82,9 @@ public class RoomOperation : MonoBehaviourPunCallbacks
     {
         GameObject PointerObject = (data as PointerEventData).pointerClick;
 
-        GameObject RoomId = PointerObject.transform.Find("RoomId").gameObject;
-        Debug.Log(RoomId.GetComponent<TMP_Text>().text);
+        GameObject RoomIdObject = PointerObject.transform.Find("RoomId").gameObject;
+        RoomId = RoomIdObject.GetComponent<TMP_Text>().text;
+        Debug.Log(RoomId);
         //モーダル内の要素をクリックしたら次の画面に遷移
         //ルームに入る
         InitialSetting();
@@ -91,7 +92,7 @@ public class RoomOperation : MonoBehaviourPunCallbacks
         //string RoomName = "aaa";
         //PhotonNetwork.JoinRoom(RoomName);
 
-         PhotonNetwork.JoinRoom(RoomId.GetComponent<TMP_Text>().text);
+         PhotonNetwork.JoinRoom(RoomId);
     }
 
     void InitialSetting()
