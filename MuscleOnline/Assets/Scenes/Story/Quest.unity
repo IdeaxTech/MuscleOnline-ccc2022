@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 342312785}
   - component: {fileID: 342312784}
   - component: {fileID: 342312783}
+  - component: {fileID: 342312786}
   m_Layer: 5
   m_Name: ModalCloseButoon
   m_TagString: Untagged
@@ -418,6 +419,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 342312786}
+        m_TargetAssemblyTypeName: RoomDisplayOperation, Assembly-CSharp
+        m_MethodName: CloseCreateRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &342312784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,6 +469,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342312781}
   m_CullTransparentMesh: 1
+--- !u!114 &342312786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342312781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34118b2701e6412dbf2724ffbd127d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GetRoomObject: {fileID: 0}
+  MakeObject: {fileID: 276960944}
+  JoinObject: {fileID: 1923850954}
 --- !u!1 &342930233
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +844,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetRoomObject: {fileID: 2037693146}
+  MakeObject: {fileID: 0}
+  JoinObject: {fileID: 0}
 --- !u!1 &594103234
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +977,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetRoomObject: {fileID: 2037693146}
+  MakeObject: {fileID: 0}
+  JoinObject: {fileID: 0}
 --- !u!1 &630509160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,6 +1455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetRoomObject: {fileID: 2037693146}
+  MakeObject: {fileID: 0}
+  JoinObject: {fileID: 0}
 --- !u!1 &952052937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,6 +2464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetRoomObject: {fileID: 2037693146}
+  MakeObject: {fileID: 0}
+  JoinObject: {fileID: 0}
 --- !u!1 &1415664452
 GameObject:
   m_ObjectHideFlags: 0

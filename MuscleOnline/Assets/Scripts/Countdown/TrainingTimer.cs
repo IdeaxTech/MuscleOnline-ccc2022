@@ -28,7 +28,7 @@ public class TrainingTimer : MonoBehaviour
             timerText.text = "0";
 
             //トレーニングタイマーの場合
-            OperateCostomProperty.SetRoomCustomProperty("isTraining", false);
+            //OperateCostomProperty.SetRoomCustomProperty("isTraining", false);
             TimerObject.SetActive(false);
 
         }

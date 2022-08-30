@@ -82,8 +82,12 @@ public class GetRoom : MonoBehaviourPunCallbacks
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Destroy(GameObject.FindWithTag("RoomObject"));
-        
+        GameObject[] RoomObjects = GameObject.FindGameObjectsWithTag("RoomObject");
+        foreach (GameObject RoomObject in RoomObjects)
+        {
+            Destroy(RoomObject);
+        }
+
         Dictionary<string, object> UpdateRoomData = new Dictionary<string, object>
         {
             { "is_open", false }
