@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1068346121450-1hr4hsd4adlog30fnnhsaet2mfivtnf4.apps.googleusercontent.com</string>
+	<string>968766722870-kt86r40rmsfv6rvqqagtc6m01q0i97u3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1068346121450-1hr4hsd4adlog30fnnhsaet2mfivtnf4</string>
+	<string>com.googleusercontent.apps.968766722870-kt86r40rmsfv6rvqqagtc6m01q0i97u3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAUf_yOJwp3sfmADtvUXYuG9TkZlbdYP30</string>
+	<string>AIzaSyC3YZoFv664PHbBzLKITerVLfiqfCOOy0Y</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1068346121450</string>
+	<string>968766722870</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.DefaultCompany.MuscleOnline</string>
+	<string>com.IdeaTech.MuscleOnline</string>
 	<key>PROJECT_ID</key>
-	<string>muscleonline-6b51a</string>
+	<string>muscleonline-ios-android</string>
 	<key>STORAGE_BUCKET</key>
-	<string>muscleonline-6b51a.appspot.com</string>
+	<string>muscleonline-ios-android.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1068346121450:ios:4d8351dcf6632024270b93</string>
+	<string>1:968766722870:ios:1c92201c83fd9b10fa9997</string>
 </dict>
 </plist>
