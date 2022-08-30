@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "1068346121450",
-    "project_id": "muscleonline-6b51a",
-    "storage_bucket": "muscleonline-6b51a.appspot.com"
+    "project_number": "968766722870",
+    "project_id": "muscleonline-ios-android",
+    "storage_bucket": "muscleonline-ios-android.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1068346121450:android:6da943f1cf601e05270b93",
+        "mobilesdk_app_id": "1:968766722870:android:fab135f4eac27aa3fa9997",
         "android_client_info": {
-          "package_name": "com.DefaultCompany.MuscleOnline"
+          "package_name": "com.IdeaTech.MuscleOnline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1068346121450-a97vncnvg6nbl64973iqcs6cd5hq04ci.apps.googleusercontent.com",
+          "client_id": "968766722870-79vue5nrnc8afn18msqfikj9urgrt61j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyALYvLEg5nUbDb12ovXfqdYhqh9Rj8sF0Y"
+          "current_key": "AIzaSyDVzVxLMjU1lplAQuWTskJm03zcANB7ZY4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1068346121450-a97vncnvg6nbl64973iqcs6cd5hq04ci.apps.googleusercontent.com",
+              "client_id": "968766722870-79vue5nrnc8afn18msqfikj9urgrt61j.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1068346121450-1hr4hsd4adlog30fnnhsaet2mfivtnf4.apps.googleusercontent.com",
+              "client_id": "968766722870-kt86r40rmsfv6rvqqagtc6m01q0i97u3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.DefaultCompany.MuscleOnline"
+                "bundle_id": "com.IdeaTech.MuscleOnline"
               }
             }
           ]

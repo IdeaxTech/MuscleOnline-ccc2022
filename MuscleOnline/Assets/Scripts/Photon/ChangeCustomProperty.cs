@@ -29,7 +29,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        Debug.Log(propertiesThatChanged);
+        //Debug.Log(propertiesThatChanged);
 
         if (propertiesThatChanged.TryGetValue("BossHP", out value))
         {
@@ -173,7 +173,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        Debug.Log(propertiesThatChanged);
+        //Debug.Log(propertiesThatChanged);
         if (propertiesThatChanged.TryGetValue("Count", out value))
         {
             if (!targetPlayer.IsLocal)
