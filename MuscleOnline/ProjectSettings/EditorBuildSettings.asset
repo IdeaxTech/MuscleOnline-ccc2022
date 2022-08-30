@@ -38,8 +38,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Story/BossBattle.unity
     guid: 51c9c6e925e584382a24bc379231878c
-  - enabled: 1
-    path: Assets/Scenes/Story/QuestResultWin.unity
+  - enabled: 0
+    path: Assets/Scenes/Story/QuestResult.unity
     guid: 0d1a4b60e1337412aa0db1a2d6509c37
   - enabled: 1
     path: Assets/Scenes/RPGScene.unity
@@ -47,4 +47,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CutScene/AppearanceScene.unity
     guid: 3b18a1809e91eda4f86a1113f9606c0c
+  - enabled: 1
+    path: Assets/Scenes/CutScene/BattleCutScene.unity
+    guid: d7547388adde7f340a7b944c1e3ee188
+  - enabled: 1
+    path: Assets/Scenes/Story/QuestResultWin.unity
+    guid: d553603494037483e84bdb5d0c72fa83
+  - enabled: 1
+    path: Assets/Scenes/Story/QuestResultLose.unity
+    guid: 9d3178ef207144de7a061d1ed6958ad0
   m_configObjects: {}

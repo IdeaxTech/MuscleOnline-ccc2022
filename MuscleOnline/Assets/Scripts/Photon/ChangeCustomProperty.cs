@@ -143,7 +143,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             else
             {
                 TapBtn.SetActive(false);
-                PhotonNetwork.LoadLevel("BattleCutScene");
                 //5. カウントが0になったらカウント、攻撃力等を用いてダメージ量を計算
                 BossBattleScript.AllyAttack();
 

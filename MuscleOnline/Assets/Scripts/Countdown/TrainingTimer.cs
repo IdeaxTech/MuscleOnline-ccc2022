@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,7 @@ public class TrainingTimer : MonoBehaviour
             //トレーニングタイマーの場合
             //OperateCostomProperty.SetRoomCustomProperty("isTraining", false);
             TimerObject.SetActive(false);
-
+            PhotonNetwork.LoadLevel("BattleCutScene");
         }
 
 

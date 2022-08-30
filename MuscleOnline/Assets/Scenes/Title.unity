@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7e990372fab4ac0960d86c76a8f18d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClickSound: {fileID: 8300000, guid: e01674f38927a45c4adda887b1aff3bd, type: 3}
+  ClickSound: {fileID: 8300000, guid: bb43171db9cb649f6b9aa6d2eda66178, type: 3}
   Source: {fileID: 1160273898}
 --- !u!114 &897565248
 MonoBehaviour:
