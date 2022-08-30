@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,41 +8,43 @@ public class HPbarScript : MonoBehaviour
 {
     [SerializeField] Image BossHpImage;
     [SerializeField] Image AllyHpImage;
-    int BossHP;
-    int BossMaxHP;
-    int BossHpDivision;
+    float BossHP;
+    float BossMaxHP;
+    float BossHpDivision;
 
-    int TotalHP;
-    int TotalMaxHP;
-    int AllyHpDivision;
+    float TotalHP;
+    float TotalMaxHP;
+    float AllyHpDivision;
     // Start is called before the first frame update
     void Start()
     {
-        BossHpImage = GetComponent<Image>();
-        AllyHpImage = GetComponent<Image>();
+        //BossHpImage = GetComponent<Image>();
+        //AllyHpImage = GetComponent<Image>();
     }
 
     private void Update()
     {
-        BossHP=(int)OperateCostomProperty.GetRoomCustomProperty("BossHP");
-        BossMaxHP=(int)OperateCostomProperty.GetRoomCustomProperty("BossMaxHP");
+        BossHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("BossHP"), typeof(float));
+        BossMaxHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("BossMaxHP"), typeof(float));
         BossHpDivision = BossHP / BossMaxHP;
         UpdateBossHp(BossHpDivision);
+        Debug.Log("BossHPDivision" + BossHpDivision);
 
-        TotalHP=(int)OperateCostomProperty.GetRoomCustomProperty("TotalHP");
-        TotalMaxHP=(int)OperateCostomProperty.GetRoomCustomProperty("AllyMaxHP");
+        TotalHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("TotalHP"), typeof(float));
+        TotalMaxHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("AllyMaxHP"), typeof(float));
         AllyHpDivision = TotalHP / TotalMaxHP;
         UpdateAllyHp(AllyHpDivision);
+        Debug.Log("AllyHPDivision" + AllyHpDivision);
     }
 
     //fillAmountの値を変更する関数
-    public void UpdateBossHp(int BossHp)
+    public void UpdateBossHp(float BossHp)
     {
         BossHpImage.fillAmount = BossHp;
     }
 
     //fillAmountの値を変更する関数
-    public void UpdateAllyHp(int Allyhp)
+    public void UpdateAllyHp(float Allyhp)
     {
         AllyHpImage.fillAmount = Allyhp;
     }
