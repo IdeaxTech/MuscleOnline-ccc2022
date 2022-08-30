@@ -33,7 +33,7 @@ public class AddCount : MonoBehaviour
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage") + BossBattleScript.damage);
 
             // TODOアニメーションを流す
-            //DoAnimation.StartAnimation();
+            DoAnimation.StartAnimation();
 
             // TODO音声を流す
             if (NowCount % 7 == 0)
@@ -65,6 +65,7 @@ public class AddCount : MonoBehaviour
                 Source.PlayOneShot(Count_90);
             else if (NowCount == 100)
                 Source.PlayOneShot(Count_100);
+            TrainingAnimator.ResetTrigger("isActive");
         }
     }
 }
