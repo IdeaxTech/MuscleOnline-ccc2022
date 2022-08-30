@@ -14,6 +14,10 @@ public class CutSceneController : MonoBehaviour
         SceneManager.LoadScene(SceneName);
 
         if (PhotonNetwork.IsMasterClient)
+        {
             OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+            BossBattleScript.BossBattle();
+        }
+
     }
 }

@@ -13,7 +13,8 @@ public class QuestResult : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-
+        GameObject TitleBGM = GameObject.Find("BattleBGM").gameObject;
+        Destroy(TitleBGM);
 
         //レベル
         //経験値
