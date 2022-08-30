@@ -47,12 +47,12 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 if (propertiesThatChanged.TryGetValue("isBattle", out value))
                 {
                     //HPが0になったら敗北
-                    if ((int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") <= 0)
-                    {
-                        OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
-                        Debug.Log("敗北しました");
-                        PhotonNetwork.LoadLevel("QuestResultLose");
-                    }
+                    //if ((int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") <= 0)
+                    //{
+                    //    OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
+                    //    Debug.Log("敗北しました");
+                    //    PhotonNetwork.LoadLevel("QuestResultLose");
+                    //}
                 }
 
             }
@@ -87,6 +87,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                     DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
                     // シーン遷移
                     //PhotonNetwork.LoadLevel("AppearanceScene");
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+                        BossBattleScript.BossBattle();
+                    }
                     PhotonNetwork.LoadLevel("BossBattle");
                 }
 

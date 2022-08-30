@@ -45,25 +45,25 @@ public class AddCount : MonoBehaviour
                     Source.PlayOneShot(Support_2);
             }
 
-            if (NowCount == 10)
+            if (NowCount == 9)
                 Source.PlayOneShot(Count_10);
-            else if (NowCount == 20)
+            else if (NowCount == 19)
                 Source.PlayOneShot(Count_20);
-            else if (NowCount == 30)
+            else if (NowCount == 29)
                 Source.PlayOneShot(Count_30);
-            else if (NowCount == 40)
+            else if (NowCount == 39)
                 Source.PlayOneShot(Count_40);
-            else if (NowCount == 50)
+            else if (NowCount == 49)
                 Source.PlayOneShot(Count_50);
-            else if (NowCount == 60)
+            else if (NowCount == 59)
                 Source.PlayOneShot(Count_60);
-            else if (NowCount == 70)
+            else if (NowCount == 69)
                 Source.PlayOneShot(Count_70);
-            else if (NowCount == 80)
+            else if (NowCount == 79)
                 Source.PlayOneShot(Count_80);
-            else if (NowCount == 90)
+            else if (NowCount == 89)
                 Source.PlayOneShot(Count_90);
-            else if (NowCount == 100)
+            else if (NowCount == 99)
                 Source.PlayOneShot(Count_100);
         }
     }

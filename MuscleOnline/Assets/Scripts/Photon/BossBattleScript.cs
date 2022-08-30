@@ -188,18 +188,23 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         }
         Debug.Log("Finish AllyAttack");
 
-        // TODOアニメーションを流す
     }
 
     // ボスの攻撃、味方のHPを減らす
     public static void BossAttack()
     {
-        // TODOアニメーションを流す
 
         //カスタムプロパティを変更
         if (PhotonNetwork.IsMasterClient)
         {
-            OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") - BossOffence);
+            int AllyHP = (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") - BossOffence;
+            OperateCostomProperty.SetRoomCustomProperty("TotalHP", AllyHP);
+            if (AllyHP <= 0)
+            {
+                OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
+                Debug.Log("敗北しました");
+                PhotonNetwork.LoadLevel("QuestResultLose");
+            }
         }
 
             Debug.Log("Finish BossAttack");
