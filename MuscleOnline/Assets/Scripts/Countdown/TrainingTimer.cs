@@ -30,6 +30,7 @@ public class TrainingTimer : MonoBehaviour
             //トレーニングタイマーの場合
             OperateCostomProperty.SetRoomCustomProperty("isTraining", false);
             TimerObject.SetActive(false);
+
         }
 
 

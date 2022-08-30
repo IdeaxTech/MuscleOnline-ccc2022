@@ -9,7 +9,7 @@ public class TrainingCountDown : MonoBehaviour
     public static float timeLimit;
     public static float time;
 
-    [SerializeField] Clock clock;
+    //[SerializeField] Clock clock;
     public Text timerText;
     float totaltime;
 
@@ -34,6 +34,6 @@ public class TrainingCountDown : MonoBehaviour
         }
 
 
-        clock.UpdateClock(timer);
+        //clock.UpdateClock(timer);
     }
 }

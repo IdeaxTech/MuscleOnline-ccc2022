@@ -7,7 +7,7 @@ public class RandomPassword : MonoBehaviour
     private const string ASCII_NUMBER = "0123456789";                       //数字
     private const string ASCII_UPPER_ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  //英字大文字
     private const string ASCII_LOWER_ALPHA = "abcdefghijklmnopqrstuvwxyz";  //英字小文字
-    private const string ASCII_MARK = "!\"#$%&'()*+-/<=>?@;[]^";            //記号
+    private const string ASCII_MARK = "!\"#$%&'()*+-<=>?@;[]^";            //記号
 
     private static readonly System.Random rng = new System.Random(); //ランダムクラス
 

@@ -24,6 +24,10 @@ TagManager:
   - TotalHP
   - BossHP
   - isTrainingReadyBtn
+  - UserAvatar_1
+  - UserAvatar_2
+  - UserAvatar_3
+  - BossEvent
   layers:
   - Default
   - TransparentFX

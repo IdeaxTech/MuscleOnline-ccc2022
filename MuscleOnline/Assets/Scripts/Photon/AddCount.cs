@@ -18,6 +18,9 @@ public class AddCount : MonoBehaviour
     [SerializeField] AudioClip Support_2;
 
     [SerializeField] AudioSource Source;
+
+    Animator TrainingAnimator;
+
     int NowCount;
     public void IncCount()
     {
@@ -30,6 +33,7 @@ public class AddCount : MonoBehaviour
             OperateCostomProperty.SetRoomCustomProperty("AllyAttackDamage", (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage") + BossBattleScript.damage);
 
             // TODOアニメーションを流す
+            DoAnimation.StartAnimation();
 
             // TODO音声を流す
             if (NowCount % 7 == 0)

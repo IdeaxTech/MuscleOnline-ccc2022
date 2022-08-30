@@ -1,12 +1,11 @@
 using Photon.Pun;
 using UnityEngine;
-using System.Threading.Tasks;
 using TMPro;
 using Firebase.Firestore;
 using System.Collections.Generic;
-using System.Collections;
 using System;
 using UnityEngine.SceneManagement;
+using Photon.Realtime;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
@@ -27,6 +26,8 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
         Debug.Log("BossBattleScriptが呼ばれました");
+        GameObject TitleBGM = GameObject.Find("TitleBGM").gameObject;
+        Destroy(TitleBGM);
     }
 
     public static void BossBattle()
@@ -46,10 +47,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         // クエスト情報、ボス情報、筋トレ時間、休憩時間を設定
         SetQuestInfo();
-
-        //TODOデバッグ用
-        UserInfo.UserHP = 100;
-        UserInfo.UserAttack = 10;
 
         // 味方HPを合算
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
@@ -90,11 +87,22 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
             foreach (var document in QuestData.Documents)
             {
                 Dictionary<string, object> DictionaryData = document.ToDictionary();
-                if (DictionaryData["boss_id"].ToString() == id)
+                foreach (KeyValuePair<string, object> i in DictionaryData)
                 {
-                    QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
-                    QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                    if(i.Key.Equals("boss_id") && i.Value.Equals(id))
+                    {
+                        QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                        QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                        break;
+                    }
+                    Debug.Log("Key is " + i.Key);
+                    Debug.Log(i.Value);
                 }
+                //if (DictionaryData["boss_id"].ToString().Equals(id))
+                //{
+                //    QuestDiff = (int)Convert.ChangeType(DictionaryData["quest_difficult"], typeof(int));
+                //    QuestReward = (Dictionary<string, object>)Convert.ChangeType(DictionaryData["quest_reward"], typeof(Dictionary<string, object>));
+                //}
             }
 
             //ボスへのダメージを計算
@@ -169,7 +177,16 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         Debug.Log("与えるダメージは" + OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage").ToString());
         if (PhotonNetwork.IsMasterClient)
         {
-            OperateCostomProperty.SetRoomCustomProperty("BossHP", (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage"));                
+            int BossHP = (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage");
+            OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
+
+            if (BossHP <= 0)
+            {
+                OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
+                Debug.Log("勝利しました");
+                DefeatBoss();
+                FinishBossBattle();
+            }
         }
         Debug.Log("Finish AllyAttack");
 
@@ -205,12 +222,11 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
 
         //ルームから離脱
-        //PhotonNetwork.LoadLevel("QuestResult");
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("QuestResultWin");
+        //PhotonNetwork.Disconnect();
         Debug.Log("Finish FinishBossBattle");
-        SceneManager.LoadScene("QuestResult");
+        //SceneManager.LoadScene("QuestResult");
 
     }
-
 
 }

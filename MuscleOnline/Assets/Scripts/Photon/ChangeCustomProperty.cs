@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using ExitGames.Client.Photon;
+using Firebase.Firestore;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 {
@@ -19,28 +22,19 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     [SerializeField] GameObject TimerObject;
     [SerializeField] GameObject CountDownObject;
     [SerializeField] GameObject RestTimeObject;
+
+    [SerializeField] GameObject TapBtn;
     GameObject tmpobject;
 
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        Debug.Log(propertiesThatChanged);
+        //Debug.Log(propertiesThatChanged);
 
         if (propertiesThatChanged.TryGetValue("BossHP", out value))
         {
             GameObject.FindWithTag("BossHP").GetComponent<TMP_Text>().text = propertiesThatChanged["BossHP"].ToString();
             Debug.Log("BossHP: " + propertiesThatChanged["BossHP"]);
-
-            //ボスが倒れたらゲームを終了
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if ((int)OperateCostomProperty.GetRoomCustomProperty("BossHP") <= 0)
-                {
-                    OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
-                    Debug.Log("勝利しました");
-                }
-            }
-
         }
 
         if (propertiesThatChanged.TryGetValue("TotalHP", out value))
@@ -57,6 +51,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                     {
                         OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
                         Debug.Log("敗北しました");
+                        PhotonNetwork.LoadLevel("QuestResultLose");
                     }
                 }
 
@@ -67,6 +62,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         if (propertiesThatChanged.TryGetValue("BossDefence", out value))
         {
             BossBattleScript.damage = UserInfo.UserAttack - (int)propertiesThatChanged["BossDefence"];
+            OperateCostomProperty.SetUserCustomProperty("AttackDamage", BossBattleScript.damage);
         }
 
 
@@ -76,8 +72,23 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             if ((int)propertiesThatChanged["NumOfReadyPlayers"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 if (PhotonNetwork.IsMasterClient)
+                {
+                    Dictionary<string, object> RoomData = new Dictionary<string, object>
+                    {
+                        { "is_open", false },
+                        { "start_time", Timestamp.GetCurrentTimestamp()}
+                    };
+
+                    if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+                    {
+                        
+                    }
+
+                    DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
                     // シーン遷移
                     PhotonNetwork.LoadLevel("BossBattle");
+                }
+
             }
         }
 
@@ -86,7 +97,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["isTrainingReady"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<TMP_Text>().text = "Ready";
+                GameObject.FindWithTag("isTrainingReadyBtn").GetComponentInChildren<Text>().text = "Ready";
                 ReadyBtn.SetActive(false);
 
                 //トレーニング前カウントダウン
@@ -112,8 +123,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             }
             else
             {
-                BossBattleScript.DefeatBoss();
-                BossBattleScript.FinishBossBattle();
+
             }
 
         }
@@ -127,21 +137,25 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 TrainingTimer.time = 0f;
                 TrainingTimer.timeLimit = 10;
                 TimerObject.SetActive(true);
+                TapBtn.SetActive(true);
             }
             else
             {
+                TapBtn.SetActive(false);   
                 //5. カウントが0になったらカウント、攻撃力等を用いてダメージ量を計算
                 BossBattleScript.AllyAttack();
 
                 //ボスのターン
                 BossBattleScript.BossAttack();
 
-                //TODOデバッグ用
-                RestTimeTimer.time = 0f;
-                RestTimeTimer.timeLimit = 10;
-                RestTimeObject.SetActive(true);
-
-
+                if ((bool)OperateCostomProperty.GetRoomCustomProperty("isBattle"))
+                {
+                    //TODOデバッグ用
+                    //RestTimeTimer.time = 0f;
+                    //RestTimeTimer.timeLimit = 10;
+                    //RestTimeObject.SetActive(true);
+                    ReadyBtn.SetActive(true);
+                }
             }
         }
 
@@ -155,10 +169,9 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
-        Debug.Log(propertiesThatChanged);
+        //Debug.Log(propertiesThatChanged);
         if (propertiesThatChanged.TryGetValue("Count", out value))
         {
-            Debug.Log($"{targetPlayer.NickName}のカウントが{propertiesThatChanged["count"]}になりました。");
             if (!targetPlayer.IsLocal)
             {
                 int player_num = Convert.ToInt32(targetPlayer.CustomProperties["PlayerNo"]);
@@ -167,11 +180,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                     player_num--;
                 }
 
-                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = targetPlayer.NickName + " : " + propertiesThatChanged["Count"];
+                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
             }
             else
             {
-                GameObject.FindWithTag("MyCount").GetComponent<TMP_Text>().text = "MyCount : " + propertiesThatChanged["Count"];
+                GameObject.FindWithTag("MyCount").GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
             }
 
         }
@@ -181,8 +194,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             if (!targetPlayer.IsLocal)
             {
                 //そのユーザーのラベルを変更する
-                Debug.Log("TargetPlayer is " + targetPlayer.CustomProperties["PlayerNo"]);
-                Debug.Log("localnumber" + PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"].ToString());
                 int player_num = Convert.ToInt32(targetPlayer.CustomProperties["PlayerNo"]);
                 if (player_num > Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]))
                 {
@@ -206,23 +217,15 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
 
                 if (is_ready)
-                {
-                    //GameObject.FindWithTag("BossBattleReadyBtn" + player_num).GetComponentInChildren<TMP_Text>().text = "Ready";
                     tmpobject.SetActive(true);
 
-                }
                 else
-                {
-                    //GameObject.FindWithTag("BossBattleReadyBtn" + player_num).GetComponentInChildren<TMP_Text>().text = "Preparation";
                     tmpobject.SetActive(false);
-                }
-
             }
         }
 
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
         {
-            Debug.Log("トレーニング変更情報を受け取りました");
         }
 
         if (propertiesThatChanged.TryGetValue("PlayerNo", out value))
@@ -233,7 +236,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("MyHP", out value))
         {
-            Debug.Log("SetHP");
             Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
             if (!roomhash.TryGetValue("TotalHP", out value))
             {
