@@ -32,7 +32,6 @@ public class RoomOperation : MonoBehaviourPunCallbacks
 
         InitialSetting();
         RoomId = RandomPassword.Generate(16);
-        //RoomId = RoomName;
         PhotonNetwork.JoinOrCreateRoom(RoomId, new RoomOptions { MaxPlayers = MaxPlayerPerRoom }, TypedLobby.Default);
 
         

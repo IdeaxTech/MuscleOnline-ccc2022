@@ -222,7 +222,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
 
         //ルームから離脱
-        PhotonNetwork.LoadLevel("QuestResult");
+        PhotonNetwork.LoadLevel("QuestResultWin");
         //PhotonNetwork.Disconnect();
         Debug.Log("Finish FinishBossBattle");
         //SceneManager.LoadScene("QuestResult");
