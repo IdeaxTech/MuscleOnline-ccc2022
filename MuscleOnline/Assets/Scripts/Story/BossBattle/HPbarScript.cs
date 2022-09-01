@@ -28,13 +28,11 @@ public class HPbarScript : MonoBehaviour
         BossMaxHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("BossMaxHP"), typeof(float));
         BossHpDivision = BossHP / BossMaxHP;
         UpdateBossHp(BossHpDivision);
-        Debug.Log("BossHPDivision" + BossHpDivision);
 
         TotalHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("TotalHP"), typeof(float));
         TotalMaxHP=(float)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("AllyMaxHP"), typeof(float));
         AllyHpDivision = TotalHP / TotalMaxHP;
         UpdateAllyHp(AllyHpDivision);
-        Debug.Log("AllyHPDivision" + AllyHpDivision);
     }
 
     //fillAmountの値を変更する関数

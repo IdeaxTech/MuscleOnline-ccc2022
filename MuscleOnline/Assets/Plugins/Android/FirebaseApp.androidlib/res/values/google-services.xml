@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">755871189181</string>
-  <string name="google_storage_bucket" translatable="false">muscleonline-deploy.appspot.com</string>
-  <string name="project_id" translatable="false">muscleonline-deploy</string>
-  <string name="google_api_key" translatable="false">AIzaSyAreC4H2TYEXP_rrJz2UAUaH2wP_-7EJSg</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAreC4H2TYEXP_rrJz2UAUaH2wP_-7EJSg</string>
-  <string name="google_app_id" translatable="false">1:755871189181:android:676cbe977ded73aaf88fd4</string>
-  <string name="default_web_client_id" translatable="false">755871189181-s49o1arpoo4qkcbie5a6jb677v5iuvet.apps.googleusercontent.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">968766722870</string>
+  <string name="google_storage_bucket" translatable="false">muscleonline-ios-android.appspot.com</string>
+  <string name="project_id" translatable="false">muscleonline-ios-android</string>
+  <string name="google_api_key" translatable="false">AIzaSyDVzVxLMjU1lplAQuWTskJm03zcANB7ZY4</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDVzVxLMjU1lplAQuWTskJm03zcANB7ZY4</string>
+  <string name="google_app_id" translatable="false">1:968766722870:android:fab135f4eac27aa3fa9997</string>
+  <string name="default_web_client_id" translatable="false">968766722870-79vue5nrnc8afn18msqfikj9urgrt61j.apps.googleusercontent.com</string>
 </resources>

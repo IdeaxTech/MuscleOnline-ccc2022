@@ -55,11 +55,11 @@ public class RoomOperation : MonoBehaviourPunCallbacks
     public void CreateSoloBossBattleRoom()
     {
         InitialSetting();
-        string RoomId = RandomPassword.Generate(16);
+        RoomId = RandomPassword.Generate(16);
         PhotonNetwork.JoinOrCreateRoom(RoomId, new RoomOptions { MaxPlayers = 1, IsOpen = false }, TypedLobby.Default);
 
 
-        OperateCostomProperty.SetRoomCustomProperty("RoomId", RoomId);
+        //OperateCostomProperty.SetRoomCustomProperty("RoomId", RoomId);
 
         //データベースへの追加
         Dictionary<string, object> RoomData = new Dictionary<string, object>

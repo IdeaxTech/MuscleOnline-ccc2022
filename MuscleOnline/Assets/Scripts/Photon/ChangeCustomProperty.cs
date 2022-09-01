@@ -108,7 +108,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
                 //トレーニング前カウントダウン
                 TrainingCountDown.time = 0f;
-                TrainingCountDown.timeLimit = 9;
+                TrainingCountDown.timeLimit = 5;
                 CountDownObject.SetActive(true);
 
                 OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
@@ -141,7 +141,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
             {
                 // TODOクエストに合わせたトレーニング時間に変更
                 TrainingTimer.time = 0f;
-                TrainingTimer.timeLimit = 10;
+                TrainingTimer.timeLimit = 15;
                 TimerObject.SetActive(true);
                 TapBtn.SetActive(true);
             }
