@@ -14,8 +14,7 @@ public class BattleOperation : MonoBehaviour
         //    BossBattleScript.BossBattle();
         //}
 
-        GameObject BossWaitBGM = GameObject.Find("BossWaitBGM").gameObject;
-        Destroy(BossWaitBGM);
+
         Destroy(this.gameObject);
 
     }
