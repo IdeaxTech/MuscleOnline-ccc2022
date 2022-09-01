@@ -22,6 +22,8 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
     static string TrainingName;
 
+    [SerializeField] GameObject BattleBGM;
+
     void Start()
     {
         
@@ -29,8 +31,16 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
         //GameObject.Find("BossName").GetComponent<Text>().text = BossName;
         Debug.Log("BossBattleScriptが呼ばれました");
+        GameObject BGMObject = GameObject.Find("BattleBGM");
+        if (!BGMObject)
+        {
+            BattleBGM.SetActive(true);
+        }
 
-        
+        GameObject BossWaitBGM = GameObject.Find("BossWaitBGM");
+        if (!BossWaitBGM)
+            Destroy(BossWaitBGM);
+
     }
 
     public static void BossBattle()
