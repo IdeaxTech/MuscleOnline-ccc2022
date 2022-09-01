@@ -20,10 +20,7 @@ public class QuestResult : MonoBehaviour
         //レベル
         //経験値
         Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
-        Debug.Log(QuestReward);
-        Debug.Log(QuestReward["exp"]);
         int RewardExp = (int)Convert.ChangeType(QuestReward["exp"], typeof(int));
-        Debug.Log(RewardExp);
 
         var db = FirebaseFirestore.DefaultInstance;
         QuerySnapshot ExpData = await db.Collection("required_exp").GetSnapshotAsync();
@@ -60,9 +57,19 @@ public class QuestResult : MonoBehaviour
 
 
         }
-        Debug.Log("Level :" + UserInfo.UserLevel);
-        Debug.Log("Exp :" + UserInfo.UserExp);
-        Debug.Log("MaxExp :" + UserInfo.UserMaxExp); 
+        Dictionary<string, object> SendData = new Dictionary<string, object>()
+        {
+            {"user_level", UserInfo.UserLevel},
+            {"user_exp", UserInfo.UserExp},
+            {"user_maxexp", UserInfo.UserMaxExp},
+            {"user_hp", UserInfo.UserHP},
+            {"user_attack", UserInfo.UserAttack},
+            {"user_defence", UserInfo.UserDefence},
+            {"update_at", Timestamp.GetCurrentTimestamp()}
+        };
+
+        DatabaseOperation.UpdateData("users", UserInfo.UserId, SendData);
+
 
         GameObject.Find("UserLevel").GetComponent<Text>().text = UserInfo.UserLevel.ToString();
 
