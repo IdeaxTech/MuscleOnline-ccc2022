@@ -12,6 +12,7 @@ public class StartButtonScript : MonoBehaviour
     {
         //デバッグ用
         //UserInfo.UserName = "aa";
+        GetUserData.GetUser();
     }
 
     public void OnClickStartButton()
