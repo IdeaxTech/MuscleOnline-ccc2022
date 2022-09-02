@@ -8,10 +8,12 @@ using UnityEngine.UI;
 public class UserRegisterScript : MonoBehaviour
 {
     int initialize_level = 0;
+    int initialize_exp = 0;
+    int initialize_maxexp = 20;
+    int initialize_hp = 50;
+    int initialize_attack = 5;
+    int initialize_defence = 2;
     //- 名前の入力を求める
-
-    //- BGM流す
-    // Unity側で実装
 
 
     //- 完了ボタンを押すとデータベースに登録、ログインをし、ホーム画面に遷移
@@ -57,19 +59,31 @@ public class UserRegisterScript : MonoBehaviour
         {
             {"username", name},
             {"initial_username", name},
-            {"level", initialize_level},
+            {"user_level", initialize_level},
+            {"user_exp", initialize_exp},
+            {"user_maxexp", initialize_maxexp},
+            {"user_hp", initialize_hp},
+            {"user_attack", initialize_attack},
+            {"user_defence", initialize_defence},
             {"create_at", Timestamp.GetCurrentTimestamp()},
             {"update_at", Timestamp.GetCurrentTimestamp()}
         };
 
         DatabaseOperation.AddData("users", id, SendData);
+
         UserInfo.UserName = name;
         UserInfo.UserId = id;
-        UserInfo.UserLevel = initialize_level;
 
-        //TODO初期値どうするか？
-        UserInfo.UserHP = 100;
-        UserInfo.UserAttack = 10;
+        UserInfo.UserLevel = initialize_level;
+        UserInfo.UserExp = initialize_exp;
+        UserInfo.UserMaxExp = initialize_maxexp;
+
+        UserInfo.UserHP = initialize_hp;
+        UserInfo.UserAttack = initialize_attack;
+        UserInfo.UserDefence = initialize_defence;
+
+        PlayerPrefs.SetString("UserID", id);
+        PlayerPrefs.Save();
     }
 
     void ToHome()
