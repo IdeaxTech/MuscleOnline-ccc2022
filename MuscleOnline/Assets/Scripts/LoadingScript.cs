@@ -2,28 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-
-
 public class LoadingScript : MonoBehaviour
 {
-    private const float DURATION = 2.0f;
-    
+    private const float DURATION = 1f;
+
     void Start()
     {
-        //imageの取得
         Image[] circles = GetComponentsInChildren<Image>();
         var size = (int)Mathf.Sqrt(circles.Length);
         for (var i = 0; i < circles.Length; i++)
         {
-            circles[i].rectTransform.anchoredPosition = new Vector2((i - circles.Length / 2) * 10f, 30);
-            Sequence sequence = DOTween.Sequence()
-                .SetLoops(-1, LoopType.Restart)
-                .SetDelay((DURATION / 1) * ((float)i / circles.Length))
-                .Append(circles[i].DOFade(0f, DURATION / 4))
-                .Append(circles[i].DOFade(1f, DURATION / 4))
-                .AppendInterval((DURATION / 2) * ((float)(1 - i) / circles.Length));
-            sequence.Play();
+            var x = i % size - (float)(size - 1) / 2;
+            var y = (int)(i / size) - (float)(size - 1) / 2;
+            circles[i].rectTransform.anchoredPosition += new Vector2(x, y) * 50f;
+            circles[i].DOFade(0f, DURATION / 2).SetLoops(-1, LoopType.Yoyo).SetDelay(Random.Range(0f, DURATION));
         }
     }
-
 }
