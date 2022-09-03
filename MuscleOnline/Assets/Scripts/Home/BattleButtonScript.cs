@@ -18,6 +18,6 @@ public class BattleButtonScript : MonoBehaviour
     }
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("Battleplay");
+        SceneManager.LoadScene("BattleSelect");
     }
 }
