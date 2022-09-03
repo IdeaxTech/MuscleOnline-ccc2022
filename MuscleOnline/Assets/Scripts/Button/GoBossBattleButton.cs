@@ -7,6 +7,6 @@ public class GoBossBattleButton : MonoBehaviour
 {
     public void OnClickGoBossBattleButton()
     {
-        SceneManager.LoadScene("BossBattle");
+        SceneManager.LoadScene("Quest");
     }
 }
