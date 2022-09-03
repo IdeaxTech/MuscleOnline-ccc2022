@@ -6,9 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class BackFieldButton : MonoBehaviour
 {
-    public void OnClickBackFieldButton()
+    public void OnClickBackFieldButtonFromResult()
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Home");
+    }
+    public void OnClickBackFieldButtonFromQuest()
+    {
+        SceneManager.LoadScene("RPGScene");
     }
 }
