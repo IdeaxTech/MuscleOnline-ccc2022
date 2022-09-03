@@ -26,6 +26,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     [SerializeField] GameObject TapBtn;
     GameObject tmpobject;
 
+    Animator TrainingAnimator;
+
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
@@ -33,30 +35,10 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("BossHP", out value))
         {
-            GameObject.FindWithTag("BossHP").GetComponent<TMP_Text>().text = propertiesThatChanged["BossHP"].ToString();
-            Debug.Log("BossHP: " + propertiesThatChanged["BossHP"]);
         }
 
         if (propertiesThatChanged.TryGetValue("TotalHP", out value))
         {
-            GameObject.FindWithTag("TotalHP").GetComponent<TMP_Text>().text = propertiesThatChanged["TotalHP"].ToString();
-            Debug.Log("TotalHP: " + propertiesThatChanged["TotalHP"]);
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (propertiesThatChanged.TryGetValue("isBattle", out value))
-                {
-                    //HPが0になったら敗北
-                    //if ((int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") <= 0)
-                    //{
-                    //    OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
-                    //    Debug.Log("敗北しました");
-                    //    PhotonNetwork.LoadLevel("QuestResultLose");
-                    //}
-                }
-
-            }
-
         }
 
         if (propertiesThatChanged.TryGetValue("BossDefence", out value))
@@ -71,28 +53,20 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["NumOfReadyPlayers"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
+                BossBattleScript.BossBattle();
+
                 if (PhotonNetwork.IsMasterClient)
                 {
+                    PhotonNetwork.LoadLevel("Loading");
                     Dictionary<string, object> RoomData = new Dictionary<string, object>
                     {
                         { "is_open", false },
                         { "start_time", Timestamp.GetCurrentTimestamp()}
                     };
 
-                    if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
-                    {
-                        
-                    }
-
                     DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
                     // シーン遷移
-                    //PhotonNetwork.LoadLevel("AppearanceScene");
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
-                        BossBattleScript.BossBattle();
-                    }
-                    PhotonNetwork.LoadLevel("BossBattle");
+                    
                 }
 
             }
@@ -120,11 +94,14 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((bool)propertiesThatChanged["isBattle"])
             {
+                PhotonNetwork.LoadLevel("BossBattle");
+
+
                 //ユーザーのターン
                 //筋トレの種類を設定
-                BossBattleScript.SetTrainingOption();
+                //BossBattleScript.SetTrainingOption();
                 // 筋トレ内容を表示させ、準備をする
-                ReadyBtn.SetActive(true);
+                //ReadyBtn.SetActive(true);
 
             }
             else
@@ -185,6 +162,9 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 }
 
                 GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
+
+                TrainingAnimator.SetTrigger("isActive" + player_num.ToString());
+                TrainingAnimator.ResetTrigger("isActive" + player_num.ToString());
             }
             else
             {

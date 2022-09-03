@@ -14,7 +14,7 @@ public class QuestResult : MonoBehaviour
     async void Start()
     {
         GameObject BattleBGM = GameObject.Find("BattleBGM");
-        if (!BattleBGM)
+        if (BattleBGM)
             Destroy(BattleBGM);
 
         //レベル

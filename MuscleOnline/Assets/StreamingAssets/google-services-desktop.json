@@ -7,27 +7,37 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:968766722870:ios:1c92201c83fd9b10fa9997",
+        "mobilesdk_app_id": "1:968766722870:android:fab135f4eac27aa3fa9997",
         "android_client_info": {
           "package_name": "com.IdeaTech.MuscleOnline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "968766722870-kt86r40rmsfv6rvqqagtc6m01q0i97u3.apps.googleusercontent.com"
+          "client_id": "968766722870-79vue5nrnc8afn18msqfikj9urgrt61j.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC3YZoFv664PHbBzLKITerVLfiqfCOOy0Y"
+          "current_key": "AIzaSyDVzVxLMjU1lplAQuWTskJm03zcANB7ZY4"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 0
-        },
         "appinvite_service": {
-          "status": 1
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968766722870-79vue5nrnc8afn18msqfikj9urgrt61j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "968766722870-kt86r40rmsfv6rvqqagtc6m01q0i97u3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.IdeaTech.MuscleOnline"
+              }
+            }
+          ]
         }
       }
     }
