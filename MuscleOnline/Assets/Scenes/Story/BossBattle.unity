@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 40779680}
   - component: {fileID: 40779679}
   m_Layer: 5
-  m_Name: UserName2
+  m_Name: OtherPlayerName1
   m_TagString: OtherPlayerName1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2042,7 +2042,7 @@ GameObject:
   - component: {fileID: 1178597064}
   - component: {fileID: 1178597063}
   m_Layer: 5
-  m_Name: UserName3
+  m_Name: OtherPlayerName2
   m_TagString: OtherPlayerName2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2176,7 +2176,7 @@ GameObject:
   - component: {fileID: 1232574769}
   - component: {fileID: 1232574768}
   m_Layer: 5
-  m_Name: UserName4
+  m_Name: OtherPlayerName3
   m_TagString: OtherPlayerName3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2968,6 +2968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BattleBGM: {fileID: 1344286829}
+  ReadyBtn: {fileID: 75559787044278525}
 --- !u!4 &1459182538
 Transform:
   m_ObjectHideFlags: 0

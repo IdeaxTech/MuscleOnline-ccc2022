@@ -24,13 +24,20 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject BattleBGM;
 
+    [SerializeField] GameObject ReadyBtn;
+
     void Start()
     {
         
         PlayerNo.SetDisplayPlayerNo();
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
-        //GameObject.Find("BossName").GetComponent<Text>().text = BossName;
         Debug.Log("BossBattleScriptが呼ばれました");
+
+        //筋トレの種類を設定
+        SetTrainingOption();
+        // 筋トレ内容を表示させ、準備をする
+        ReadyBtn.SetActive(true);
+
         GameObject BGMObject = GameObject.Find("BattleBGM");
         if (!BGMObject)
         {
@@ -38,7 +45,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         }
 
         GameObject BossWaitBGM = GameObject.Find("BossWaitBGM");
-        if (!BossWaitBGM)
+        if (BossWaitBGM)
             Destroy(BossWaitBGM);
 
     }
@@ -47,7 +54,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            //OperateCostomProperty.SetRoomCustomProperty("TotalHP", 0);
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
         }
 
