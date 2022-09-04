@@ -15,12 +15,7 @@ public class FinishAttackAnimation : MonoBehaviour
             BossBattleScript.AllyAttack();
 
             //ボスのターン
-            BossBattleScript.BossAttack();
+            //BossBattleScript.BossAttack();
         }
-
-
-        //SceneManager.LoadScene("BossBattle");
-
-
     }
 }

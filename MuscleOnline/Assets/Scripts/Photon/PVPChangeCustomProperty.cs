@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
@@ -29,6 +30,15 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
 
                 //シーン遷移
                 PhotonNetwork.LoadLevel("PVPResult");
+            }
+        }
+
+        if (propertiesThatChanged.TryGetValue("isBattle", out value))
+        {
+            if ((bool)propertiesThatChanged["isBattle"])
+            {
+                SceneManager.LoadScene("BossBattle");
+
             }
         }
 

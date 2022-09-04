@@ -50,4 +50,22 @@ public class PVPWait : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("Loading");
         }
     }
+
+    void PVPSetting()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
+        }
+
+
+        //カウントを初期化
+        OperateCostomProperty.SetUserCustomProperty("Count", 0);
+        OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
+
+        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
+        if (PhotonNetwork.IsMasterClient)
+            OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+    }
+
 }
