@@ -105,6 +105,10 @@ public class QuestResult : MonoBehaviour
             //GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + (PlayerNum+1).ToString()).gameObject;
             //ResultPlayer.SetActive(true);
 
+            
+            GameObject PlayerBackground = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Background").gameObject;
+            PlayerBackground.SetActive(true);
+
             //各プレイヤーの名前
             GameObject OtherPlayerName = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Name").gameObject;
             OtherPlayerName.SetActive(true);
