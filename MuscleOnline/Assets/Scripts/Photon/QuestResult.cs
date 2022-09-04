@@ -102,21 +102,21 @@ public class QuestResult : MonoBehaviour
                 PlayerNum--;
 
 
-            GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + PlayerNum + 1.ToString()).gameObject;
-            ResultPlayer.SetActive(true);
+            //GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + (PlayerNum+1).ToString()).gameObject;
+            //ResultPlayer.SetActive(true);
 
             //各プレイヤーの名前
-            GameObject OtherPlayerName = Canvas.transform.Find("Player" + PlayerNum+1.ToString() + "Name").gameObject;
+            GameObject OtherPlayerName = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Name").gameObject;
             OtherPlayerName.SetActive(true);
             OtherPlayerName.GetComponent<Text>().text = player.NickName;
 
             // 各プレイヤーのカウント
-            GameObject PlayerCount = Canvas.transform.Find("Player" + PlayerNum+1.ToString() + "Reps").gameObject;
+            GameObject PlayerCount = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Reps").gameObject;
             PlayerCount.SetActive(true);
             PlayerCount.GetComponent<Text>().text = player.CustomProperties["TotalCount"].ToString();
 
             // 各プレイヤーのトータルダメージ
-            GameObject PlayerTotalDamage = Canvas.transform.Find("Player" + PlayerNum+1.ToString() + "Damage").gameObject;
+            GameObject PlayerTotalDamage = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Damage").gameObject;
             PlayerTotalDamage.SetActive(true);
             PlayerTotalDamage.GetComponent<Text>().text = (Convert.ToInt32(player.CustomProperties["TotalCount"]) * Convert.ToInt32(player.CustomProperties["AttackDamage"])).ToString();
 

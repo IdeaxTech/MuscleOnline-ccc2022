@@ -42,4 +42,12 @@ public class PVPWait : MonoBehaviourPunCallbacks
             };
         DatabaseOperation.UpdateData("rooms", RoomOperation.RoomId, UpdateRoomData);
     }
+
+    public override void OnJoinedRoom()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            PhotonNetwork.LoadLevel("Loading");
+        }
+    }
 }
