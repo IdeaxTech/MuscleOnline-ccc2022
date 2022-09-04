@@ -8,9 +8,19 @@ public class FinishAttackAnimation : MonoBehaviour
 {
     public void FinishAttackAnimationToAnotherScene()
     {
-        SceneManager.LoadScene("BossBattle");
-
         if (PhotonNetwork.IsMasterClient)
+        {
             OperateCostomProperty.SetRoomCustomProperty("isTraining", false);
+            //カウントが0になったらカウント、攻撃力等を用いてダメージ量を計算
+            BossBattleScript.AllyAttack();
+
+            //ボスのターン
+            BossBattleScript.BossAttack();
+        }
+
+
+        //SceneManager.LoadScene("BossBattle");
+
+
     }
 }

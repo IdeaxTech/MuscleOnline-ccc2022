@@ -21,7 +21,6 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     static object QuestReward;
 
     static string TrainingName;
-
     [SerializeField] GameObject BattleBGM;
 
     [SerializeField] GameObject ReadyBtn;
@@ -29,7 +28,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     void Start()
     {
         
-        PlayerNo.SetDisplayPlayerNo();
+        
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
         Debug.Log("BossBattleScriptが呼ばれました");
 
@@ -48,6 +47,9 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         if (BossWaitBGM)
             Destroy(BossWaitBGM);
 
+        GameObject.Find("BossHP").GetComponent<TMP_Text>().text = OperateCostomProperty.GetRoomCustomProperty("BossHP").ToString();
+        GameObject.Find("TotalHP").GetComponent<TMP_Text>().text = OperateCostomProperty.GetRoomCustomProperty("TotalHP").ToString();
+        PlayerNo.SetDisplayPlayerNo();
     }
 
     public static void BossBattle()
@@ -69,7 +71,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         // 味方HPを合算
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
-        OperateCostomProperty.SetRoomCustomProperty("AllyMaxHP", UserInfo.UserHP);
+        //OperateCostomProperty.SetRoomCustomProperty("AllyMaxHP", UserInfo.UserHP);
 
         // バトルの開始
         if (PhotonNetwork.IsMasterClient)
@@ -193,7 +195,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
         Debug.Log("与えるダメージは" + OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage").ToString());
         if (PhotonNetwork.IsMasterClient)
         {
-            int BossHP = (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage");
+            BossHP = (int)OperateCostomProperty.GetRoomCustomProperty("BossHP") - (int)OperateCostomProperty.GetRoomCustomProperty("AllyAttackDamage");
             OperateCostomProperty.SetRoomCustomProperty("BossHP", BossHP);
 
             if (BossHP <= 0)
@@ -222,6 +224,10 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
                 OperateCostomProperty.SetRoomCustomProperty("isBattle", false);
                 Debug.Log("敗北しました");
                 PhotonNetwork.LoadLevel("QuestResultLose");
+            } else
+            {
+                if (BossHP > 0)
+                    PhotonNetwork.LoadLevel("BossBattle");
             }
         }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -618,6 +618,7 @@ GameObject:
   - component: {fileID: 1181287734}
   - component: {fileID: 1181287731}
   - component: {fileID: 1181287730}
+  - component: {fileID: 1181287735}
   m_Layer: 5
   m_Name: InputField
   m_TagString: InputName
@@ -672,7 +673,7 @@ MonoBehaviour:
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
-  m_LineType: 1
+  m_LineType: 2
   m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
@@ -775,6 +776,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 1181287730}
   displayText: {fileID: 1223981833}
+--- !u!114 &1181287735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181287729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078f541b7cf784aeca2fa28bf24253c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1215274171
 GameObject:
   m_ObjectHideFlags: 0

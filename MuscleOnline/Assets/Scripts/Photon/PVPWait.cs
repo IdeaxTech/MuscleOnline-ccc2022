@@ -45,8 +45,9 @@ public class PVPWait : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             PhotonNetwork.LoadLevel("Loading");
         }
     }
+}
