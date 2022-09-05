@@ -60,6 +60,11 @@ public class PVPWait : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
+            Dictionary<string, object> QuestReward = new Dictionary<string, object>()
+            {
+                {"exp", 50}
+            };
+            OperateCostomProperty.SetRoomCustomProperty("QuestReward", QuestReward);
         }
         OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
 

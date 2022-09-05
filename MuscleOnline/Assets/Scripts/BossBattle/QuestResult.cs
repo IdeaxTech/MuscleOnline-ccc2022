@@ -11,65 +11,13 @@ using UnityEngine.UI;
 public class QuestResult : MonoBehaviour
 {
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
         GameObject BattleBGM = GameObject.Find("BattleBGM");
         if (BattleBGM)
             Destroy(BattleBGM);
 
-        //レベル
-        //経験値
-        Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
-        int RewardExp = (int)Convert.ChangeType(QuestReward["exp"], typeof(int));
-
-        var db = FirebaseFirestore.DefaultInstance;
-        QuerySnapshot ExpData = await db.Collection("required_exp").GetSnapshotAsync();
-
-        while (true)
-        {
-            int tmp = UserInfo.UserMaxExp - (RewardExp + UserInfo.UserExp);
-            if (tmp < 1)
-            {
-                UserInfo.UserLevel++;
-
-                // TODOどのくらい上げるか
-                UserInfo.UserAttack += UnityEngine.Random.Range(0, 3);
-                UserInfo.UserHP += UnityEngine.Random.Range(0, 5);
-                UserInfo.UserDefence += UnityEngine.Random.Range(0, 3);
-
-                RewardExp = (RewardExp + UserInfo.UserExp) - UserInfo.UserMaxExp;
-                UserInfo.UserExp = 0;
-
-                foreach (var document in ExpData.Documents)
-                {
-                    Dictionary<string, object> DictionaryData = document.ToDictionary();
-                    if (document.Id.Equals("level"))
-                    {
-                        UserInfo.UserMaxExp = (int)Convert.ChangeType(DictionaryData[UserInfo.UserLevel.ToString()], typeof(int));
-                    }
-                }
-            }
-            else
-            {
-                UserInfo.UserExp += RewardExp;
-                break;
-            }
-
-
-        }
-        Dictionary<string, object> SendData = new Dictionary<string, object>()
-        {
-            {"user_level", UserInfo.UserLevel},
-            {"user_exp", UserInfo.UserExp},
-            {"user_maxexp", UserInfo.UserMaxExp},
-            {"user_hp", UserInfo.UserHP},
-            {"user_attack", UserInfo.UserAttack},
-            {"user_defence", UserInfo.UserDefence},
-            {"update_at", Timestamp.GetCurrentTimestamp()}
-        };
-
-        DatabaseOperation.UpdateData("users", UserInfo.UserId, SendData);
-
+        LevelOperation();
 
         GameObject.Find("UserLevel").GetComponent<Text>().text = UserInfo.UserLevel.ToString();
 
@@ -129,15 +77,16 @@ public class QuestResult : MonoBehaviour
 
     }
 
-    async Task<int> LevelOperation()
+    async void LevelOperation()
     {
+        //レベル
         //経験値
         Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
-        int RewardExp = (int)QuestReward["exp"];
-        Debug.Log(RewardExp);
+        int RewardExp = (int)Convert.ChangeType(QuestReward["exp"], typeof(int));
 
         var db = FirebaseFirestore.DefaultInstance;
         QuerySnapshot ExpData = await db.Collection("required_exp").GetSnapshotAsync();
+
         while (true)
         {
             int tmp = UserInfo.UserMaxExp - (RewardExp + UserInfo.UserExp);
@@ -146,9 +95,9 @@ public class QuestResult : MonoBehaviour
                 UserInfo.UserLevel++;
 
                 // TODOどのくらい上げるか
-                UserInfo.UserAttack += 5;
-                UserInfo.UserHP += 10;
-                UserInfo.UserDefence += 3;
+                UserInfo.UserAttack += UnityEngine.Random.Range(0, 3);
+                UserInfo.UserHP += UnityEngine.Random.Range(0, 5);
+                UserInfo.UserDefence += UnityEngine.Random.Range(0, 3);
 
                 RewardExp = (RewardExp + UserInfo.UserExp) - UserInfo.UserMaxExp;
                 UserInfo.UserExp = 0;
@@ -164,12 +113,25 @@ public class QuestResult : MonoBehaviour
             }
             else
             {
+                UserInfo.UserExp += RewardExp;
                 break;
             }
 
 
         }
-        return 1;
+        Dictionary<string, object> SendData = new Dictionary<string, object>()
+        {
+            {"user_level", UserInfo.UserLevel},
+            {"user_exp", UserInfo.UserExp},
+            {"user_maxexp", UserInfo.UserMaxExp},
+            {"user_hp", UserInfo.UserHP},
+            {"user_attack", UserInfo.UserAttack},
+            {"user_defence", UserInfo.UserDefence},
+            {"update_at", Timestamp.GetCurrentTimestamp()}
+        };
+
+        DatabaseOperation.UpdateData("users", UserInfo.UserId, SendData);
+
     }
 
 }
