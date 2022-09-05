@@ -3,11 +3,16 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject ReadyBtn;
+    [SerializeField] GameObject CountBtn;
+    [SerializeField] GameObject CountdownObj;
+    [SerializeField] GameObject TimerObj;
+
     object value = null;
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
@@ -21,8 +26,9 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
             {
                 // TODOクエストに合わせたトレーニング時間に変更
                 TrainingTimer.time = 0f;
-                TrainingTimer.timeLimit = 10;
-                //TimerObject.SetActive(true);
+                TrainingTimer.timeLimit = 30;
+                TimerObj.SetActive(true);
+                CountBtn.SetActive(true);
             }
             else
             {
@@ -45,8 +51,9 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
                     OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
 
                 //トレーニング前カウントダウン
-                //シーン遷移
-                PhotonNetwork.LoadLevel("BattleRoom");
+                TrainingCountDown.time = 0f;
+                TrainingCountDown.timeLimit = 5f;
+                CountdownObj.SetActive(true);
             }
         }
     }
@@ -64,11 +71,11 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
                     player_num--;
                 }
 
-                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = targetPlayer.NickName + " : " + propertiesThatChanged["Count"];
+                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
             }
             else
             {
-                GameObject.FindWithTag("MyCount").GetComponent<TMP_Text>().text = "MyCount : " + propertiesThatChanged["Count"];
+                GameObject.FindWithTag("MyCount").GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
             }
 
         }
@@ -81,25 +88,25 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
         {
-            if (!targetPlayer.IsLocal)
-            {
-                //そのユーザーのラベルを変更する
-                GameObject Canvas = GameObject.Find("Canvas");
-                GameObject OKLavel = Canvas.transform.Find("OtherPlayerOK").gameObject;
-                bool is_ready = (bool)targetPlayer.CustomProperties["isBossBattleReady"];
+            //if (!targetPlayer.IsLocal)
+            //{
+            //    //そのユーザーのラベルを変更する
+            //    GameObject Canvas = GameObject.Find("Canvas");
+            //    GameObject OKLavel = Canvas.transform.Find("OtherPlayerOK").gameObject;
+            //    bool is_ready = (bool)targetPlayer.CustomProperties["isBossBattleReady"];
 
 
-                if (is_ready)
-                {
-                    OKLavel.SetActive(true);
+            //    if (is_ready)
+            //    {
+            //        OKLavel.SetActive(true);
 
-                }
-                else
-                {
-                    OKLavel.SetActive(false);
-                }
+            //    }
+            //    else
+            //    {
+            //        OKLavel.SetActive(false);
+            //    }
 
-            }
+            //}
         }
     }
 }

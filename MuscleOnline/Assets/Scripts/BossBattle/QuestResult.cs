@@ -33,9 +33,9 @@ public class QuestResult : MonoBehaviour
                 UserInfo.UserLevel++;
 
                 // TODOどのくらい上げるか
-                UserInfo.UserAttack += 5;
-                UserInfo.UserHP += 10;
-                UserInfo.UserDefence += 3;
+                UserInfo.UserAttack += UnityEngine.Random.Range(0, 3);
+                UserInfo.UserHP += UnityEngine.Random.Range(0, 5);
+                UserInfo.UserDefence += UnityEngine.Random.Range(0, 3);
 
                 RewardExp = (RewardExp + UserInfo.UserExp) - UserInfo.UserMaxExp;
                 UserInfo.UserExp = 0;
@@ -104,6 +104,10 @@ public class QuestResult : MonoBehaviour
 
             //GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + (PlayerNum+1).ToString()).gameObject;
             //ResultPlayer.SetActive(true);
+
+            
+            GameObject PlayerBackground = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Background").gameObject;
+            PlayerBackground.SetActive(true);
 
             //各プレイヤーの名前
             GameObject OtherPlayerName = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Name").gameObject;

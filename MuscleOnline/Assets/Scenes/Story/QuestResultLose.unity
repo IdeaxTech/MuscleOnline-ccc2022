@@ -644,7 +644,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 392117468}
         m_TargetAssemblyTypeName: BackFieldButton, Assembly-CSharp
-        m_MethodName: OnClickBackFieldButton
+        m_MethodName: OnClickBackFieldButtonFromResult
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

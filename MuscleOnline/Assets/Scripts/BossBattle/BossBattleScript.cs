@@ -7,6 +7,7 @@ using System;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class BossBattleScript : MonoBehaviourPunCallbacks
 {
@@ -204,6 +205,9 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
                 Debug.Log("勝利しました");
                 DefeatBoss();
                 FinishBossBattle();
+            } else
+            {
+                BossBattleScript.BossAttack();
             }
         }
         Debug.Log("Finish AllyAttack");
@@ -211,7 +215,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
     }
 
     // ボスの攻撃、味方のHPを減らす
-    public static void BossAttack()
+    public async static void BossAttack()
     {
 
         //カスタムプロパティを変更
@@ -226,8 +230,8 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
                 PhotonNetwork.LoadLevel("QuestResultLose");
             } else
             {
-                if (BossHP > 0)
-                    PhotonNetwork.LoadLevel("BossBattle");
+                await Task.Delay(1000);
+                PhotonNetwork.LoadLevel("BossBattle");
             }
         }
 

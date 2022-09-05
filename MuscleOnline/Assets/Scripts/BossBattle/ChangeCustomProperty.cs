@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 {
@@ -28,7 +29,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
     GameObject tmpobject;
 
     Animator TrainingAnimator;
-
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {
@@ -107,8 +107,7 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 OperateCostomProperty.SetRoomCustomProperty("TotalHP", TotalHP);
                 OperateCostomProperty.SetRoomCustomProperty("AllyMaxHP", TotalHP);
 
-                //PhotonNetwork.LoadLevel("BossBattle");
-                SceneManager.LoadScene("BossBattle");
+                LoadBossBattleScene(2000);
 
                 //ユーザーのターン
                 //筋トレの種類を設定
@@ -117,8 +116,11 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 //ReadyBtn.SetActive(true);
 
             }
-            else
+
+            static async void LoadBossBattleScene(int Delay)
             {
+                await Task.Delay(Delay);
+                SceneManager.LoadScene("BossBattle");
 
             }
 

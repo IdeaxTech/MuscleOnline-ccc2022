@@ -4,22 +4,25 @@ using Photon.Pun;
 using UnityEngine;
 using TMPro;
 using Firebase.Firestore;
+using System.Threading.Tasks;
+using Photon.Realtime;
 
 public class PVPWait : MonoBehaviourPunCallbacks
 {
     void Start()
     {
         GameObject.Find("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
-        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
-        }
 
         //何番目に入ったユーザか
         PlayerNo.SetPlayerNo();
         PlayerNo.SetDisplayPlayerNo();
+
+        Debug.Log("部屋に入りました");
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            PVPSetting();
+            LoadBattleRoom(3000);
+        }
     }
 
     public override void OnLeftRoom()
@@ -43,11 +46,31 @@ public class PVPWait : MonoBehaviourPunCallbacks
         DatabaseOperation.UpdateData("rooms", RoomOperation.RoomId, UpdateRoomData);
     }
 
-    public override void OnJoinedRoom()
+    async void LoadBattleRoom(int Delay)
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        {
-            PhotonNetwork.LoadLevel("Loading");
-        }
+        await Task.Delay(Delay);
+        PhotonNetwork.LoadLevel("BattleRoom");
     }
-}
+
+    void PVPSetting()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
+        }
+        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
+
+        //カウントを初期化
+        OperateCostomProperty.SetUserCustomProperty("Count", 0);
+        OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
+
+        if (PhotonNetwork.IsMasterClient)
+            OperateCostomProperty.SetRoomCustomProperty("isPVP", true);
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        PVPSetting();
+    }
+
+    }
