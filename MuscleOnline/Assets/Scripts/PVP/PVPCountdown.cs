@@ -27,7 +27,7 @@ public class PVPCountdown : MonoBehaviour
         else
         {
             timerText.text = "0";
-            this.gameObject.SetActive(false);
+            CountDownObject.SetActive(false);
 
             OperateCostomProperty.SetRoomCustomProperty("isTraining", true);
 
