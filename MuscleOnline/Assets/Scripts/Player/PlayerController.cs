@@ -18,12 +18,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _angularPerPixel = 1f;
 
+    [SerializeField] private GameObject aim;
 
     bool isOnGround = false; // ’n–Ê‚É—§‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
     bool isJumping = false; // ƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
     private Animator animator;
     private Vector2 _lookPointerPosPre;
 
+    private Vector3 position;
     private void Awake()
     {
         _moveController.OnBeginDragEvent += OnBeginDrag;
@@ -73,8 +75,9 @@ public class PlayerController : MonoBehaviour
         transform.position += moveForward * _moveSpeed * Time.deltaTime;
 
         //Debug.Log(vector.normalized);
-
-        _camera.transform.position += moveForward * _moveSpeed * Time.deltaTime;
+        
+        position += moveForward * _moveSpeed * Time.deltaTime;
+        _camera.transform.position = new Vector3(transform.position.x, aim.transform.position.y, transform.position.z);
         if (_moveVector != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
