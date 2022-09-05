@@ -6,11 +6,6 @@ public class PVPScript : MonoBehaviour
 {
     [SerializeField] GameObject CountDownObject;
 
-    void Start()
-    {
-        
-    }
-
     void StartBattle()
     {
         TrainingCountDown.time = 0f;

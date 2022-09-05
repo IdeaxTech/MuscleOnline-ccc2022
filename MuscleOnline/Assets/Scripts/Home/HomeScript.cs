@@ -27,28 +27,5 @@ public class HomeScript : MonoBehaviour
     //- BGM流す
     // Unity側で実装
 
-    //- キャラをクリックしたらステータス確認画面に遷移
-    void ToStates()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
 
-    //- ストーリーボタンをクリックしたらストーリー画面に遷移
-    void ToRPGMain()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    //- 対人戦ボタンをクリックしたら対人戦画面に遷移
-    void ToPVPMain()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    //- ログイン情報がなかったらタイトル画面に遷移
-
-    void ToTitle()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
 }

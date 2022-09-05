@@ -25,8 +25,8 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
             if ((bool)propertiesThatChanged["isTraining"])
             {
                 // TODOクエストに合わせたトレーニング時間に変更
-                TrainingTimer.time = 0f;
-                TrainingTimer.timeLimit = 30;
+                PVPTimer.time = 0f;
+                PVPTimer.timeLimit = 30;
                 TimerObj.SetActive(true);
                 CountBtn.SetActive(true);
             }
@@ -51,8 +51,8 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
                     OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
 
                 //トレーニング前カウントダウン
-                TrainingCountDown.time = 0f;
-                TrainingCountDown.timeLimit = 5f;
+                PVPCountdown.time = 0f;
+                PVPCountdown.timeLimit = 5f;
                 CountdownObj.SetActive(true);
             }
         }
