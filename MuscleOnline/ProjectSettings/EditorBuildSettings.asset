@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Battle/BattleWait.unity
     guid: fc39f42de2a054d9daec291b9ce59a26
   - enabled: 1
+    path: Assets/Scenes/Battle/BattleResult.unity
+    guid: edfd267fbdaa14978a967c04d6a01a9a
+  - enabled: 1
     path: Assets/Scenes/UserStates.unity
     guid: 0d357252ffcd14e2c9aedd2f9fada035
   - enabled: 1

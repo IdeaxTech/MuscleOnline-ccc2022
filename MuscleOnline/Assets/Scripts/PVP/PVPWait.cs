@@ -58,14 +58,14 @@ public class PVPWait : MonoBehaviourPunCallbacks
         {
             OperateCostomProperty.SetRoomCustomProperty("isTrainingReady", 0);
         }
-
+        OperateCostomProperty.SetUserCustomProperty("isTrainingReady", false);
 
         //カウントを初期化
         OperateCostomProperty.SetUserCustomProperty("Count", 0);
         OperateCostomProperty.SetUserCustomProperty("TotalCount", 0);
 
         if (PhotonNetwork.IsMasterClient)
-            OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+            OperateCostomProperty.SetRoomCustomProperty("isPVP", true);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
