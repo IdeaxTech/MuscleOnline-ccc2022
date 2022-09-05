@@ -6,6 +6,7 @@ using TMPro;
 using Firebase.Firestore;
 using System.Threading.Tasks;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class PVPWait : MonoBehaviourPunCallbacks
 {
@@ -18,7 +19,7 @@ public class PVPWait : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             PVPSetting();
-            LoadBattleRoom(3000);
+            LoadBattleRoom(2000);
         }
 
         PlayerNo.SetPlayerNo();
@@ -51,7 +52,7 @@ public class PVPWait : MonoBehaviourPunCallbacks
     async void LoadBattleRoom(int Delay)
     {
         await Task.Delay(Delay);
-        PhotonNetwork.LoadLevel("BattleRoom");
+        SceneManager.LoadScene("BattleRoom");
     }
 
     void PVPSetting()
@@ -73,6 +74,7 @@ public class PVPWait : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         PVPSetting();
+        LoadBattleRoom(2000);
     }
 
     }

@@ -8,9 +8,10 @@ public class PVPMain : MonoBehaviour
     [SerializeField] GameObject ReadyBtn;
     void Start()
     {
-        PlayerNo.SetDisplayPlayerNo();
+        
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
 
         ReadyBtn.SetActive(true);
+        PlayerNo.SetDisplayPlayerNo();
     }
 }
