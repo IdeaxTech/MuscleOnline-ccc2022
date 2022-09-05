@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class PVPResult : MonoBehaviour
 {
+    [SerializeField] Image ExpImg;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,6 +122,9 @@ public class PVPResult : MonoBehaviour
         };
 
         DatabaseOperation.UpdateData("users", UserInfo.UserId, SendData);
+
+        ExpImg.fillAmount = (float)UserInfo.UserExp / UserInfo.UserMaxExp;
+
     }
 
 }
