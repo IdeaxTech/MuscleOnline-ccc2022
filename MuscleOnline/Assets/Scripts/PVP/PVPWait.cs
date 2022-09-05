@@ -14,15 +14,17 @@ public class PVPWait : MonoBehaviourPunCallbacks
         GameObject.Find("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
 
         //何番目に入ったユーザか
-        PlayerNo.SetPlayerNo();
-        PlayerNo.SetDisplayPlayerNo();
-
         Debug.Log("部屋に入りました");
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             PVPSetting();
             LoadBattleRoom(3000);
         }
+
+        PlayerNo.SetPlayerNo();
+        PlayerNo.SetDisplayPlayerNo();
+
+
     }
 
     public override void OnLeftRoom()

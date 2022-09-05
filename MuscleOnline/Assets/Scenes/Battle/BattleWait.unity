@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18018606, g: 0.22559257, b: 0.30678663, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -180,6 +180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReadyBtn: {fileID: 0}
+  CountBtn: {fileID: 0}
+  CountdownObj: {fileID: 0}
+  TimerObj: {fileID: 0}
 --- !u!1 &426855755
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +553,7 @@ GameObject:
   - component: {fileID: 775560241}
   - component: {fileID: 775560240}
   m_Layer: 5
-  m_Name: OtherPlayerName-1
+  m_Name: OtherPlayerName1
   m_TagString: OtherPlayerName1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
