@@ -73,7 +73,7 @@ public class PlayerNo : MonoBehaviourPunCallbacks
             if (LocalUserNo < PlayerNum && LocalUserNo == 1)
                 PlayerNum--;
 
-            Debug.Log("OtherPlayerName" + PlayerNum.ToString());
+            Debug.Log(player.NickName + " Player Number is " + PlayerNum.ToString());
             GameObject Canvas = GameObject.Find("Canvas");
             GameObject UserAvatar = Canvas.transform.Find("UserAvatar-" + (PlayerNum+1).ToString()).gameObject;
             UserAvatar.SetActive(true);
