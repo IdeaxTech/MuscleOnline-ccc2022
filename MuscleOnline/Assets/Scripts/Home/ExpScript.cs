@@ -11,7 +11,7 @@ public class ExpScript : MonoBehaviour
 
     void Start()
     {
-        userExpDivision = UserInfo.UserExp / UserInfo.UserMaxExp;
+        userExpDivision = (float)UserInfo.UserExp / (float)UserInfo.UserMaxExp;
         userExpImage.fillAmount = userExpDivision;
     }
     //fillAmountの値を変更する関数
