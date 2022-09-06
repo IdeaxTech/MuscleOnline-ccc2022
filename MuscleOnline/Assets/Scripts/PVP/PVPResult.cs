@@ -8,7 +8,7 @@ using Firebase.Firestore;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 
-public class QuestResult : MonoBehaviour
+public class PVPResult : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,7 @@ public class QuestResult : MonoBehaviour
             Destroy(BattleBGM);
 
         LevelOperation();
+
 
         GameObject.Find("UserLevel").GetComponent<Text>().text = UserInfo.UserLevel.ToString();
 
@@ -31,11 +32,6 @@ public class QuestResult : MonoBehaviour
         GameObject MyCount = Canvas.transform.Find("Player1Reps").gameObject;
         int TotalCount = Convert.ToInt32(OperateCostomProperty.GetUserCustomProperty("TotalCount"));
         MyCount.GetComponent<Text>().text = TotalCount.ToString();
-
-        //自分のトータルダメージ
-        GameObject MyTotalDamage = GameObject.Find("Player1Damage").gameObject;
-        MyTotalDamage.GetComponent<Text>().text = (TotalCount * BossBattleScript.damage).ToString();
-
 
         int LocalUserNo = Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]);
 
@@ -53,24 +49,19 @@ public class QuestResult : MonoBehaviour
             //GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + (PlayerNum+1).ToString()).gameObject;
             //ResultPlayer.SetActive(true);
 
-            
+
             GameObject PlayerBackground = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Background").gameObject;
             PlayerBackground.SetActive(true);
 
             //各プレイヤーの名前
-            GameObject OtherPlayerName = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Name").gameObject;
+            GameObject OtherPlayerName = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Name").gameObject;
             OtherPlayerName.SetActive(true);
             OtherPlayerName.GetComponent<Text>().text = player.NickName;
 
             // 各プレイヤーのカウント
-            GameObject PlayerCount = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Reps").gameObject;
+            GameObject PlayerCount = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Reps").gameObject;
             PlayerCount.SetActive(true);
             PlayerCount.GetComponent<Text>().text = player.CustomProperties["TotalCount"].ToString();
-
-            // 各プレイヤーのトータルダメージ
-            GameObject PlayerTotalDamage = Canvas.transform.Find("Player" + (PlayerNum+1).ToString() + "Damage").gameObject;
-            PlayerTotalDamage.SetActive(true);
-            PlayerTotalDamage.GetComponent<Text>().text = (Convert.ToInt32(player.CustomProperties["TotalCount"]) * Convert.ToInt32(player.CustomProperties["AttackDamage"])).ToString();
 
         }
 
@@ -79,8 +70,6 @@ public class QuestResult : MonoBehaviour
 
     async void LevelOperation()
     {
-        //レベル
-        //経験値
         Dictionary<string, object> QuestReward = (Dictionary<string, object>)Convert.ChangeType(OperateCostomProperty.GetRoomCustomProperty("QuestReward"), typeof(Dictionary<string, object>));
         int RewardExp = (int)Convert.ChangeType(QuestReward["exp"], typeof(int));
 
@@ -131,7 +120,6 @@ public class QuestResult : MonoBehaviour
         };
 
         DatabaseOperation.UpdateData("users", UserInfo.UserId, SendData);
-
     }
 
 }
