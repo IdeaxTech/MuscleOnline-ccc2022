@@ -112,4 +112,10 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
             //}
         }
     }
+
+    public override void OnPlayerLeftRoom(Player LeftPlayer)
+    {
+        Debug.Log(LeftPlayer.NickName + "が退出しました");
+        SceneManager.LoadScene("BattleResultWin");
+    }
 }
