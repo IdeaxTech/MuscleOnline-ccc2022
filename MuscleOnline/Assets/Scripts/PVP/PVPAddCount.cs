@@ -27,6 +27,9 @@ public class PVPAddCount : MonoBehaviour
             OperateCostomProperty.SetUserCustomProperty("Count", NowCount + 1);
 
             // TODOアニメーションを流す
+            Animator AvatarAnimation = GameObject.Find("UserAvatar-1").GetComponent<Animator>();
+            AvatarAnimation.SetTrigger("isActive");
+            //AvatarAnimation.ResetTrigger("isActive");
 
             // TODO音声を流す
             if (NowCount % 11 == 0)
