@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b3e8c502ab2417f92cac13d2184ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExpImg: {fileID: 1398208354}
 --- !u!4 &322325535
 Transform:
   m_ObjectHideFlags: 0
@@ -1208,7 +1209,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D5\u30A3\u30FC\u30EB\u30C9\u3078"
+  m_Text: "\u30DB\u30FC\u30E0\u3078"
 --- !u!222 &777280661
 CanvasRenderer:
   m_ObjectHideFlags: 0

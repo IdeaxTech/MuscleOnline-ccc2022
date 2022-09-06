@@ -180,9 +180,12 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 GameObject UserCountObj = Canvas.transform.Find("UserCount" + PlayerNum.ToString()).gameObject;
                 UserCountObj.SetActive(true);
                 GameObject.FindWithTag("UserCount" + PlayerNum).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
+                Debug.Log(PlayerNum.ToString() + "が筋トレをしました");
 
-                TrainingAnimator.SetTrigger("isActive" + PlayerNum.ToString());
-                TrainingAnimator.ResetTrigger("isActive" + PlayerNum.ToString());
+                Animator AvatarAnimation = GameObject.Find("UserAvatar-" + (PlayerNum+1).ToString()).GetComponent<Animator>();
+                Debug.Log(AvatarAnimation);
+                AvatarAnimation.SetTrigger("isActive");
+                //AvatarAnimation.ResetTrigger("isActive");
             }
             else
             {

@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class QuestResult : MonoBehaviour
 {
+    [SerializeField] Image ExpImg;
     // Start is called before the first frame update
     void Start()
     {
@@ -132,6 +133,7 @@ public class QuestResult : MonoBehaviour
 
         DatabaseOperation.UpdateData("users", UserInfo.UserId, SendData);
 
+        ExpImg.fillAmount = (float)UserInfo.UserExp / UserInfo.UserMaxExp;
     }
 
 }

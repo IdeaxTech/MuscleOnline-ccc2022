@@ -65,13 +65,16 @@ public class PVPChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if (!targetPlayer.IsLocal)
             {
-                int player_num = Convert.ToInt32(targetPlayer.CustomProperties["PlayerNo"]);
-                if (player_num > Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]))
+                int PlayerNum = Convert.ToInt32(targetPlayer.CustomProperties["PlayerNo"]);
+                if (PlayerNum > Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]))
                 {
-                    player_num--;
+                    PlayerNum--;
                 }
 
-                GameObject.FindWithTag("UserCount" + player_num).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
+                GameObject.FindWithTag("UserCount" + PlayerNum).GetComponent<TMP_Text>().text = propertiesThatChanged["Count"].ToString();
+                Animator AvatarAnimation = GameObject.Find("UserAvatar-" + (PlayerNum + 1).ToString()).GetComponent<Animator>();
+                AvatarAnimation.SetTrigger("isActive");
+                //AvatarAnimation.ResetTrigger("isActive");
             }
             else
             {
