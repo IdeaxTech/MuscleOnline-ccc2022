@@ -10,7 +10,7 @@ public class CutSceneController : MonoBehaviour
 
     public void On2ndSceneMove()
     {
-        SceneName = "Quest";
+        SceneName = "RPGScene";
         SceneManager.LoadScene(SceneName);
     }
 }

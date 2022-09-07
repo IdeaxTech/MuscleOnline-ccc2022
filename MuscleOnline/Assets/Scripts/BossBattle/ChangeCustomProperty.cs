@@ -241,19 +241,35 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
 
         if (propertiesThatChanged.TryGetValue("MyHP", out value))
         {
-            //Hashtable roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
-            //if (!roomhash.TryGetValue("TotalHP", out value))
-            //{
-
-            //    propsToSet.Add("TotalHP", (int)propertiesThatChanged["MyHP"]);
-            //    PhotonNetwork.CurrentRoom.SetCustomProperties(propsToSet);
-            //    propsToSet.Clear();
-            //}
-            //else
-            //{
-            //    OperateCostomProperty.SetRoomCustomProperty("TotalHP", (int)OperateCostomProperty.GetRoomCustomProperty("TotalHP") + (int)propertiesThatChanged["MyHP"]);
-
-            //}
         }
+    }
+
+    public override void OnPlayerLeftRoom(Player LeftPlayer)
+    {
+        Debug.Log(LeftPlayer.NickName + "が退出しました。");
+        int PlayerNum = (int)LeftPlayer.CustomProperties["PlayerNo"];
+        if (PlayerNum > Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]))
+        {
+            PlayerNum--;
+        }
+
+        //アバターを非表示
+        GameObject UserAvatar = GameObject.Find("UserAvatar-" + (PlayerNum + 1).ToString()).gameObject;
+        UserAvatar.SetActive(false);
+
+        //プレイヤー名を非表示
+        GameObject OtherPlayerName = GameObject.Find("OtherPlayerName" + PlayerNum.ToString()).gameObject;
+        OtherPlayerName.SetActive(false);
+
+        //カウントを非表示
+        GameObject UserCountObj = GameObject.Find("UserCount" + PlayerNum.ToString()).gameObject;
+        UserCountObj.SetActive(false);
+
+        //ユーザー名背景を非表示
+        GameObject UserNameBackground = GameObject.Find("UserNameBackground-" + (PlayerNum + 1).ToString()).gameObject;
+        UserNameBackground.SetActive(false);
+
+
+
     }
 }
