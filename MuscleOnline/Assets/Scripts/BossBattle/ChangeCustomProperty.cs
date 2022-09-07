@@ -59,7 +59,6 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                 BossBattleScript.BossBattle();
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    PhotonNetwork.LoadLevel("Loading");
 
                     Dictionary<string, object> RoomData = new Dictionary<string, object>
                     {
@@ -67,12 +66,20 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                         { "start_time", Timestamp.GetCurrentTimestamp()}
                     };
 
-                    DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);                    
+                    DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
+                    //ToLoadingScene();
                 }
                 
 
             }
         }
+
+        async void ToLoadingScene()
+        {
+            await Task.Delay(1000);
+            PhotonNetwork.LoadLevel("Loading");
+        }
+
 
         //全員がトレーニング内容を確認し、トレーニングの準備完了したら
         if (propertiesThatChanged.TryGetValue("isTrainingReady", out value))
