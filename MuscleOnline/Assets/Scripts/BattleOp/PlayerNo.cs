@@ -76,8 +76,9 @@ public class PlayerNo : MonoBehaviourPunCallbacks
                 PlayerNum--;
 
             Debug.Log(player.NickName + " Player Number is " + PlayerNum.ToString());
-            
-            GameObject UserAvatar = GameObject.FindWithTag("UserAvatar_" + PlayerNum.ToString());
+
+            GameObject Avatars = GameObject.Find("Avatars");
+            GameObject UserAvatar = Avatars.transform.Find("UserAvatar-" + (PlayerNum + 1).ToString()).gameObject;
             Debug.Log(UserAvatar);
             UserAvatar.SetActive(true);
 
