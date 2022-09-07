@@ -18,6 +18,8 @@ public class PlayerNo : MonoBehaviourPunCallbacks
         //自分のクライアントの同期オブジェクトにのみ
         List<int> PlayerSetableCountList = new List<int>();
 
+        PhotonNetwork.LocalPlayer.NickName = UserInfo.UserName;
+
         //制限人数までの数字のリストを作成
         //例) 制限人数 = 4 の場合、{0,1,2,3}
         int Count = 1;

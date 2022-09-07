@@ -31,7 +31,7 @@ public class PVPWait : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log("leave room" + PhotonNetwork.CurrentRoom.PlayerCount.ToString());
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 0)
         {
             CloseRoom();
         }
@@ -79,7 +79,9 @@ public class PVPWait : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         PVPSetting();
+        PlayerNo.SetDisplayPlayerNo();
         LoadBattleRoom(2000);
+        
     }
 
     }
