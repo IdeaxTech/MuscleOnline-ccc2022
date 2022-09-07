@@ -50,7 +50,7 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         GameObject.Find("BossHP").GetComponent<TMP_Text>().text = OperateCostomProperty.GetRoomCustomProperty("BossHP").ToString();
         GameObject.Find("TotalHP").GetComponent<TMP_Text>().text = OperateCostomProperty.GetRoomCustomProperty("TotalHP").ToString();
-        PlayerNo.SetDisplayPlayerNo();
+        PlayerNo.BossSceneSetDisplayPlayerNo();
     }
 
     public static void BossBattle()
@@ -72,11 +72,14 @@ public class BossBattleScript : MonoBehaviourPunCallbacks
 
         // 味方HPを合算
         OperateCostomProperty.SetUserCustomProperty("MyHP", UserInfo.UserHP);
-        //OperateCostomProperty.SetRoomCustomProperty("AllyMaxHP", UserInfo.UserHP);
 
+        //SceneManager.LoadScene("BossBattle");
+        Debug.Log("Load 1");
         // バトルの開始
         if (PhotonNetwork.IsMasterClient)
             OperateCostomProperty.SetRoomCustomProperty("isBattle", true);
+        Debug.Log("Load 2");
+
     }
 
     public static async void SetQuestInfo()

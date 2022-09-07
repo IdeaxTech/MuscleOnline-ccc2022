@@ -55,8 +55,8 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
         {
             if ((int)propertiesThatChanged["NumOfReadyPlayers"] == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                
 
+                BossBattleScript.BossBattle();
                 if (PhotonNetwork.IsMasterClient)
                 {
                     PhotonNetwork.LoadLevel("Loading");
@@ -67,11 +67,9 @@ public class ChangeCustomProperty : MonoBehaviourPunCallbacks
                         { "start_time", Timestamp.GetCurrentTimestamp()}
                     };
 
-                    DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);
-                    // シーン遷移
-                    
+                    DatabaseOperation.UpdateData("rooms", OperateCostomProperty.GetRoomCustomProperty("RoomId").ToString(), RoomData);                    
                 }
-                BossBattleScript.BossBattle();
+                
 
             }
         }

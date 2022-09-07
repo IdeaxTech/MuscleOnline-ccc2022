@@ -91,4 +91,35 @@ public class PlayerNo : MonoBehaviourPunCallbacks
             UserNameBackground.SetActive(true);
         }
     }
+
+    public static void BossSceneSetDisplayPlayerNo()
+    {
+        int LocalUserNo = Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]);
+
+        foreach (var player in PhotonNetwork.PlayerListOthers)
+        {
+            int PlayerNum = Convert.ToInt32(player.CustomProperties["PlayerNo"]);
+
+            if (player.IsLocal)
+                continue;
+
+            if (LocalUserNo < PlayerNum && LocalUserNo == 1)
+                PlayerNum--;
+
+            Debug.Log(player.NickName + " Player Number is " + PlayerNum.ToString());
+
+            GameObject Avatars = GameObject.Find("Avatars");
+            GameObject UserAvatar = Avatars.transform.Find("UserAvatar-" + (PlayerNum + 1).ToString()).gameObject;
+            Debug.Log(UserAvatar);
+            UserAvatar.SetActive(true);
+
+            GameObject Canvas = GameObject.Find("Canvas");
+            GameObject OtherPlayerName = Canvas.transform.Find("OtherPlayerName" + PlayerNum.ToString()).gameObject;
+            OtherPlayerName.SetActive(true);
+            OtherPlayerName.GetComponent<TMP_Text>().text = player.NickName;
+
+            GameObject UserNameBackground = Canvas.transform.Find("UserNameBackground-" + (PlayerNum + 1).ToString()).gameObject;
+            UserNameBackground.SetActive(true);
+        }
+    }
 }
