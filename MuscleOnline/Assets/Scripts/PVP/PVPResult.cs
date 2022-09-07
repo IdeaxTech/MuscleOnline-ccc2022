@@ -32,7 +32,7 @@ public class PVPResult : MonoBehaviour
 
         //自分のカウント
         GameObject MyCount = Canvas.transform.Find("Player1Reps").gameObject;
-        int TotalCount = Convert.ToInt32(OperateCostomProperty.GetUserCustomProperty("TotalCount"));
+        int TotalCount = Convert.ToInt32(OperateCostomProperty.GetUserCustomProperty("Count"));
         MyCount.GetComponent<Text>().text = TotalCount.ToString();
 
         int LocalUserNo = Convert.ToInt32(PhotonNetwork.LocalPlayer.CustomProperties["PlayerNo"]);
@@ -48,10 +48,6 @@ public class PVPResult : MonoBehaviour
                 PlayerNum--;
 
 
-            //GameObject ResultPlayer = Canvas.transform.Find("ResultPlayer" + (PlayerNum+1).ToString()).gameObject;
-            //ResultPlayer.SetActive(true);
-
-
             GameObject PlayerBackground = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Background").gameObject;
             PlayerBackground.SetActive(true);
 
@@ -63,7 +59,7 @@ public class PVPResult : MonoBehaviour
             // 各プレイヤーのカウント
             GameObject PlayerCount = Canvas.transform.Find("Player" + (PlayerNum + 1).ToString() + "Reps").gameObject;
             PlayerCount.SetActive(true);
-            PlayerCount.GetComponent<Text>().text = player.CustomProperties["TotalCount"].ToString();
+            PlayerCount.GetComponent<Text>().text = player.CustomProperties["Count"].ToString();
 
         }
 
