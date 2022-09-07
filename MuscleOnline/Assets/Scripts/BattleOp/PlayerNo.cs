@@ -76,11 +76,12 @@ public class PlayerNo : MonoBehaviourPunCallbacks
                 PlayerNum--;
 
             Debug.Log(player.NickName + " Player Number is " + PlayerNum.ToString());
-            GameObject Canvas = GameObject.Find("Canvas");
-            GameObject UserAvatar = Canvas.transform.Find("UserAvatar-" + (PlayerNum+1).ToString()).gameObject;
+            
+            GameObject UserAvatar = GameObject.FindWithTag("UserAvatar_" + PlayerNum.ToString());
+            Debug.Log(UserAvatar);
             UserAvatar.SetActive(true);
 
-            
+            GameObject Canvas = GameObject.Find("Canvas");
             GameObject OtherPlayerName = Canvas.transform.Find("OtherPlayerName" + PlayerNum.ToString()).gameObject;
             OtherPlayerName.SetActive(true);
             OtherPlayerName.GetComponent<TMP_Text>().text = player.NickName;
