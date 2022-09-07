@@ -79,9 +79,8 @@ public class PVPWait : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         PVPSetting();
-        PlayerNo.SetDisplayPlayerNo();
         LoadBattleRoom(2000);
-        
+        PlayerNo.SetDisplayPlayerNo();
     }
 
-    }
+}
