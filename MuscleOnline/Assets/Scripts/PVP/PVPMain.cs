@@ -10,6 +10,9 @@ public class PVPMain : MonoBehaviour
     [SerializeField] GameObject ReadyBtn;
     void Start()
     {
+        GameObject BattleBGM = GameObject.Find("TitleBGM");
+        if (BattleBGM)
+            Destroy(BattleBGM);
 
         GameObject.FindWithTag("MyName").GetComponent<TMP_Text>().text = UserInfo.UserName;
         ReadyBtn.SetActive(true);

@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject aim;
 
-    bool isOnGround = false; // 地面に立っているかどうか
-    bool isJumping = false; // ジャンプしているかどうか
+    bool isOnGround = false; // ?n??????????????????????
+    bool isJumping = false; // ?W?????v????????????????
     private Animator animator;
     private Vector2 _lookPointerPosPre;
 
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //カメラ移動
+    //?J????????
 
 
     private void OnBeginDragLook(PointerEventData eventData)
@@ -97,9 +97,9 @@ public class PlayerController : MonoBehaviour
     private void OnLookDrag(PointerEventData eventData)
     {
         var pointerPosOnCanvas = _lookController.GetPositionOnCanvas(eventData.position);
-        // キャンバス上で前フレームから何px操作したかを計算
+        // ?L?????o?X?????O?t???[????????px?????????????v?Z
         var vector = pointerPosOnCanvas - _lookPointerPosPre;
-        // 操作量に応じてカメラを回転
+        // ???????????????J?????????]
         LookRotate(new Vector2(-vector.y, vector.x));
         _lookPointerPosPre = pointerPosOnCanvas;
     }
@@ -121,6 +121,6 @@ public class PlayerController : MonoBehaviour
     }
     void ChangeScene()
     {
-        SceneManager.LoadScene("AppearanceScene");
+        SceneManager.LoadScene("Quest");
     }
 }
