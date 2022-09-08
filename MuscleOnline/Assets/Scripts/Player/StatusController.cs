@@ -13,9 +13,12 @@ public class StatusController : MonoBehaviour
         HP = maxHP;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Damage(int damage)
     {
-        
+        HP -= damage;
+        if(HP <= 0)
+        {
+            HP = 0;
+        }
     }
 }

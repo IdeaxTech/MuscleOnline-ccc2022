@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
 
             Invoke("ChangeScene", 0.1f);
         }
+
     }
     void ChangeScene()
     {

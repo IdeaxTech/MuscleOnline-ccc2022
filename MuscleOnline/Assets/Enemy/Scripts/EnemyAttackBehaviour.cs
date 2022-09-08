@@ -8,7 +8,9 @@ public class EnemyAttackBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<NavMeshAgent>().speed = 0;
+        animator.GetComponent<NavMeshAgent>().speed = 0f;
+        animator.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,7 +22,8 @@ public class EnemyAttackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        animator.ResetTrigger("Hit");
+
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

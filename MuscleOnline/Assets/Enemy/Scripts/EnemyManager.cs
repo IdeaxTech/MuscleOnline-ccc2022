@@ -14,7 +14,9 @@ public class EnemyManager : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = target.position;
+
         animator = GetComponent<Animator>();
+        Rigidbody rb = this.GetComponent<Rigidbody>();
     }
 
 
@@ -22,5 +24,7 @@ public class EnemyManager : MonoBehaviour
     {
         agent.destination = target.position;
         animator.SetFloat("Distance", agent.remainingDistance);
+
     }
+
 }
