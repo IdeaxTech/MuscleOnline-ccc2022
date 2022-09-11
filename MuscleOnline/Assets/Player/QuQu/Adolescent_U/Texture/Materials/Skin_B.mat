@@ -575,7 +575,7 @@ Material:
     - _egai: 2
     - _egci: 2
     - _lilDirectionalLightStrength: 1
-    - _lilToonVersion: 0
+    - _lilToonVersion: 25
     - _simpleUI: 0
     - _utsTechnique: 0
     - _utsVersion: 2.08

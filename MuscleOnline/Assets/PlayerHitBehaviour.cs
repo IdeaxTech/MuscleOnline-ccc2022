@@ -23,7 +23,7 @@ public class PlayerHitBehaviour : StateMachineBehaviour
     {
         animator.ResetTrigger("Hit");
 
-        animator.GetComponent<PlayerController>()._moveSpeed = 7f;
+        animator.GetComponent<PlayerController>()._moveSpeed = 2f;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

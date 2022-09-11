@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] DragHandler _moveController;
 
-    public float _moveSpeed = 7f;
+    public float _moveSpeed = 3f;
 
     private Vector2 _movePointerPosBigin;
 

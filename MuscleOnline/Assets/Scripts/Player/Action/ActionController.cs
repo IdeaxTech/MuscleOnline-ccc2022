@@ -6,16 +6,17 @@ using UnityEngine.Animations;
 public class ActionController : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private Collider weaponCollider;
+    [SerializeField] private Collider panchCollider;
     [SerializeField] private Collider KickCollider;
 
     int HP;
     public int maxHP = 100;
     [SerializeField] private PlayerUIManager playerUIManager;
+    [SerializeField] private Animator enemyAnimator;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        weaponCollider.enabled = false;
+        panchCollider.enabled = false;
         KickCollider.enabled = false;
         HP = maxHP;
         playerUIManager.Init(this);
@@ -23,25 +24,29 @@ public class ActionController : MonoBehaviour
     public void LowAttack()
     {
 
-        animator.SetTrigger("LowAttack");
+        animator.SetTrigger("Attack");
+        animator.SetInteger("AttackType", 0);
+        enemyAnimator.SetTrigger("HitCount");
 
     }
 
     public void HeavyAttack()
     {
 
-        animator.SetTrigger("HeavyAttack");
+        animator.SetTrigger("Attack");
+        animator.SetInteger("AttackType", 1);
+
     }
 
 
-    public void HideColliderWeapon()
+    public void HideColliderPanch()
     {
-        weaponCollider.enabled = false;
+        panchCollider.enabled = false;
     }
 
-    public void ShowColliderWeapon()
+    public void ShowColliderPanch()
     {
-        weaponCollider.enabled = true;
+        panchCollider.enabled = true;
     }
     public void HideColliderKick()
     {

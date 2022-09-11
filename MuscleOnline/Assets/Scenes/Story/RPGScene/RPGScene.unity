@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.32652646, g: 0.26397583, b: 0.3755887, a: 1}
+  m_IndirectSpecularColor: {r: 0.32636702, g: 0.26385623, b: 0.37548333, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveController: {fileID: 1966973768}
-  _moveSpeed: 7
+  _moveSpeed: 2
   _camera: {fileID: 1766613834}
   _lookController: {fileID: 1368529676}
   _angularPerPixel: 1
@@ -1757,10 +1757,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e5f76dcccf23142b1bf4fdd3fe1dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponCollider: {fileID: 178015992}
+  panchCollider: {fileID: 178015992}
   KickCollider: {fileID: 357355431}
   maxHP: 100
   playerUIManager: {fileID: 2023988769}
+  enemyAnimator: {fileID: 0}
 --- !u!136 &114561997
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1789,7 +1790,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &114561999
 Animator:
@@ -1818,7 +1819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114561993}
   m_LocalRotation: {x: 0, y: 0.09167541, z: 0, w: 0.99578893}
-  m_LocalPosition: {x: 80.161995, y: 17.228, z: 59.577}
+  m_LocalPosition: {x: 80.16199, y: 17.228, z: 59.577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1021027083}
@@ -17084,6 +17085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 616301834}
+  - component: {fileID: 616301835}
   m_Layer: 0
   m_Name: Bese_L
   m_TagString: Untagged
@@ -17106,6 +17108,19 @@ Transform:
   m_Father: {fileID: 1105247821}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &616301835
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616301833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.33155152, y: 0.7347311, z: 0.45424074}
+  m_Center: {x: 0.0050784335, y: 0.13263324, z: -0.16258228}
 --- !u!1 &617633555
 GameObject:
   m_ObjectHideFlags: 0
@@ -20273,6 +20288,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 870865365}
+  - component: {fileID: 870865367}
+  - component: {fileID: 870865366}
   m_Layer: 0
   m_Name: Hand_R
   m_TagString: Untagged
@@ -20299,6 +20316,32 @@ Transform:
   m_Father: {fileID: 1077192101}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870865366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870865364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a7e03e8bdeccc459b6e3628a2d7baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+--- !u!65 &870865367
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870865364}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4, z: 0.4}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1 &870891243
 GameObject:
   m_ObjectHideFlags: 0
@@ -29334,7 +29377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 920458526}
-  maxHP: 120
+  maxHP: 400
   enemyUIManager: {fileID: 2111592410}
 --- !u!136 &1665364402
 CapsuleCollider:

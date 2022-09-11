@@ -9,6 +9,7 @@ public class EnemyHitBehaviour : StateMachineBehaviour
     {
         animator.ResetTrigger("Hit");
         animator.GetComponent<NavMeshAgent>().speed = 0;
+
     }
 
 
@@ -22,7 +23,7 @@ public class EnemyHitBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("Hit");
-
+        animator.ResetTrigger("HitCount");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
